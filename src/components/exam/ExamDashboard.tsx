@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Clock } from 'lucide-react';
 import { ExamHeader } from './ExamHeader';
@@ -369,7 +370,7 @@ export const ExamDashboard = ({ questions: initialQuestions = dummyQuestions, na
   const questionProgress = questions.length > 0 ? ((currentQuestionIndex + 1) / questions.length) * 100 : 0;
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 font-sans">
+    <div className="flex flex-col min-h-screen bg-gray-50 font-sans">
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
       {showExamCompletedModal && examResults && (
         <ExamCompletedModal
@@ -384,7 +385,7 @@ export const ExamDashboard = ({ questions: initialQuestions = dummyQuestions, na
       
       {isMobilePanelOpen && (
          <div className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" onClick={() => setIsMobilePanelOpen(false)}>
-            <div className="fixed inset-y-0 left-0 w-80 bg-white shadow-2xl p-6 z-50 transform transition-transform duration-300 ease-in-out" 
+            <div className="fixed inset-y-0 left-0 w-64 sm:w-72 bg-white shadow-xl p-4 z-50 transform transition-transform duration-300 ease-in-out" 
                  style={{ transform: isMobilePanelOpen ? 'translateX(0)' : 'translateX(-100%)' }}
                  onClick={e => e.stopPropagation()}>
                  <QuestionPanel
@@ -415,15 +416,15 @@ export const ExamDashboard = ({ questions: initialQuestions = dummyQuestions, na
       />
       
       {examMode && (
-        <div className="bg-gradient-to-r from-amber-400 to-orange-400 border-b border-orange-300 text-white px-6 py-3 text-sm text-center shadow-sm">
-          <Clock size={16} className="inline mr-2 align-middle" />
-          <span className="font-semibold">Exam Mode Active</span> • Time Remaining: <span className="font-mono font-bold">{formatTime(timeLeft)}</span> • Answer all questions to finish
+        <div className="bg-yellow-100 border-b border-yellow-300 text-yellow-700 px-4 py-2 text-sm text-center">
+          <Clock size={14} className="inline mr-1.5 align-middle" />
+          Exam Mode Active. Time: {formatTime(timeLeft)}. Answer all questions to finish.
         </div>
       )}
 
-      <main className="flex-grow container mx-auto p-6 lg:p-8">
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 h-full">
-          <div className="hidden lg:block lg:w-80 flex-shrink-0">
+      <main className="flex-grow container mx-auto p-4 lg:p-6">
+        <div className="flex flex-col lg:flex-row gap-5 lg:gap-6">
+          <div className="hidden lg:block lg:w-1/4 xl:w-1/5 flex-shrink-0">
             <QuestionPanel
               questions={questions}
               currentQuestionIndex={currentQuestionIndex}
