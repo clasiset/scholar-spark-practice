@@ -28,8 +28,14 @@ const HomePage = ({ navigate, openModal }) => {
         <section className="py-12 md:py-20 px-4 md:px-6 text-white">
           <div className="container mx-auto text-center">
             <div className="mb-6 md:mb-8">
-              <div className="w-16 h-16 md:w-24 md:h-24 mx-auto mb-4 md:mb-6 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center shadow-2xl border border-white/20 hover:bg-white/20 transition-all duration-300">
-                <img src="/lovable-uploads/b4a3ff1d-fa0f-4e7a-8584-0b818b023773.png" alt="Ministry of Education Logo" className="w-12 h-12 md:w-20 md:h-20 rounded-full object-cover" />
+              <div className="w-16 h-16 md:w-24 md:h-24 mx-auto mb-4 md:mb-6 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center shadow-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 p-1">
+                <div className="w-full h-full bg-white rounded-full overflow-hidden">
+                  <img 
+                    src="/lovable-uploads/b4a3ff1d-fa0f-4e7a-8584-0b818b023773.png" 
+                    alt="Ministry of Education Logo" 
+                    className="w-full h-full object-cover scale-110" 
+                  />
+                </div>
               </div>
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight">
                 University <span className="text-yellow-300 animate-pulse">Entrance</span> Exams

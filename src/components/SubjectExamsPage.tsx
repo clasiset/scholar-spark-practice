@@ -24,8 +24,12 @@ const SubjectExamsPage = ({ navigate, subjectTitle, onStartExam }) => {
           </button>
           
           <div className="flex items-center">
-            <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center mr-3 md:mr-4 shadow-md">
-              <img src="/lovable-uploads/b4a3ff1d-fa0f-4e7a-8584-0b818b023773.png" alt="Ministry of Education Logo" className="w-8 h-8 md:w-10 md:h-10 rounded-full object-cover" />
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center mr-3 md:mr-4 shadow-md overflow-hidden border-2 border-blue-200">
+              <img 
+                src="/lovable-uploads/b4a3ff1d-fa0f-4e7a-8584-0b818b023773.png" 
+                alt="Ministry of Education Logo" 
+                className="w-full h-full object-cover scale-110" 
+              />
             </div>
             <h1 className="text-xl md:text-3xl font-bold text-gray-900">
               {subjectTitle} Entrance <span className="text-blue-600">Exam</span>

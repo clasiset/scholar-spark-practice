@@ -13,8 +13,12 @@ export const ExamHeader = ({ examMode, timeLeft, onToggleExamMode, totalQuestion
     <header className="bg-white border-b border-gray-200 p-4 shadow-sm">
       <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center">
         <div className="mb-2 sm:mb-0 text-center sm:text-left flex items-center">
-          <div className="w-8 h-8 mr-3 flex-shrink-0">
-            <img src="/lovable-uploads/b4a3ff1d-fa0f-4e7a-8584-0b818b023773.png" alt="Ministry of Education Logo" className="w-full h-full rounded-full object-cover" />
+          <div className="w-8 h-8 mr-3 flex-shrink-0 bg-white rounded-full overflow-hidden border-2 border-blue-200">
+            <img 
+              src="/lovable-uploads/b4a3ff1d-fa0f-4e7a-8584-0b818b023773.png" 
+              alt="Ministry of Education Logo" 
+              className="w-full h-full object-cover scale-110" 
+            />
           </div>
           <div>
             <nav className="text-xs text-gray-500 mb-1">
