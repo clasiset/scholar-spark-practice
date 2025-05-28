@@ -1,20 +1,26 @@
 
 import React, { useState } from 'react';
+import { User } from 'lucide-react';
 import NavLink from './NavLink';
 
 const Header = ({ navigate, openModal }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white shadow-md py-4 px-6 md:px-12 sticky top-0 z-50">
+    <header className="bg-white/95 backdrop-blur-md shadow-lg py-3 md:py-4 px-4 md:px-6 lg:px-12 sticky top-0 z-50 border-b border-blue-100">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
-        <div className="text-2xl font-bold text-indigo-700 cursor-pointer" onClick={() => navigate('home')}>
-          EduPlatform
+        <div className="flex items-center cursor-pointer group" onClick={() => navigate('home')}>
+          <div className="w-8 h-8 md:w-10 md:h-10 mr-2 md:mr-3 rounded-full overflow-hidden shadow-md group-hover:shadow-lg transition-shadow duration-300">
+            <img src="/lovable-uploads/b4a3ff1d-fa0f-4e7a-8584-0b818b023773.png" alt="Logo" className="w-full h-full object-cover" />
+          </div>
+          <span className="text-lg md:text-2xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
+            EduPlatform
+          </span>
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex space-x-8">
+        <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
           <NavLink text="Home" onClick={() => navigate('home')} />
           <NavLink text="Courses" onClick={() => navigate('courses')} />
           <NavLink text="Programs" onClick={() => navigate('programs')} />
@@ -23,19 +29,38 @@ const Header = ({ navigate, openModal }) => {
           <NavLink text="Community" onClick={() => navigate('community')} />
           <NavLink text="Careers" onClick={() => navigate('careers')} />
           <NavLink text="About" onClick={() => navigate('about')} />
-          <button
-            className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
-            onClick={() => openModal('login')}
-          >
-            Sign In
-          </button>
+          
+          <div className="flex items-center space-x-3">
+            {/* Profile Button */}
+            <button
+              className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              onClick={() => openModal('profile')}
+            >
+              <User size={20} />
+            </button>
+            
+            {/* Sign In Button */}
+            <button
+              className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl"
+              onClick={() => openModal('login')}
+            >
+              Sign In
+            </button>
+          </div>
         </nav>
 
         {/* Mobile Menu Button */}
-        <div className="lg:hidden">
+        <div className="lg:hidden flex items-center space-x-2">
+          <button
+            className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300"
+            onClick={() => openModal('profile')}
+          >
+            <User size={18} />
+          </button>
+          
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-gray-600 hover:text-gray-900 focus:outline-none focus:text-gray-900"
+            className="text-gray-600 hover:text-gray-900 focus:outline-none focus:text-gray-900 p-2"
           >
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               {isMobileMenuOpen ? (
@@ -50,7 +75,7 @@ const Header = ({ navigate, openModal }) => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-white mt-4 rounded-lg shadow-lg">
+        <div className="lg:hidden bg-white/95 backdrop-blur-md mt-4 rounded-lg shadow-xl border border-gray-100">
           <nav className="flex flex-col space-y-2 py-4 px-6">
             <NavLink text="Home" onClick={() => { navigate('home'); setIsMobileMenuOpen(false); }} />
             <NavLink text="Courses" onClick={() => { navigate('courses'); setIsMobileMenuOpen(false); }} />
@@ -61,7 +86,7 @@ const Header = ({ navigate, openModal }) => {
             <NavLink text="Careers" onClick={() => { navigate('careers'); setIsMobileMenuOpen(false); }} />
             <NavLink text="About" onClick={() => { navigate('about'); setIsMobileMenuOpen(false); }} />
             <button
-              className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 w-full mt-4"
+              className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 w-full mt-4"
               onClick={() => { openModal('login'); setIsMobileMenuOpen(false); }}
             >
               Sign In

@@ -1,40 +1,117 @@
 
-import React from 'react';
+import React, { useState } from 'react';
+import { Eye, EyeOff, User, Mail, Lock, UserPlus } from 'lucide-react';
 import StartExamModal from './StartExamModal';
 
 const Modal = ({ type, data, onClose, openModal, navigate }) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
+
+  const handleInputChange = (field, value) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
   if (type === 'startExam') {
     return <StartExamModal onClose={onClose} examDetails={data} navigate={navigate} />;
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full relative">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8 max-w-md w-full relative border border-gray-100 animate-fade-in">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl font-bold"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl font-bold transition-colors duration-200 hover:rotate-90 transform transition-transform"
         >
           &times;
         </button>
+
         {type === 'signup' && (
           <>
-            <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Create an account</h2>
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <UserPlus className="text-white" size={24} />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-800">Create Your Account</h2>
+              <p className="text-gray-600 mt-2">Join thousands of students preparing for success</p>
+            </div>
+            
             <div className="space-y-4">
-              <input
-                type="email"
-                placeholder="Email address"
-                className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              />
-              <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-md transition duration-300">
-                Continue
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Mail className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  type="email"
+                  placeholder="Email address"
+                  value={formData.email}
+                  onChange={(e) => handleInputChange('email', e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                />
+              </div>
+              
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Lock className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={(e) => handleInputChange('password', e.target.value)}
+                  className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Lock className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="Confirm password"
+                  value={formData.confirmPassword}
+                  onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
+                  className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                >
+                  {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+
+              <button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                Create Account
               </button>
-              <p className="text-center text-gray-600 mt-4">Already have an account? <span className="text-indigo-600 font-medium cursor-pointer" onClick={() => openModal('login')}>Log in</span></p>
-              <div className="flex items-center my-4">
+              
+              <p className="text-center text-gray-600 mt-4">
+                Already have an account? 
+                <span className="text-blue-600 font-medium cursor-pointer hover:text-blue-700 ml-1" onClick={() => openModal('login')}>
+                  Sign in
+                </span>
+              </p>
+              
+              <div className="flex items-center my-6">
                 <div className="flex-grow border-t border-gray-300"></div>
-                <span className="flex-shrink mx-4 text-gray-500">OR</span>
+                <span className="flex-shrink mx-4 text-gray-500 text-sm">OR</span>
                 <div className="flex-grow border-t border-gray-300"></div>
               </div>
-              <button className="w-full flex items-center justify-center border border-gray-300 py-3 rounded-md text-gray-700 font-medium hover:bg-gray-50 transition duration-300">
+              
+              <button className="w-full flex items-center justify-center border border-gray-300 py-3 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-all duration-300 shadow-sm hover:shadow-md">
                 <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                   <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -46,25 +123,77 @@ const Modal = ({ type, data, onClose, openModal, navigate }) => {
             </div>
           </>
         )}
+
         {type === 'login' && (
           <>
-            <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Welcome back</h2>
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <User className="text-white" size={24} />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-800">Welcome Back</h2>
+              <p className="text-gray-600 mt-2">Continue your learning journey</p>
+            </div>
+            
             <div className="space-y-4">
-              <input
-                type="email"
-                placeholder="Email address"
-                className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              />
-              <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-md transition duration-300">
-                Continue
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Mail className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  type="email"
+                  placeholder="Email address"
+                  value={formData.email}
+                  onChange={(e) => handleInputChange('email', e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                />
+              </div>
+              
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Lock className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={(e) => handleInputChange('password', e.target.value)}
+                  className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <label className="flex items-center">
+                  <input type="checkbox" className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+                  <span className="ml-2 text-sm text-gray-600">Remember me</span>
+                </label>
+                <a href="#" className="text-sm text-blue-600 hover:text-blue-700">Forgot password?</a>
+              </div>
+
+              <button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                Sign In
               </button>
-              <p className="text-center text-gray-600 mt-4">Don't have an account? <span className="text-indigo-600 font-medium cursor-pointer" onClick={() => openModal('signup')}>Sign up</span></p>
-              <div className="flex items-center my-4">
+              
+              <p className="text-center text-gray-600 mt-4">
+                Don't have an account? 
+                <span className="text-blue-600 font-medium cursor-pointer hover:text-blue-700 ml-1" onClick={() => openModal('signup')}>
+                  Sign up
+                </span>
+              </p>
+              
+              <div className="flex items-center my-6">
                 <div className="flex-grow border-t border-gray-300"></div>
-                <span className="flex-shrink mx-4 text-gray-500">OR</span>
+                <span className="flex-shrink mx-4 text-gray-500 text-sm">OR</span>
                 <div className="flex-grow border-t border-gray-300"></div>
               </div>
-              <button className="w-full flex items-center justify-center border border-gray-300 py-3 rounded-md text-gray-700 font-medium hover:bg-gray-50 transition duration-300">
+              
+              <button className="w-full flex items-center justify-center border border-gray-300 py-3 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-all duration-300 shadow-sm hover:shadow-md">
                 <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                   <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -76,13 +205,39 @@ const Modal = ({ type, data, onClose, openModal, navigate }) => {
             </div>
           </>
         )}
+
+        {type === 'profile' && (
+          <div className="text-center">
+            <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <User className="text-white" size={32} />
+            </div>
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">User Profile</h2>
+            <p className="text-gray-600 mb-6">Manage your account settings</p>
+            <div className="space-y-3">
+              <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200">
+                View Profile
+              </button>
+              <button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200">
+                Settings
+              </button>
+              <button className="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200">
+                Logout
+              </button>
+            </div>
+          </div>
+        )}
+
         {type === 'enroll' && (
           <div className="text-center">
-            <p className="text-lg text-gray-700 mb-6">You are about to enroll in: <br /><span className="font-semibold text-indigo-600">{data}</span></p>
+            <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <UserPlus className="text-white" size={24} />
+            </div>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Confirm Enrollment</h2>
+            <p className="text-lg text-gray-700 mb-6">You are about to enroll in: <br /><span className="font-semibold text-blue-600">{data}</span></p>
             <p className="text-gray-600 mb-8">Click confirm to proceed with your enrollment.</p>
             <button
               onClick={() => { alert('Enrollment Confirmed!'); onClose(); }}
-              className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
+              className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105"
             >
               Confirm Enrollment
             </button>
