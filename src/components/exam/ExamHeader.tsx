@@ -10,39 +10,38 @@ export const ExamHeader = ({ examMode, timeLeft, onToggleExamMode, totalQuestion
   };
 
   return (
-    <header className="bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 p-4 shadow-lg">
+    <header className="bg-white border-b border-gray-200 p-4 shadow-sm">
       <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center">
         <div className="mb-2 sm:mb-0 text-center sm:text-left">
-          <nav className="text-xs text-indigo-200">
+          <nav className="text-xs text-gray-500 mb-1">
             Entrance Exams / {examDetails?.subjectTitle || 'Aptitude Test'}
           </nav>
-          <h1 className="text-lg font-semibold text-white">
+          <h1 className="text-lg font-semibold text-gray-900">
             {examDetails?.subjectTitle || 'Aptitude Test'} - Entrance Exam {examDetails?.year || '2014'}
           </h1>
         </div>
         <div className="flex items-center space-x-3 sm:space-x-4">
           {examMode && (
-            <span className="text-xs text-indigo-200 hidden md:inline">
+            <span className="text-xs text-gray-600 hidden md:inline">
               Answered: {answeredQuestions}/{totalQuestions}
             </span>
           )}
-           <span className={`text-sm font-semibold flex items-center ${examMode && timeLeft < 60 ? 'text-red-300 animate-pulse' : 'text-white'}`}>
-             <Clock size={16} className="mr-1.5" />
-             {examMode ? formatTime(timeLeft) : 'Practice'}
-           </span>
+          <span className={`text-sm font-semibold flex items-center ${examMode && timeLeft < 60 ? 'text-red-500 animate-pulse' : 'text-gray-700'}`}>
+            <Clock size={16} className="mr-1.5" />
+            {examMode ? formatTime(timeLeft) : 'Practice Mode'}
+          </span>
           <button
             onClick={onToggleExamMode}
-            className={`py-2 px-4 rounded-lg font-medium text-sm shadow-lg transition-all duration-200 ease-in-out transform hover:scale-105
+            className={`py-2 px-4 rounded-lg font-medium text-sm transition-all duration-200 
               ${examMode
-                ? 'bg-white/20 text-white hover:bg-white/30 border border-white/30'
-                : 'bg-white text-indigo-600 hover:bg-gray-50'
+                ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                : 'bg-blue-600 text-white hover:bg-blue-700'
               }
-              focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50
             `}
           >
             {examMode ? 'Practice Mode' : 'Exam Mode'}
           </button>
-          <button onClick={onOpenMobilePanel} className="lg:hidden p-2 text-white hover:text-indigo-200 transition-colors">
+          <button onClick={onOpenMobilePanel} className="lg:hidden p-2 text-gray-600 hover:text-gray-800 transition-colors">
             <Menu size={24} />
           </button>
         </div>

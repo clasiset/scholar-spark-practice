@@ -1,80 +1,74 @@
 
 import React from 'react';
+import { BookOpen, Trophy, Users, Star } from 'lucide-react';
 
 const HomePage = ({ navigate, openModal }) => {
   return (
-    <>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
       {/* Hero Section */}
-      <section
-        className="relative text-white py-20 md:py-32 overflow-hidden bg-cover bg-center min-h-[60vh] flex items-center justify-center"
-        style={{ backgroundImage: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" }}
-      >
-        {/* Overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-indigo-800 to-purple-900 opacity-80"></div>
-
-        <div className="container mx-auto px-6 flex flex-col items-center text-center relative z-10">
-          <div className="bg-white bg-opacity-95 p-8 md:p-12 rounded-xl shadow-2xl max-w-2xl w-full text-gray-800">
-            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-6">
-              Excel in Your <span className="text-indigo-700">Ethiopian Academic Journey</span>
+      <section className="relative py-20 px-6">
+        <div className="container mx-auto text-center">
+          <div className="mb-8">
+            <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full flex items-center justify-center shadow-lg">
+              <img src="/lovable-uploads/273f4172-a5e6-48b1-af34-164c5dcea982.png" alt="University Logo" className="w-12 h-12 rounded-full object-cover" />
+            </div>
+            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+              University <span className="text-blue-600">Entrance</span> Exams
             </h1>
-            <p className="text-lg md:text-xl mb-8 opacity-90">
-              Practice for university exit exams and university entrance examinations with our interactive platform. Get AI-powered feedback and track your progress.
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+              Practice with subject-specific questions to prepare for your university entrance examination.
             </p>
+          </div>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
             <button
-              className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-xl transition duration-300 ease-in-out transform hover:scale-105"
               onClick={() => navigate('entranceExams')}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-2"
             >
-              Get Started
+              <BookOpen size={24} />
+              Explore Entrance Exams →
+            </button>
+            <button
+              onClick={() => navigate('entranceExams')}
+              className="bg-white hover:bg-gray-50 text-blue-600 border-2 border-blue-600 px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-2"
+            >
+              <Trophy size={24} />
+              Explore Exit Exams →
             </button>
           </div>
         </div>
       </section>
 
-      {/* University Exams Section */}
-      <section className="py-16 md:py-24 bg-gray-50">
-        <div className="container mx-auto px-6 text-center">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {/* University Entrance Exams Card */}
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-2 border border-gray-200 flex flex-col items-center">
-              <div className="w-24 h-24 mb-6 bg-indigo-100 rounded-full flex items-center justify-center">
-                <svg className="w-12 h-12 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
+      {/* Features Grid */}
+      <section className="py-16 px-6 bg-white">
+        <div className="container mx-auto">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Why Choose Our Platform?</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center p-6 rounded-xl border border-gray-100 hover:shadow-lg transition-shadow">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <BookOpen className="text-blue-600" size={32} />
               </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">University Entrance Exams</h3>
-              <p className="text-gray-600 mb-6">
-                Practice with subject-specific questions to prepare for your university entrance examination.
-              </p>
-              <button
-                className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105"
-                onClick={() => navigate('entranceExams')}
-              >
-                Explore Entrance Exams →
-              </button>
+              <h3 className="text-xl font-semibold mb-3">Practice Mode</h3>
+              <p className="text-gray-600">Practice with detailed explanations and AI-powered hints</p>
             </div>
-
-            {/* University Exit Exams Card */}
-            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-2 border border-gray-200 flex flex-col items-center">
-              <div className="w-24 h-24 mb-6 bg-green-100 rounded-full flex items-center justify-center">
-                <svg className="w-12 h-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+            <div className="text-center p-6 rounded-xl border border-gray-100 hover:shadow-lg transition-shadow">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Trophy className="text-green-600" size={32} />
               </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">University Exit Exams</h3>
-              <p className="text-gray-600 mb-6">
-                Prepare for your graduation examinations with comprehensive practice tests.
-              </p>
-              <button
-                className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105"
-                onClick={() => navigate('courses')}
-              >
-                Coming Soon →
-              </button>
+              <h3 className="text-xl font-semibold mb-3">Exam Mode</h3>
+              <p className="text-gray-600">Simulate real exam conditions with timed sessions</p>
+            </div>
+            <div className="text-center p-6 rounded-xl border border-gray-100 hover:shadow-lg transition-shadow">
+              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="text-purple-600" size={32} />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Track Progress</h3>
+              <p className="text-gray-600">Monitor your performance and identify areas for improvement</p>
             </div>
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 

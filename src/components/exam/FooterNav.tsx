@@ -4,14 +4,14 @@ import { ChevronLeft, ChevronRight, CheckCircle } from 'lucide-react';
 
 export const FooterNav = ({ onPrevious, onNext, showPrevious, showNext, examMode, onSubmitExam }) => {
   return (
-    <footer className="bg-white p-4 border-t border-gray-200 shadow-lg flex justify-between items-center sticky bottom-0 z-30">
+    <footer className="bg-white p-4 border-t border-gray-200 flex justify-between items-center sticky bottom-0 z-30">
       <button
         onClick={onPrevious}
         disabled={!showPrevious}
-        className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-200 ease-in-out transform
+        className={`px-6 py-3 rounded-lg font-medium text-sm transition-all duration-200
           ${showPrevious
-            ? 'bg-gradient-to-r from-gray-400 to-gray-500 text-white hover:from-gray-500 hover:to-gray-600 shadow-md hover:scale-105'
-            : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+            ? 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300'
+            : 'bg-gray-50 text-gray-400 cursor-not-allowed border border-gray-200'
           }
           flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50
         `}
@@ -21,29 +21,29 @@ export const FooterNav = ({ onPrevious, onNext, showPrevious, showNext, examMode
       </button>
       
       {examMode ? (
-         <button
-            onClick={onSubmitExam}
-            className="px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-200 ease-in-out transform hover:scale-105
-                       bg-gradient-to-r from-red-500 to-pink-500 text-white hover:from-red-600 hover:to-pink-600 shadow-lg
-                       flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+        <button
+          onClick={onSubmitExam}
+          className="px-6 py-3 rounded-lg font-medium text-sm transition-all duration-200
+                     bg-red-600 text-white hover:bg-red-700 border border-red-600
+                     flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
         >
-            <span>Submit Exam</span>
-            <CheckCircle size={18} />
+          <span>Submit Exam</span>
+          <CheckCircle size={18} />
         </button>
       ) : (
         <button
-            onClick={onNext}
-            disabled={!showNext}
-            className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-200 ease-in-out transform
+          onClick={onNext}
+          disabled={!showNext}
+          className={`px-6 py-3 rounded-lg font-medium text-sm transition-all duration-200
             ${showNext
-                ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:from-indigo-600 hover:to-purple-700 shadow-lg hover:scale-105'
-                : 'bg-gradient-to-r from-indigo-300 to-purple-400 text-white cursor-not-allowed opacity-50'
+              ? 'bg-blue-600 text-white hover:bg-blue-700 border border-blue-600'
+              : 'bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200'
             }
-            flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50
-            `}
+            flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50
+          `}
         >
-            <span>Next</span>
-            <ChevronRight size={18} />
+          <span>Next</span>
+          <ChevronRight size={18} />
         </button>
       )}
     </footer>
