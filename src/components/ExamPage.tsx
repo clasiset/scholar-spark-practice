@@ -2,7 +2,12 @@
 import React from 'react';
 import { ExamDashboard } from './exam/ExamDashboard';
 
-const ExamPage = () => {
+interface ExamPageProps {
+  navigate?: (page: any, data?: any) => void;
+  examDetails?: any;
+}
+
+const ExamPage: React.FC<ExamPageProps> = ({ navigate, examDetails }) => {
   return <ExamDashboard />;
 };
 
