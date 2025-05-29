@@ -10,51 +10,71 @@ export const ExamHeader = ({ examMode, timeLeft, onToggleExamMode, totalQuestion
   };
 
   return (
-    <header className="bg-white border-b border-gray-200 p-4 shadow-sm">
-      <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center">
-        <div className="mb-2 sm:mb-0 text-center sm:text-left flex items-center">
-          <div className="w-8 h-8 mr-3 flex-shrink-0 bg-white rounded-full overflow-hidden border-2 border-blue-200">
-            <img 
-              src="/lovable-uploads/b4a3ff1d-fa0f-4e7a-8584-0b818b023773.png" 
-              alt="Ministry of Education Logo" 
-              className="w-full h-full object-cover scale-110" 
-            />
+    <header className="bg-white border-b border-gray-200 shadow-sm">
+      <div className="container mx-auto px-4 py-4">
+        <div className="flex flex-col sm:flex-row justify-between items-center">
+          <div className="mb-2 sm:mb-0 text-center sm:text-left flex items-center">
+            <div className="w-8 h-8 mr-3 flex-shrink-0 bg-white rounded-full overflow-hidden border-2 border-blue-200">
+              <img 
+                src="/lovable-uploads/b4a3ff1d-fa0f-4e7a-8584-0b818b023773.png" 
+                alt="Ministry of Education Logo" 
+                className="w-full h-full object-cover scale-110" 
+              />
+            </div>
+            <div>
+              <nav className="text-xs text-gray-500 mb-1">
+                Entrance Exams / {examDetails?.subjectTitle || 'Aptitude Test'}
+              </nav>
+              <h1 className="text-lg font-semibold text-gray-900">
+                {examDetails?.subjectTitle || 'Aptitude Test'} - Entrance Exam {examDetails?.year || '2014'}
+              </h1>
+            </div>
           </div>
-          <div>
-            <nav className="text-xs text-gray-500 mb-1">
-              Entrance Exams / {examDetails?.subjectTitle || 'Aptitude Test'}
-            </nav>
-            <h1 className="text-lg font-semibold text-gray-900">
-              {examDetails?.subjectTitle || 'Aptitude Test'} - Entrance Exam {examDetails?.year || '2014'}
-            </h1>
+          
+          <div className="flex items-center space-x-4">
+            {examMode && (
+              <div className="text-xs text-gray-600 hidden md:flex items-center space-x-4">
+                <span>Answered: {answeredQuestions}/{totalQuestions}</span>
+                <span>Time: {formatTime(timeLeft)}</span>
+              </div>
+            )}
+            
+            <button
+              onClick={onToggleExamMode}
+              className={`py-2 px-6 rounded-lg font-medium text-sm transition-all duration-200 
+                ${examMode
+                  ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-blue-600 text-white hover:bg-blue-700'
+                }
+              `}
+            >
+              {examMode ? 'Practice Mode' : 'Exam Mode'}
+            </button>
+            
+            <button 
+              onClick={onOpenMobilePanel} 
+              className="lg:hidden p-2 text-gray-600 hover:text-gray-800 transition-colors"
+            >
+              <Menu size={24} />
+            </button>
           </div>
-        </div>
-        <div className="flex items-center space-x-3 sm:space-x-4">
-          {examMode && (
-            <span className="text-xs text-gray-600 hidden md:inline">
-              Answered: {answeredQuestions}/{totalQuestions}
-            </span>
-          )}
-          <span className={`text-sm font-semibold flex items-center ${examMode && timeLeft < 60 ? 'text-red-500 animate-pulse' : 'text-gray-700'}`}>
-            <Clock size={16} className="mr-1.5" />
-            {examMode ? formatTime(timeLeft) : 'Practice Mode'}
-          </span>
-          <button
-            onClick={onToggleExamMode}
-            className={`py-2 px-4 rounded-lg font-medium text-sm transition-all duration-200 
-              ${examMode
-                ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                : 'bg-blue-600 text-white hover:bg-blue-700'
-              }
-            `}
-          >
-            {examMode ? 'Practice Mode' : 'Exam Mode'}
-          </button>
-          <button onClick={onOpenMobilePanel} className="lg:hidden p-2 text-gray-600 hover:text-gray-800 transition-colors">
-            <Menu size={24} />
-          </button>
         </div>
       </div>
+      
+      {examMode && (
+        <div className="bg-blue-50 border-t border-blue-200 px-4 py-3">
+          <div className="container mx-auto flex items-center justify-between text-sm">
+            <div className="flex items-center text-blue-700">
+              <Clock size={16} className="mr-2" />
+              <span className="font-medium">Exam Mode Active</span>
+            </div>
+            <div className="flex items-center space-x-4 text-blue-600">
+              <span>Time: {formatTime(timeLeft)}</span>
+              <span>Answered: {answeredQuestions}/{totalQuestions}</span>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 };
