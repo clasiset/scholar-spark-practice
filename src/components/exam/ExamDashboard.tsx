@@ -597,7 +597,6 @@ const FooterNav = ({ questions, currentQuestionIndex, answers, flaggedQuestions,
     isClicking.current = false;
   };
 
-
   return (
     <footer className="bg-white p-3 sm:p-4 border-t border-gray-200 shadow-sm flex justify-between items-center mt-auto">
       <button
@@ -615,7 +614,6 @@ const FooterNav = ({ questions, currentQuestionIndex, answers, flaggedQuestions,
         <span className="hidden sm:inline">Previous</span>
       </button>
 
-      {/* Condensed Question Navigation for smaller screens, full for larger */}
       <div className="hidden lg:flex items-center space-x-1 overflow-x-auto whitespace-nowrap py-2 px-1 custom-scrollbar flex-grow justify-center mx-2">
         {questions.map((_, index) => {
           const isFlagged = flaggedQuestions.includes(index);
@@ -659,7 +657,6 @@ const FooterNav = ({ questions, currentQuestionIndex, answers, flaggedQuestions,
         Q {currentQuestionIndex + 1} / {questions.length}
       </div>
 
-
       {examMode && Object.keys(answers).length === questions.length && (
          <button
             onClick={() => onFinishExam(false)}
@@ -678,7 +675,7 @@ const FooterNav = ({ questions, currentQuestionIndex, answers, flaggedQuestions,
         className={`px-3 py-2 sm:px-4 rounded-lg font-semibold transition-colors duration-200 ease-in-out
           ${showNext
             ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-md'
-            : 'bg-blue-300 text-white cursor-not-allowed' // Keep blue for consistency, but disabled
+            : 'bg-blue-300 text-white cursor-not-allowed'
           }
           flex items-center space-x-1 sm:space-x-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-sm sm:text-base
         `}
@@ -696,7 +693,6 @@ const Dashboard = ({ questions }) => {
   const [answers, setAnswers] = useState({}); 
   const [flaggedQuestions, setFlaggedQuestions] = useState([]); 
   const [showExplanation, setShowExplanation] = useState(false);
-  // showHint state is not strictly needed if we use toast for hints
   const [examMode, setExamMode] = useState(false);
   const [timeLeft, setTimeLeft] = useState(10 * 60); // 10 minutes for demo
   const [showExamCompletedModal, setShowExamCompletedModal] = useState(false);
@@ -965,46 +961,44 @@ const Dashboard = ({ questions }) => {
             onFlagToggleByIndex={handleFlagToggleByIndex}
         />
       )}
-      <style jsx global>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 8px;
-          height: 8px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: #f1f1f1;
-          border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #c7c7c7;
-          border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #a3a3a3;
-        }
-        .animate-fade-in-up {
-          animation: fade-in-up 0.5s ease-out forwards;
-        }
-        @keyframes fade-in-up {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
+      <style>
+        {`
+          .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
           }
-          to {
-            opacity: 1;
-            transform: translateY(0);
+          .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
           }
-        }
-      `}</style>
+          .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c7c7c7;
+            border-radius: 10px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #a3a3a3;
+          }
+          .animate-fade-in-up {
+            animation: fade-in-up 0.5s ease-out forwards;
+          }
+          @keyframes fade-in-up {
+            from {
+              opacity: 0;
+              transform: translateY(20px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+        `}
+      </style>
     </div>
   );
 };
 
 // Export the Dashboard component as ExamDashboard for the app
-const ExamDashboard = () => {
-  // In a real app, questions might be fetched from an API
-  // useEffect(() => {
-  //  fetchQuestions().then(data => setQuestions(data));
-  // }, []);
+export const ExamDashboard = () => {
   return (
     <Dashboard questions={dummyQuestions} />
   );
