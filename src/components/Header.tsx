@@ -1,7 +1,48 @@
+
 import React, { useState, useEffect } from 'react';
-import { User } from 'lucide-react';
 import NavLink from './NavLink';
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { cn } from "@/lib/utils";
+
+const ListItem = React.forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a">
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = "ListItem";
 
 const Header = ({ navigate, openModal }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -42,21 +83,93 @@ const Header = ({ navigate, openModal }) => {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center space-x-4 xl:space-x-6">
-          <NavLink text="Home" onClick={() => navigate('home')} />
-          <NavLink text="Courses" onClick={() => navigate('courses')} />
-          <NavLink text="Programs" onClick={() => navigate('programs')} />
-          <NavLink text="Tutoring" onClick={() => navigate('tutoring')} />
-          <NavLink text="Resources" onClick={() => navigate('resources')} />
-          <NavLink text="Community" onClick={() => navigate('community')} />
-          <NavLink text="Careers" onClick={() => navigate('careers')} />
-          <NavLink text="About" onClick={() => navigate('about')} />
-          <NavLink text="Exit Exam" onClick={() => navigate('home')} />
-          <NavLink text="Entrance Exam" onClick={() => navigate('entranceExams')} />
-          <NavLink text="Work Exam" onClick={() => navigate('examPage')} />
-          <NavLink text="NGAT Exam" onClick={() => navigate('examPage')} />
+        <nav className="hidden lg:flex items-center">
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavLink text="Home" onClick={() => navigate('home')} />
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Courses</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                    <li className="row-span-3">
+                      <NavigationMenuLink asChild>
+                        <a
+                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                          href="#"
+                          onClick={(e) => { e.preventDefault(); navigate('courses'); }}
+                        >
+                          <div className="w-8 h-8 md:w-10 md:h-10 mb-2 rounded-full overflow-hidden shadow-md bg-white border-2 border-blue-200">
+                            <img 
+                              src="/lovable-uploads/b4a3ff1d-fa0f-4e7a-8584-0b818b023773.png" 
+                              alt="Logo" 
+                              className="w-full h-full object-cover scale-110" 
+                            />
+                          </div>
+                          <div className="text-lg font-medium">EduPlatform</div>
+                          <p className="text-sm leading-tight text-muted-foreground">
+                            Your gateway to academic excellence.
+                          </p>
+                        </a>
+                      </NavigationMenuLink>
+                    </li>
+                    <ListItem onClick={() => navigate('courses')} title="All Courses">
+                      Browse our comprehensive course catalog.
+                    </ListItem>
+                    <ListItem onClick={() => navigate('programs')} title="Programs">
+                      Structured learning paths for success.
+                    </ListItem>
+                    <ListItem onClick={() => navigate('tutoring')} title="Tutoring">
+                      Personalized one-on-one tutoring sessions.
+                    </ListItem>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Exams</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
+                    <ListItem onClick={() => navigate('entranceExams')} title="Entrance Exam">
+                      Prepare for university entrance exams.
+                    </ListItem>
+                    <ListItem onClick={() => navigate('examPage')} title="Exit Exam">
+                      Practice for your university exit exams.
+                    </ListItem>
+                     <ListItem onClick={() => navigate('examPage')} title="Work Exam">
+                      Prepare for professional work exams.
+                    </ListItem>
+                     <ListItem onClick={() => navigate('examPage')} title="NGAT Exam">
+                      Practice for the NGAT exam.
+                    </ListItem>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                 <NavLink text="Careers" onClick={() => navigate('careers')} />
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>About</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[300px] gap-3 p-4 md:w-[400px]">
+                    <ListItem onClick={() => navigate('about')} title="About Us">
+                      Learn more about our mission and team.
+                    </ListItem>
+                    <ListItem onClick={() => navigate('contact')} title="Contact Us">
+                      Get in touch with us for any inquiries.
+                    </ListItem>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
+            </NavigationMenuList>
+          </NavigationMenu>
           
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-3 pl-6">
             {!user && (
                 <button
                   className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl"
@@ -88,19 +201,42 @@ const Header = ({ navigate, openModal }) => {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="lg:hidden bg-white/95 backdrop-blur-md mt-4 rounded-lg shadow-xl border border-gray-100">
-          <nav className="flex flex-col space-y-2 py-4 px-6">
+          <nav className="flex flex-col space-y-1 py-4 px-6">
             <NavLink text="Home" onClick={() => { navigate('home'); setIsMobileMenuOpen(false); }} />
-            <NavLink text="Courses" onClick={() => { navigate('courses'); setIsMobileMenuOpen(false); }} />
-            <NavLink text="Programs" onClick={() => { navigate('programs'); setIsMobileMenuOpen(false); }} />
-            <NavLink text="Tutoring" onClick={() => { navigate('tutoring'); setIsMobileMenuOpen(false); }} />
-            <NavLink text="Resources" onClick={() => { navigate('resources'); setIsMobileMenuOpen(false); }} />
-            <NavLink text="Community" onClick={() => { navigate('community'); setIsMobileMenuOpen(false); }} />
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="courses" className="border-b-0">
+                <AccordionTrigger className="py-2 hover:no-underline font-medium text-gray-700 hover:text-indigo-600 [&[data-state=open]>svg]:text-indigo-600">Courses</AccordionTrigger>
+                <AccordionContent>
+                  <div className="pl-4 flex flex-col space-y-1 pt-1">
+                    <NavLink text="All Courses" onClick={() => { navigate('courses'); setIsMobileMenuOpen(false); }} />
+                    <NavLink text="Programs" onClick={() => { navigate('programs'); setIsMobileMenuOpen(false); }} />
+                    <NavLink text="Tutoring" onClick={() => { navigate('tutoring'); setIsMobileMenuOpen(false); }} />
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="exams" className="border-b-0">
+                <AccordionTrigger className="py-2 hover:no-underline font-medium text-gray-700 hover:text-indigo-600 [&[data-state=open]>svg]:text-indigo-600">Exams</AccordionTrigger>
+                <AccordionContent>
+                  <div className="pl-4 flex flex-col space-y-1 pt-1">
+                    <NavLink text="Entrance Exam" onClick={() => { navigate('entranceExams'); setIsMobileMenuOpen(false); }} />
+                    <NavLink text="Exit Exam" onClick={() => { navigate('examPage'); setIsMobileMenuOpen(false); }} />
+                    <NavLink text="Work Exam" onClick={() => { navigate('examPage'); setIsMobileMenuOpen(false); }} />
+                    <NavLink text="NGAT Exam" onClick={() => { navigate('examPage'); setIsMobileMenuOpen(false); }} />
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="about" className="border-b-0">
+                <AccordionTrigger className="py-2 hover:no-underline font-medium text-gray-700 hover:text-indigo-600 [&[data-state=open]>svg]:text-indigo-600">About</AccordionTrigger>
+                <AccordionContent>
+                  <div className="pl-4 flex flex-col space-y-1 pt-1">
+                    <NavLink text="About Us" onClick={() => { navigate('about'); setIsMobileMenuOpen(false); }} />
+                    <NavLink text="Contact Us" onClick={() => { navigate('contact'); setIsMobileMenuOpen(false); }} />
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
             <NavLink text="Careers" onClick={() => { navigate('careers'); setIsMobileMenuOpen(false); }} />
-            <NavLink text="About" onClick={() => { navigate('about'); setIsMobileMenuOpen(false); }} />
-            <NavLink text="Exit Exam" onClick={() => { navigate('home'); setIsMobileMenuOpen(false); }} />
-            <NavLink text="Entrance Exam" onClick={() => { navigate('entranceExams'); setIsMobileMenuOpen(false); }} />
-            <NavLink text="Work Exam" onClick={() => { navigate('examPage'); setIsMobileMenuOpen(false); }} />
-            <NavLink text="NGAT Exam" onClick={() => { navigate('examPage'); setIsMobileMenuOpen(false); }} />
+            
             {!user && (
               <button
                 className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 w-full mt-4"
