@@ -3,8 +3,9 @@ import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle } from 'lucide-react';
+import BackButton from './BackButton';
 
-const LocalJobPortalPage = ({ navigate }: { navigate: (page: string) => void }) => {
+const LocalJobPortalPage = ({ navigate, goBack, previousPageName }: { navigate: (page: string) => void, goBack?: () => void, previousPageName?: string | null }) => {
   const jobSeekerFeatures = [
     "Secure registration and login",
     "Detailed profile management",
@@ -26,6 +27,7 @@ const LocalJobPortalPage = ({ navigate }: { navigate: (page: string) => void }) 
   return (
     <div className="bg-gray-50">
       <div className="container mx-auto py-12 px-4 md:px-6">
+        <BackButton onClick={goBack} previousPageName={previousPageName} />
         <header className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 bg-gradient-to-r from-indigo-600 to-blue-500 bg-clip-text text-transparent pb-2">
             Local Job Portal

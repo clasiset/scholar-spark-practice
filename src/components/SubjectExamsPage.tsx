@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react';
+import BackButton from './BackButton';
 import { ArrowLeft } from 'lucide-react';
 
-const SubjectExamsPage = ({ navigate, subjectTitle, onStartExam }) => {
+const SubjectExamsPage = ({ navigate, subjectTitle, onStartExam, goBack, previousPageName }: { navigate: any, subjectTitle: string, onStartExam: any, goBack?: () => void, previousPageName?: string | null }) => {
   const [hoveredExam, setHoveredExam] = useState(null);
 
   const exams = [
@@ -15,13 +15,7 @@ const SubjectExamsPage = ({ navigate, subjectTitle, onStartExam }) => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       <div className="bg-white/90 backdrop-blur-sm border-b border-gray-200 shadow-lg">
         <div className="container mx-auto px-4 md:px-6 py-4 md:py-6">
-          <button
-            onClick={() => navigate('entranceExams')}
-            className="flex items-center text-blue-600 hover:text-blue-700 mb-3 md:mb-4 transition-colors group"
-          >
-            <ArrowLeft size={20} className="mr-2 group-hover:-translate-x-1 transition-transform duration-200" />
-            Back to Subjects
-          </button>
+          <BackButton onClick={goBack} previousPageName={previousPageName} />
           
           <div className="flex items-center">
             <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center mr-3 md:mr-4 shadow-md overflow-hidden border-2 border-blue-200">

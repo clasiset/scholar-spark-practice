@@ -22,6 +22,7 @@ import EmployerDashboardPage from '../components/EmployerDashboardPage';
 // Main App Component
 const Index = () => {
   const [currentPage, setCurrentPage] = useState('home');
+  const [history, setHistory] = useState<string[]>(['home']);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState(''); // 'signup', 'login', 'enroll', 'startExam'
   const [modalData, setModalData] = useState(null); // Data for the modal, e.g., course title for enrollment
@@ -29,9 +30,25 @@ const Index = () => {
 
   // Navigation handler
   const navigate = (page, data = null) => {
+    if (page !== currentPage) {
+      setHistory(prevHistory => [...prevHistory, page]);
+    }
     setCurrentPage(page);
     setPageData(data);
   };
+
+  const goBack = () => {
+    if (history.length > 1) {
+      const newHistory = [...history];
+      newHistory.pop();
+      const previousPage = newHistory[newHistory.length - 1];
+      setHistory(newHistory);
+      setCurrentPage(previousPage);
+      setPageData(null);
+    }
+  };
+  
+  const previousPageName = history.length > 1 ? history[history.length - 2] : null;
 
   // Function to open the modal with specific content
   const openModal = (type, data = null) => {
@@ -53,7 +70,7 @@ const Index = () => {
       case 'home':
         return <HomePage navigate={navigate} openModal={openModal} />;
       case 'courses':
-        return <CoursesPage openModal={openModal} />;
+        return <CoursesPage openModal={openModal} goBack={goBack} previousPageName={previousPageName} />;
       case 'programs':
         return <ProgramsPage />;
       case 'tutoring':
@@ -61,25 +78,25 @@ const Index = () => {
       case 'resources':
         return <ResourcesPage />;
       case 'community':
-        return <CommunityPage />;
+        return <CommunityPage goBack={goBack} previousPageName={previousPageName} />;
       case 'careers':
-        return <CareersPage />;
+        return <CareersPage goBack={goBack} previousPageName={previousPageName} />;
       case 'about':
-        return <AboutPage />;
+        return <AboutPage goBack={goBack} previousPageName={previousPageName} />;
       case 'contact':
-        return <ContactPage />;
+        return <ContactPage goBack={goBack} previousPageName={previousPageName} />;
       case 'entranceExams':
         return <EntranceExamsPage navigate={navigate} />;
       case 'subjectExams':
-        return <SubjectExamsPage navigate={navigate} subjectTitle={pageData?.subjectTitle} onStartExam={openModal} />;
+        return <SubjectExamsPage navigate={navigate} subjectTitle={pageData?.subjectTitle} onStartExam={openModal} goBack={goBack} previousPageName={previousPageName} />;
       case 'examPage':
-        return <ExamPage navigate={navigate} examDetails={pageData} />;
+        return <ExamPage navigate={navigate} examDetails={pageData} goBack={goBack} previousPageName={previousPageName} />;
       case 'localJobPortal':
-        return <LocalJobPortalPage navigate={navigate} />;
+        return <LocalJobPortalPage navigate={navigate} goBack={goBack} previousPageName={previousPageName} />;
       case 'jobSeekerDashboard':
-        return <JobSeekerDashboardPage />;
+        return <JobSeekerDashboardPage goBack={goBack} previousPageName={previousPageName} />;
       case 'employerDashboard':
-        return <EmployerDashboardPage />;
+        return <EmployerDashboardPage goBack={goBack} previousPageName={previousPageName} />;
       default:
         return <HomePage navigate={navigate} openModal={openModal} />;
     }

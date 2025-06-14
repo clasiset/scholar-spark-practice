@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Building, Briefcase, FilePlus, ClipboardList, Users, MessageSquare, Star } from 'lucide-react';
+import BackButton from './BackButton';
 
 const FeatureCard = ({ icon, title, description, children }: { icon: React.ReactNode, title: string, description: string, children?: React.ReactNode }) => (
   <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
@@ -19,10 +20,11 @@ const FeatureCard = ({ icon, title, description, children }: { icon: React.React
   </Card>
 );
 
-const EmployerDashboardPage = () => {
+const EmployerDashboardPage = ({ goBack, previousPageName }: { goBack?: () => void, previousPageName?: string | null }) => {
   return (
     <div className="bg-gray-50 min-h-screen">
       <div className="container mx-auto py-12 px-4 md:px-6">
+        <BackButton onClick={goBack} previousPageName={previousPageName} />
         <header className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent pb-2">
             Employer Portal
