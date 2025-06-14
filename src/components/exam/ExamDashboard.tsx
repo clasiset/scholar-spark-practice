@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { List } from 'lucide-react';
 
@@ -23,9 +22,9 @@ const QuizStyles = () => (
             border: 2px solid #d1d5db; /* gray-300 */
         }
         .question-nav-item.active {
-            background-color: #6d28d9; /* Darker violet for consistency */
+            background-color: #4f46e5; /* indigo-600 */
             color: white;
-            border-color: #6d28d9;
+            border-color: #4f46e5; /* indigo-600 */
             transform: scale(1.1);
         }
         .question-nav-item.answered {
@@ -33,7 +32,7 @@ const QuizStyles = () => (
             color: #16a34a; /* green-600 */
         }
         .question-nav-item.answered.active {
-            background-color: #6d28d9; /* Darker violet */
+            background-color: #4f46e5; /* indigo-600 */
             color: white;
         }
         .question-nav-item.flagged {
@@ -92,7 +91,7 @@ const QuizStyles = () => (
             display: inline-block;
             width: 110px; /* Adjusted width for text */
             height: 38px;
-            background-color: #6d28d9; /* Darker violet */
+            background-color: #4f46e5; /* indigo-600 */
             border-radius: 19px;
             cursor: pointer;
             transition: background-color 0.3s;
@@ -109,7 +108,7 @@ const QuizStyles = () => (
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #6d28d9; /* Darker violet */
+            background-color: #4f46e5; /* indigo-600 */
             -webkit-transition: .4s;
             transition: .4s;
             border-radius: 19px; /* Same as switch for full rounding */
@@ -133,10 +132,10 @@ const QuizStyles = () => (
             border-radius: 15px; /* Half of height for rounded thumb */
         }
         input:checked + .toggle-slider {
-            background-color: #6d28d9; /* Darker violet */
+            background-color: #4f46e5; /* indigo-600 */
         }
         input:focus + .toggle-slider {
-            box-shadow: 0 0 1px #6d28d9;
+            box-shadow: 0 0 1px #4f46e5;
         }
         input:checked + .toggle-slider:before {
             -webkit-transform: translateX(54px);
@@ -154,11 +153,11 @@ const QuizStyles = () => (
             margin-left: -5px; /* Adjust text position */
         }
         .toggle-slider .label-exam {
-            color: #d1baff; /* Lighter violet when not active */
+            color: #a5b4fc; /* indigo-300 when not active */
             margin-right: -5px; /* Adjust text position */
         }
         input:checked + .toggle-slider .label-practice {
-            color: #d1baff; /* Gray out Practice when Exam is selected */
+            color: #a5b4fc; /* Gray out Practice when Exam is selected */
         }
         input:checked + .toggle-slider .label-exam {
             color: white; /* Lighten Exam when Exam is selected */
@@ -251,16 +250,16 @@ export const ExamDashboard = () => {
     return (
         <>
             <QuizStyles />
-            <div className="w-full flex flex-col lg:flex-row justify-center items-start p-4 gap-8">
+            <div className="w-full flex flex-col lg:flex-row justify-center p-4 gap-8">
                 {/* Desktop Question Nav */}
-                <div className="hidden lg:flex flex-col w-72 bg-white p-6 rounded-xl shadow-lg h-fit sticky top-24">
+                <div className="hidden lg:flex flex-col w-72 bg-white p-6 rounded-xl shadow-lg sticky top-24">
                      <h3 className="text-lg font-bold mb-4 border-b pb-3 text-gray-800">Questions</h3>
                      <div className="grid grid-cols-5 gap-3">
                         {renderNavItems(false)}
                      </div>
                      <div className="mt-6 border-t pt-4 space-y-3 text-sm text-gray-600">
                         <div className="flex items-center">
-                            <span className="w-4 h-4 rounded-full mr-3 flex-shrink-0" style={{backgroundColor: '#6d28d9'}}></span>
+                            <span className="w-4 h-4 rounded-full mr-3 flex-shrink-0 bg-indigo-600"></span>
                             <span>Current</span>
                         </div>
                         <div className="flex items-center">
@@ -347,7 +346,7 @@ export const ExamDashboard = () => {
                     <div className="flex flex-wrap justify-end items-center border-t pt-4 mt-6 gap-4">
                         {isPracticeMode && (
                             <button
-                                className="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 flex items-center gap-2 transition-colors" style={{backgroundColor: '#6d28d9'}}
+                                className="text-white font-semibold py-2 px-4 rounded-lg flex items-center gap-2 transition-colors bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700"
                                 onClick={() => setInfoModal({ show: true, message: currentQuestion.hint || "No hint available." })}
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" /></svg>
@@ -356,7 +355,7 @@ export const ExamDashboard = () => {
                         )}
                         {showPracticeFeedback && (
                              <button
-                                className="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors" style={{backgroundColor: '#6d28d9'}}
+                                className="text-white font-semibold py-2 px-4 rounded-lg transition-colors bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700"
                                 onClick={() => setInfoModal({ show: true, message: `The correct answer is: ${currentQuestion.answer}` })}
                              >
                                  Get Explanation
@@ -365,14 +364,14 @@ export const ExamDashboard = () => {
                         
                         <div className="flex gap-4">
                             <button
-                                className="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors" style={{backgroundColor: '#6d28d9'}}
+                                className="text-white font-bold py-2 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700"
                                 onClick={() => setCurrentQuestionIndex(currentQuestionIndex - 1)}
                                 disabled={isFirstQuestion}
                             >
                                 Previous
                             </button>
                             <button
-                                className="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors" style={{backgroundColor: '#6d28d9'}}
+                                className="text-white font-bold py-2 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700"
                                 onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}
                                 disabled={isLastQuestion}
                             >
@@ -391,7 +390,7 @@ export const ExamDashboard = () => {
                            {renderNavItems(true)}
                         </div>
                         <button 
-                            className="bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-indigo-700 mt-6 transition-colors" style={{backgroundColor: '#6d28d9'}}
+                            className="text-white font-bold py-2 px-6 rounded-lg mt-6 transition-colors bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700"
                             onClick={() => {
                                 setShowMobileNav(false);
                                 setShowAllMobileQuestions(false);
@@ -407,7 +406,7 @@ export const ExamDashboard = () => {
                     <div className="modal-content">
                         <p className="mb-4">{infoModal.message}</p>
                         <button
-                            className="bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-indigo-700 transition-colors" style={{backgroundColor: '#6d28d9'}}
+                            className="text-white font-bold py-2 px-6 rounded-lg transition-colors bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700"
                             onClick={() => setInfoModal({ show: false, message: '' })}
                         >
                             OK
