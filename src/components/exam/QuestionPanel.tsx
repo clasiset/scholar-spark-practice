@@ -39,9 +39,9 @@ export const QuestionPanel = ({ questions, currentQuestionIndex, answers, flagge
   };
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 h-full flex flex-col shadow-sm">
-      <div className="p-4 border-b border-gray-100">
-        <h2 className="text-lg font-semibold text-gray-900">Questions</h2>
+    <div className="bg-card text-card-foreground rounded-lg border h-full flex flex-col shadow-sm">
+      <div className="p-4 border-b">
+        <h2 className="text-lg font-semibold">Questions</h2>
       </div>
       
       <div className="p-4 flex-grow overflow-y-auto">
@@ -49,14 +49,14 @@ export const QuestionPanel = ({ questions, currentQuestionIndex, answers, flagge
           {questions.map((_, index) => {
             const isFlagged = flaggedQuestions.includes(index);
             const isAnswered = answers[index] !== undefined;
-            let buttonClass = 'bg-gray-50 text-gray-600 hover:bg-gray-100 border border-gray-200';
+            let buttonClass = 'bg-muted text-muted-foreground hover:bg-accent border';
             
             if (index === currentQuestionIndex) {
               buttonClass = 'bg-blue-600 text-white border-blue-600 shadow-md';
             } else if (isAnswered) {
-              buttonClass = 'bg-green-50 text-green-700 border-green-200';
+              buttonClass = 'bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 border-green-200 dark:border-green-500/30';
             } else if (isFlagged && !examMode) {
-              buttonClass = 'bg-red-50 text-red-700 border-red-200';
+              buttonClass = 'bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400 border-red-200 dark:border-red-500/30';
             }
 
             return (
@@ -91,23 +91,26 @@ export const QuestionPanel = ({ questions, currentQuestionIndex, answers, flagge
         </div>
       </div>
 
-      <div className="p-4 border-t border-gray-100 space-y-4">
-        <div className="space-y-3 text-xs text-gray-600">
+      <div className="p-4 border-t space-y-4">
+        <div className="space-y-3 text-xs text-muted-foreground">
           <div className="flex items-center">
             <span className="w-4 h-4 rounded bg-blue-600 mr-3 flex-shrink-0"></span>
             <span>Current</span>
           </div>
           <div className="flex items-center">
-            <span className="w-4 h-4 rounded bg-green-50 border border-green-200 mr-3 flex-shrink-0"></span>
+            <span className="w-4 h-4 rounded bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-500/30 mr-3 flex-shrink-0"></span>
             <span>Answered</span>
           </div>
           <div className="flex items-center">
-            <span className="w-4 h-4 rounded bg-gray-50 border border-gray-200 mr-3 flex-shrink-0"></span>
+            <span className="w-4 h-4 rounded bg-muted border mr-3 flex-shrink-0"></span>
             <span>Unanswered</span>
           </div>
           {!examMode && (
             <div className="flex items-center">
-              <Flag size={12} className="text-red-500 mr-3 flex-shrink-0" />
+              <div className="relative w-4 h-4 mr-3 flex-shrink-0">
+                <span className="w-4 h-4 rounded block bg-muted border"></span>
+                <Flag size={10} fill="currentColor" className="absolute -top-1 -right-1 text-red-500" />
+              </div>
               <span>Flagged (Long press to flag)</span>
             </div>
           )}
