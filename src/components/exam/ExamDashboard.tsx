@@ -1,5 +1,5 @@
-
 import React, { useState, useEffect, useRef } from 'react';
+import { List } from 'lucide-react';
 
 const questions = [
     { text: "The weather outside was extremely pleasant and hence we decided to ________.", options: ["employ this rare opportunity for writing letters", "enjoy a morning ride in the open", "refrain from going out for a morning walk", "utilize our time watching the television"], answer: "enjoy a morning ride in the open", hint: "Think about what people do in pleasant weather." },
@@ -255,29 +255,23 @@ export const ExamDashboard = () => {
     return (
         <>
             <QuizStyles />
-            <div className="quiz-container w-full max-w-7xl grid grid-cols-12 gap-6 p-4">
-                {/* Left Panel: Question Navigation (Desktop View) */}
-                <div className="hidden lg:flex col-span-3 bg-white p-6 rounded-xl shadow-lg question-nav-panel">
-                    <div className="flex-grow overflow-y-auto">
-                        <h3 className="text-lg font-bold mb-6">Questions</h3>
-                        <div className="grid grid-cols-5 gap-4">
-                            {renderNavItems()}
-                        </div>
-                    </div>
-                    <div className="flex-shrink-0 pt-4 border-t mt-4">
-                        <ul className="space-y-2 text-sm text-gray-600">
-                            <li className="flex items-center gap-2"><span className="w-4 h-4 rounded-full bg-indigo-600"></span> Current</li>
-                            <li className="flex items-center gap-2"><span className="w-4 h-4 rounded-full border-2 border-green-500"></span> Answered</li>
-                            <li className="flex items-center gap-2"><span className="w-4 h-4 rounded-full border-2 border-gray-300"></span> Unanswered</li>
-                            <li className="flex items-center gap-2"><span className="text-red-500">⚑</span> Flagged (Long press)</li>
-                        </ul>
-                    </div>
-                </div>
-
-                {/* Right Panel: Main Question Content */}
-                <div className="col-span-12 lg:col-span-9 bg-white p-6 md:p-8 rounded-xl shadow-lg flex flex-col">
+            <div className="quiz-container w-full flex justify-center items-start p-4">
+                {/* Main Content Card */}
+                <div className="w-full max-w-4xl bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg flex flex-col">
                     <div className="flex justify-between items-center mb-6">
-                        <h2 className="text-xl font-semibold text-gray-800">Question {currentQuestionIndex + 1} of {questions.length}</h2>
+                        <div className="flex items-center gap-3 sm:gap-4">
+                            <button
+                                className="p-2 rounded-md hover:bg-gray-100 transition-colors"
+                                onClick={() => {
+                                    setShowMobileNav(true);
+                                    setShowAllMobileQuestions(true);
+                                }}
+                                title="View all questions"
+                            >
+                                <List className="h-6 w-6 text-gray-700" />
+                            </button>
+                            <h2 className="text-lg sm:text-xl font-semibold text-gray-800">Question {currentQuestionIndex + 1} of {questions.length}</h2>
+                        </div>
                         <div className="flex items-center gap-2">
                             <label className="toggle-switch">
                                 <input type="checkbox" checked={!isPracticeMode} onChange={() => setIsPracticeMode(!isPracticeMode)} />
@@ -290,59 +284,45 @@ export const ExamDashboard = () => {
                     </div>
 
                     <div className="flex-grow">
-                        <div className="max-w-4xl mx-auto w-full">
-                            <p className="text-lg text-gray-700 mb-6">{currentQuestion.text}</p>
-                            <div className="space-y-4">
-                                {currentQuestion.options.map((option, i) => {
-                                    const optionLetter = String.fromCharCode(65 + i);
-                                    const isSelected = userAnswer === option;
-                                    const isCorrect = currentQuestion.answer === option;
+                        <p className="text-lg text-gray-700 mb-6">{currentQuestion.text}</p>
+                        <div className="space-y-4">
+                            {currentQuestion.options.map((option, i) => {
+                                const optionLetter = String.fromCharCode(65 + i);
+                                const isSelected = userAnswer === option;
+                                const isCorrect = currentQuestion.answer === option;
 
-                                    let labelClass = "flex items-center gap-4 w-full p-4 border rounded-lg cursor-pointer transition-colors hover:bg-gray-50";
-                                    if (isSelected) labelClass += " bg-indigo-100 border-indigo-500";
-                                    if (showPracticeFeedback) {
-                                        if(isCorrect) labelClass += " correct-answer";
-                                        else if(isSelected) labelClass += " incorrect-answer";
-                                    }
-                                    
-                                    return (
-                                        <div key={i}>
-                                            <input
-                                                type="radio"
-                                                id={`q${currentQuestionIndex}_${i}`}
-                                                name={`question${currentQuestionIndex}`}
-                                                value={option}
-                                                className="hidden peer"
-                                                checked={isSelected}
-                                                onChange={() => handleAnswerSelect(option)}
-                                                disabled={showPracticeFeedback}
-                                            />
-                                            <label htmlFor={`q${currentQuestionIndex}_${i}`} className={labelClass}>
-                                                <span className={`flex-shrink-0 w-8 h-8 flex items-center justify-center border-2 rounded-full font-semibold text-gray-500 ${isSelected ? 'bg-indigo-600 text-white border-indigo-600' : ''}`}>
-                                                    {optionLetter}
-                                                </span>
-                                                <span className="text-gray-700">{option}</span>
-                                            </label>
-                                        </div>
-                                    );
-                                })}
-                            </div>
+                                let labelClass = "flex items-center gap-4 w-full p-4 border rounded-lg cursor-pointer transition-colors hover:bg-gray-50";
+                                if (isSelected) labelClass += " bg-indigo-100 border-indigo-500";
+                                if (showPracticeFeedback) {
+                                    if(isCorrect) labelClass += " correct-answer";
+                                    else if(isSelected) labelClass += " incorrect-answer";
+                                }
+                                
+                                return (
+                                    <div key={i}>
+                                        <input
+                                            type="radio"
+                                            id={`q${currentQuestionIndex}_${i}`}
+                                            name={`question${currentQuestionIndex}`}
+                                            value={option}
+                                            className="hidden peer"
+                                            checked={isSelected}
+                                            onChange={() => handleAnswerSelect(option)}
+                                            disabled={showPracticeFeedback}
+                                        />
+                                        <label htmlFor={`q${currentQuestionIndex}_${i}`} className={labelClass}>
+                                            <span className={`flex-shrink-0 w-8 h-8 flex items-center justify-center border-2 rounded-full font-semibold text-gray-500 ${isSelected ? 'bg-indigo-600 text-white border-indigo-600' : ''}`}>
+                                                {optionLetter}
+                                            </span>
+                                            <span className="text-gray-700">{option}</span>
+                                        </label>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
 
-                    <div className="flex justify-between items-center border-t pt-4 mt-6 gap-4">
-                        <button 
-                            className="lg:hidden w-10 h-10 rounded-full flex items-center justify-center bg-indigo-600 hover:bg-indigo-700 text-white font-bold p-2 transition-colors" style={{backgroundColor: '#6d28d9'}}
-                            onClick={() => {
-                                setShowMobileNav(true);
-                            }}
-                        >
-                            {showAllMobileQuestions ? (
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
-                            ) : (
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7" /></svg>
-                            )}
-                        </button>
+                    <div className="flex flex-wrap justify-end items-center border-t pt-4 mt-6 gap-4">
                         {isPracticeMode && (
                             <button
                                 className="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700 flex items-center gap-2 transition-colors" style={{backgroundColor: '#6d28d9'}}
@@ -361,29 +341,31 @@ export const ExamDashboard = () => {
                              </button>
                         )}
                         
-                        <button
-                            className="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors" style={{backgroundColor: '#6d28d9'}}
-                            onClick={() => setCurrentQuestionIndex(currentQuestionIndex - 1)}
-                            disabled={isFirstQuestion}
-                        >
-                            Previous
-                        </button>
-                        <button
-                            className="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors" style={{backgroundColor: '#6d28d9'}}
-                            onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}
-                            disabled={isLastQuestion}
-                        >
-                            Next
-                        </button>
+                        <div className="flex gap-4">
+                            <button
+                                className="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors" style={{backgroundColor: '#6d28d9'}}
+                                onClick={() => setCurrentQuestionIndex(currentQuestionIndex - 1)}
+                                disabled={isFirstQuestion}
+                            >
+                                Previous
+                            </button>
+                            <button
+                                className="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors" style={{backgroundColor: '#6d28d9'}}
+                                onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}
+                                disabled={isLastQuestion}
+                            >
+                                Next
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                {/* Mobile Question Navigation Modal */}
+                {/* Question Navigation Modal */}
                 <div className={`modal ${showMobileNav ? 'show' : ''}`}>
                     <div className="modal-content">
                         <h3 className="text-lg font-bold mb-4 border-b pb-3">Questions</h3>
                         <p className="text-xs text-gray-500 mb-4">Click to navigate. Long press to flag.</p>
-                        <div className="grid grid-cols-5 gap-3">
+                        <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 gap-3">
                            {renderNavItems(true)}
                         </div>
                         <button 
