@@ -17,7 +17,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Switch } from "@/components/ui/switch";
-import { Sun, Moon, User, Settings, CreditCard, Bell, LogOut, Eye } from 'lucide-react';
+import { Sun, Moon, User, Settings, CreditCard, Bell, LogOut, Menu, X } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import { useI18n } from '../i18n/i18nContext';
 
@@ -335,28 +335,11 @@ const Header = ({ navigate, openModal }) => {
 
         {/* Mobile Menu Button */}
         <div className="lg:hidden flex items-center space-x-2">
-          <LanguageSwitcher />
-          <div className="flex items-center">
-            <Sun className={`h-5 w-5 text-yellow-500 transition-all ${isDarkMode ? 'scale-0' : 'scale-100'}`} />
-            <Switch
-                checked={isDarkMode}
-                onCheckedChange={setIsDarkMode}
-                className="mx-2"
-                aria-label="Toggle dark mode"
-            />
-            <Moon className={`h-5 w-5 text-slate-400 transition-all ${isDarkMode ? 'scale-100' : 'scale-0'}`} />
-          </div>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none focus:text-gray-900 p-2"
           >
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              {isMobileMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
+            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </div>
@@ -395,6 +378,19 @@ const Header = ({ navigate, openModal }) => {
             <NavLink text={t.navigation.contactUs} onClick={() => { navigate('contact'); setIsMobileMenuOpen(false); }} />
             
             <div className="pt-4 mt-4 border-t border-gray-200 dark:border-slate-700">
+              <div className="flex justify-between items-center mb-4">
+                <LanguageSwitcher />
+                <div className="flex items-center">
+                  <Sun className={`h-5 w-5 text-yellow-500 transition-all ${isDarkMode ? 'scale-0' : 'scale-100'}`} />
+                  <Switch
+                      checked={isDarkMode}
+                      onCheckedChange={setIsDarkMode}
+                      className="mx-2"
+                      aria-label="Toggle dark mode"
+                  />
+                  <Moon className={`h-5 w-5 text-slate-400 transition-all ${isDarkMode ? 'scale-100' : 'scale-0'}`} />
+                </div>
+              </div>
               {user ? (
                   <div className="space-y-3">
                       <div className="flex items-center space-x-3">
