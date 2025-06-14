@@ -29,29 +29,10 @@
     "welcomeMessage": "ወደ የመማሪያ መድረሻዎ እንኳን በደህና መጡ።",
     "heroTitle": "የአካዳሚክ ብቃትዎ መግቢያ በር",
     "heroSubtitle": "በአጠቃላይ የመልመጃ ፈተናዎች እና በ AI የሚሰጡ ግብረመልሶች የዩኒቨርሲቲ መግቢያ እና መውጫ ፈተናዎችን ይማሩ።",
-    "getStarted": "ይጀምሩ",
-    "whyChooseTitle": "ለምን የእኛን መድረክ ይመርጡ?",
-    "feature1Title": "አጠቃላይ ልምምድ",
-    "feature1Description": "ሁሉንም የፈተና ርዕሰ ጉዳዮችን የሚሸፍኑ በሺዎች የሚቆጠሩ የልምምድ ጥያቄዎችን ከዝርዝር ማብራሪያዎች ጋር ያግኙ።",
-    "feature2Title": "በ AI የሚሰራ ግብረመልስ",
-    "feature2Description": "ጥንካሬዎትን እና የመሻሻል አካባቢዎችን ለመለየት ቅጽበታዊ የግል ግብረመልስ ያግኙ።",
-    "feature3Title": "የባለሙያ ይዘት",
-    "feature3Description": "ሁሉም ይዘቶች በልምድ ባላቸው አስተማሪዎች እና የፈተና ባለሙያዎች የተፈጠሩ እና የተገመገሙ ናቸው።",
-    "testimonialsTitle": "ተማሪዎቻችን ምን ይላሉ",
-    "testimonial1Quote": "የልምምድ ፈተናዎቹ የፈተናውን ቅርጸት ፍጹም እንድገነዘብ ረድተውኛል። ከተጠበቀው በላይ ውጤት አስመዝግቤያለሁ!",
-    "testimonial1Name": "አብይ ተስፋዬ",
-    "testimonial1Role": "የዩኒቨርሲቲ ተማሪ",
-    "testimonial2Quote": "ከእያንዳንዱ ጥያቄ በኋላ የተሰጡት ዝርዝር ማብራሪያዎች ከስህተቶቼ እንድማር በእውነት ረድተውኛል።",
-    "testimonial2Name": "መሮን ከበደ",
-    "testimonial2Role": "የቅርብ ጊዜ ተመራቂ",
-    "testimonial3Quote": "መድረኩ ከመማሪያ ፍጥነቴ ጋር እንዴት እንደሚላመድ እወዳለሁ። እንደ የግል አስተማሪ ማግኘት ይመስላል!",
-    "testimonial3Name": "ዳዊት አሸናፊ",
-    "testimonial3Role": "የሁለተኛ ደረጃ ተማሪ",
-    "ctaTitle": "በፈተናዎችዎ ለመበለጽግ ዝግጁ ነዎት?",
-    "ctaSubtitle": "በመድረካችን በተሳካ ሁኔታ ለፈተናዎቻቸው የተዘጋጁ በሺዎች የሚቆጠሩ ተማሪዎችን ይቀላቀሉ።",
-    "ctaButton": "ጉዞዎን ዛሬ ይጀምሩ"
+    "getStarted": "ይጀምሩ"
   },
   "profile": {
+    "seePublicProfile": "የህዝብ መገለጫዎን ይመልከቱ",
     "updateInformation": "መረጃዎን ያዘምኑ",
     "accountPrivacySettings": "የመለያ እና ግላዊነት ቅንብሮች",
     "managePreferences": "ምርጫዎችን ያስተዳድሩ",
@@ -67,51 +48,5 @@
     "save": "አስቀምጥ",
     "submit": "አስገባ",
     "back": "ተመለስ"
-  },
-  "courses": {
-    "title": "ያሉ ትምህርቶች",
-    "enrollNow": "አሁን ተመዝገብ",
-    "studentsEnrolled": "ተማሪዎች ተመዝግበዋል"
-  },
-  "contact": {
-    "title": "አግኙን",
-    "name": "ስም",
-    "email": "ኢሜይል",
-    "message": "መልእክት",
-    "sendMessage": "መልእክት ላክ",
-    "namePlaceholder": "ሙሉ ስምዎ",
-    "emailPlaceholder": "የኢሜይል አድራሻዎ",
-    "messagePlaceholder": "መልእክትዎ",
-    "thankYou": "ለአስተያየትዎ እናመሰግናለን!",
-    "fillRequired": "እባክዎ ስምዎን እና መልእክትዎን ይሙሉ።"
-  },
-  "about": {
-    "title": "ስለ ትምህርት መድረክ",
-    "description1": "የትምህርት መድረክ የኢትዮጵያ ተማሪዎች በዩኒቨርሲቲ መግቢያ እና መውጫ ፈተናዎች እንዲበለጽጉ ለመርዳት ያለመ ነው።",
-    "description2": "መድረካችን ተማሪዎች ለአካዳሚክ ፈተናዎቻቸው በደንብ እንዲዘጋጁ አጠቃላይ የልምምድ ፈተናዎች፣ በ AI የሚሰጡ ግብረመልሶች እና የግል የመማሪያ ልምዶችን ይሰጣል።"
-  },
-  "exam": {
-    "selectSubjectAndYear": "ለመለማመድ የርዕሰ ጉዳይዎን እና ዓመትዎን ይምረጡ",
-    "noSubjectsFound": "ከፍለጋዎ ጋር የሚዛመዱ ርዕሰ ጉዳዮች አልተገኙም።",
-    "searchSubjects": "ርዕሰ ጉዳዮችን ፈልግ..."
-  },
-  "footer": {
-    "tagline": "ወደ አካዳሚክ ብቃት የሚወስደው መንገድ።",
-    "quickLinks": "ቀላል አገናኞች",
-    "exams": "ፈተናዎች",
-    "support": "ድጋፍ",
-    "helpCenter": "የእርዳታ ማዕከል",
-    "privacyPolicy": "የግላዊነት ፖሊሲ",
-    "termsOfService": "የአገልግሎት ውሎች",
-    "allRightsReserved": "ሁሉም መብቶች የተጠበቁ ናቸው።",
-    "mathematics": "ሒሳብ",
-    "physics": "ፊዚክስ",
-    "chemistry": "ኬሚስትሪ",
-    "biology": "ባዮሎጂ"
-  },
-  "blog": {
-    "title": "ከብሎጋችን",
-    "subtitle": "ስለ ዘመናዊ ትምህርት እና AI ግንዛቤዎች እና ጽሁፎች።",
-    "readMore": "ተጨማሪ አንብብ"
   }
 }

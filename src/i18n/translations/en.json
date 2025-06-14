@@ -29,29 +29,10 @@
     "welcomeMessage": "Welcome to your ultimate learning destination.",
     "heroTitle": "Your Gateway to Academic Excellence",
     "heroSubtitle": "Master university entrance and exit exams with our comprehensive practice tests and AI-powered feedback.",
-    "getStarted": "Get Started",
-    "whyChooseTitle": "Why Choose Our Platform?",
-    "feature1Title": "Comprehensive Practice",
-    "feature1Description": "Access thousands of practice questions covering all exam topics with detailed explanations.",
-    "feature2Title": "AI-Powered Feedback",
-    "feature2Description": "Get instant, personalized feedback to identify your strengths and areas for improvement.",
-    "feature3Title": "Expert Content",
-    "feature3Description": "All content is created and reviewed by experienced educators and exam specialists.",
-    "testimonialsTitle": "What Our Students Say",
-    "testimonial1Quote": "The practice tests helped me understand the exam format perfectly. I scored higher than I ever expected!",
-    "testimonial1Name": "Abiy Tesfaye",
-    "testimonial1Role": "University Student",
-    "testimonial2Quote": "The detailed explanations after each question really helped me learn from my mistakes.",
-    "testimonial2Name": "Meron Kebede",
-    "testimonial2Role": "Recent Graduate",
-    "testimonial3Quote": "I love how the platform adapts to my learning pace. It's like having a personal tutor!",
-    "testimonial3Name": "Dawit Ashenafi",
-    "testimonial3Role": "High School Student",
-    "ctaTitle": "Ready to Excel in Your Exams?",
-    "ctaSubtitle": "Join thousands of students who have successfully prepared for their exams with our platform.",
-    "ctaButton": "Start Your Journey Today"
+    "getStarted": "Get Started"
   },
   "profile": {
+    "seePublicProfile": "See your public profile",
     "updateInformation": "Update your information",
     "accountPrivacySettings": "Account & privacy settings",
     "managePreferences": "Manage preferences",
@@ -67,51 +48,5 @@
     "save": "Save",
     "submit": "Submit",
     "back": "Back"
-  },
-  "courses": {
-    "title": "Available Courses",
-    "enrollNow": "Enroll Now",
-    "studentsEnrolled": "students enrolled"
-  },
-  "contact": {
-    "title": "Contact Us",
-    "name": "Name",
-    "email": "Email",
-    "message": "Message",
-    "sendMessage": "Send Message",
-    "namePlaceholder": "Your full name",
-    "emailPlaceholder": "Your email address",
-    "messagePlaceholder": "Your message",
-    "thankYou": "Thank you for your feedback!",
-    "fillRequired": "Please fill in your name and message."
-  },
-  "about": {
-    "title": "About EduPlatform",
-    "description1": "EduPlatform is dedicated to helping Ethiopian students excel in their university entrance and exit examinations.",
-    "description2": "Our platform provides comprehensive practice tests, AI-powered feedback, and personalized learning experiences to ensure students are well-prepared for their academic challenges."
-  },
-  "exam": {
-    "selectSubjectAndYear": "Select your subject and year to start practicing",
-    "noSubjectsFound": "No subjects found matching your search.",
-    "searchSubjects": "Search subjects..."
-  },
-  "footer": {
-    "tagline": "Your gateway to academic excellence.",
-    "quickLinks": "Quick Links",
-    "exams": "Exams",
-    "support": "Support",
-    "helpCenter": "Help Center",
-    "privacyPolicy": "Privacy Policy",
-    "termsOfService": "Terms of Service",
-    "allRightsReserved": "All rights reserved.",
-    "mathematics": "Mathematics",
-    "physics": "Physics",
-    "chemistry": "Chemistry",
-    "biology": "Biology"
-  },
-  "blog": {
-    "title": "From Our Blog",
-    "subtitle": "Insights and articles on modern education and AI.",
-    "readMore": "Read More"
   }
 }

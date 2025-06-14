@@ -3,10 +3,8 @@ import React, { useState } from 'react';
 import { Search } from 'lucide-react';
 import BackButton from './BackButton';
 import { examData } from '../data/examData';
-import { useI18n } from '../i18n/i18nContext';
 
 const ExamSubjectsPage = ({ navigate, goBack, previousPageName, pageData }) => {
-  const { t } = useI18n();
   const [searchTerm, setSearchTerm] = useState('');
   
   const examType = pageData?.examType || 'entrance';
@@ -46,7 +44,7 @@ const ExamSubjectsPage = ({ navigate, goBack, previousPageName, pageData }) => {
               <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
               <input
                 type="text"
-                placeholder={t.exam.searchSubjects}
+                placeholder="Search subjects..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-12 pr-4 py-3 bg-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -57,7 +55,7 @@ const ExamSubjectsPage = ({ navigate, goBack, previousPageName, pageData }) => {
 
         <div className="container mx-auto px-6 py-8">
           {!searchTerm && (
-            <p className="text-gray-700 text-center mb-8 font-medium">{t.exam.selectSubjectAndYear}</p>
+            <p className="text-gray-700 text-center mb-8 font-medium">Select your subject and year to start practicing</p>
           )}
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -85,7 +83,7 @@ const ExamSubjectsPage = ({ navigate, goBack, previousPageName, pageData }) => {
 
           {filteredSubjects.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-gray-500">{t.exam.noSubjectsFound}</p>
+              <p className="text-gray-500">No subjects found matching your search.</p>
             </div>
           )}
         </div>
