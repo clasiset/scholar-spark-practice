@@ -70,7 +70,7 @@ const SubscriptionPage = ({ openModal, goBack, previousPageName }: {
           `)
           .eq('user_id', user.id)
           .eq('status', 'active')
-          .single();
+          .maybeSingle();
 
         if (!error && data) {
           setUserSubscription(data);

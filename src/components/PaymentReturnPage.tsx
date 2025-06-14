@@ -29,7 +29,7 @@ const PaymentReturnPage = ({ navigate }: { navigate: (page: string) => void }) =
             .from('payments' as any)
             .select('status')
             .eq('chapa_tx_ref', txRef)
-            .single();
+            .maybeSingle();
 
           if (error) {
             console.error('Error checking payment:', error);

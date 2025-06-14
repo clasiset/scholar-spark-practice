@@ -60,7 +60,7 @@ export const useSubscription = () => {
         `)
         .eq('user_id', user.id)
         .eq('status', 'active')
-        .single();
+        .maybeSingle();
 
       if (!error && data) {
         setSubscription(data);
