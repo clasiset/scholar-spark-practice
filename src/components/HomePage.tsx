@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BookOpen, Trophy, Users, ArrowRight, Star, Mail, Phone } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -66,24 +67,37 @@ const HomePage = ({ navigate, openModal, testimonials, user }) => {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center mb-12 md:mb-16 px-4">
-              <button
-                onClick={() => navigate('examSubjects', { examType: 'Entrance' })}
-                className="bg-white/10 backdrop-blur-md text-white hover:bg-white/20 px-6 md:px-8 py-3 md:py-4 rounded-xl font-semibold text-sm md:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-2 border border-white/20 group"
-              >
-                <BookOpen size={20} className="group-hover:rotate-12 transition-transform duration-300" />
-                <span className="hidden sm:inline">Explore Entrance Exams</span>
-                <span className="sm:hidden">Entrance Exams</span>
-                <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-              </button>
-              <button
-                onClick={() => navigate('examSubjects', { examType: 'Exit' })}
-                className="bg-gradient-to-r from-yellow-400/90 to-orange-500/90 hover:from-yellow-500/90 hover:to-orange-600/90 backdrop-blur-md text-white px-6 md:px-8 py-3 md:py-4 rounded-xl font-semibold text-sm md:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-2 border border-white/20 group"
-              >
-                <Trophy size={20} className="group-hover:rotate-12 transition-transform duration-300" />
-                <span className="hidden sm:inline">Explore Exit Exams</span>
-                <span className="sm:hidden">Exit Exams</span>
-                <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-              </button>
+              {!user ? (
+                <button
+                  onClick={() => openModal('signup')}
+                  className="bg-gradient-to-r from-yellow-400/90 to-orange-500/90 hover:from-yellow-500/90 hover:to-orange-600/90 backdrop-blur-md text-white px-8 md:px-10 py-4 md:py-5 rounded-xl font-semibold text-lg md:text-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-3 border border-white/20 group"
+                >
+                  <Users size={20} className="group-hover:scale-110 transition-transform duration-300" />
+                  <span>Get Started</span>
+                  <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-300" />
+                </button>
+              ) : (
+                <>
+                  <button
+                    onClick={() => navigate('examSubjects', { examType: 'Entrance' })}
+                    className="bg-white/10 backdrop-blur-md text-white hover:bg-white/20 px-6 md:px-8 py-3 md:py-4 rounded-xl font-semibold text-sm md:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-2 border border-white/20 group"
+                  >
+                    <BookOpen size={20} className="group-hover:rotate-12 transition-transform duration-300" />
+                    <span className="hidden sm:inline">Explore Entrance Exams</span>
+                    <span className="sm:hidden">Entrance Exams</span>
+                    <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                  </button>
+                  <button
+                    onClick={() => navigate('examSubjects', { examType: 'Exit' })}
+                    className="bg-gradient-to-r from-yellow-400/90 to-orange-500/90 hover:from-yellow-500/90 hover:to-orange-600/90 backdrop-blur-md text-white px-6 md:px-8 py-3 md:py-4 rounded-xl font-semibold text-sm md:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-2 border border-white/20 group"
+                  >
+                    <Trophy size={20} className="group-hover:rotate-12 transition-transform duration-300" />
+                    <span className="hidden sm:inline">Explore Exit Exams</span>
+                    <span className="sm:hidden">Exit Exams</span>
+                    <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                  </button>
+                </>
+              )}
             </div>
         </div>
       </section>
