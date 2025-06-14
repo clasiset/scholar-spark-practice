@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -132,7 +133,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 font-sans antialiased flex flex-col">
+    <div className="min-h-screen bg-gray-100 dark:bg-slate-900 font-sans antialiased flex flex-col">
       <Header navigate={navigate} openModal={openModal} />
       <main className="flex-grow">
         {renderContent()}

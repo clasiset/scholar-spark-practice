@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import NavLink from './NavLink';
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -15,6 +16,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Switch } from "@/components/ui/switch";
+import { Sun, Moon } from 'lucide-react';
 import { cn } from "@/lib/utils";
 
 const ListItem = React.forwardRef<
@@ -46,6 +49,12 @@ ListItem.displayName = "ListItem";
 const Header = ({ navigate, openModal }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [user, setUser] = useState<{ email: string } | null>(null);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    if (typeof window !== 'undefined') {
+        return localStorage.getItem('theme') === 'dark';
+    }
+    return false;
+  });
 
   useEffect(() => {
     const handleAuthChange = (event: CustomEvent) => {
@@ -59,24 +68,35 @@ const Header = ({ navigate, openModal }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDarkMode]);
+
+
   const getInitials = (email: string | undefined) => {
     if (!email) return 'U';
     return email[0].toUpperCase();
   };
 
   return (
-    <header className="bg-white/95 backdrop-blur-md shadow-lg py-3 md:py-4 px-4 md:px-6 lg:px-12 sticky top-0 z-50 border-b border-blue-100">
+    <header className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-lg py-3 md:py-4 px-4 md:px-6 lg:px-12 sticky top-0 z-50 border-b border-blue-100 dark:border-slate-800">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center cursor-pointer group" onClick={() => navigate('home')}>
-          <div className="w-8 h-8 md:w-10 md:h-10 mr-2 md:mr-3 rounded-full overflow-hidden shadow-md group-hover:shadow-lg transition-shadow duration-300 bg-white border-2 border-blue-200">
+          <div className="w-8 h-8 md:w-10 md:h-10 mr-2 md:mr-3 rounded-full overflow-hidden shadow-md group-hover:shadow-lg transition-shadow duration-300 bg-white border-2 border-blue-200 dark:border-slate-700">
             <img 
               src="/lovable-uploads/b4a3ff1d-fa0f-4e7a-8584-0b818b023773.png" 
               alt="Logo" 
               className="w-full h-full object-cover scale-110" 
             />
           </div>
-          <span className="text-lg md:text-2xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
+          <span className="text-lg md:text-2xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent dark:text-transparent dark:bg-gradient-to-r dark:from-sky-400 dark:to-cyan-300">
             EduPlatform
           </span>
         </div>
@@ -96,7 +116,7 @@ const Header = ({ navigate, openModal }) => {
                     <li className="row-span-3">
                       <NavigationMenuLink asChild>
                         <a
-                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md dark:from-slate-800/50 dark:to-slate-800"
                           href="#"
                           onClick={(e) => { e.preventDefault(); navigate('courses'); }}
                         >
@@ -172,8 +192,25 @@ const Header = ({ navigate, openModal }) => {
             </NavigationMenuList>
           </NavigationMenu>
           
-          <div className="flex items-center space-x-3 pl-6">
-            {!user && (
+          <div className="flex items-center space-x-4 pl-6">
+            <div className="flex items-center">
+              <Sun className={`h-5 w-5 text-yellow-500 transition-all ${isDarkMode ? 'scale-0' : 'scale-100'}`} />
+              <Switch
+                  checked={isDarkMode}
+                  onCheckedChange={setIsDarkMode}
+                  className="mx-2"
+                  aria-label="Toggle dark mode"
+              />
+              <Moon className={`h-5 w-5 text-slate-400 transition-all ${isDarkMode ? 'scale-100' : 'scale-0'}`} />
+            </div>
+
+            {user ? (
+              <Avatar onClick={() => openModal('profile', user)} className="cursor-pointer">
+                <AvatarFallback className="bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-semibold">
+                  {getInitials(user.email)}
+                </AvatarFallback>
+              </Avatar>
+            ) : (
                 <button
                   className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl"
                   onClick={() => openModal('login')}
@@ -186,9 +223,19 @@ const Header = ({ navigate, openModal }) => {
 
         {/* Mobile Menu Button */}
         <div className="lg:hidden flex items-center space-x-2">
+          <div className="flex items-center">
+            <Sun className={`h-5 w-5 text-yellow-500 transition-all ${isDarkMode ? 'scale-0' : 'scale-100'}`} />
+            <Switch
+                checked={isDarkMode}
+                onCheckedChange={setIsDarkMode}
+                className="mx-2"
+                aria-label="Toggle dark mode"
+            />
+            <Moon className={`h-5 w-5 text-slate-400 transition-all ${isDarkMode ? 'scale-100' : 'scale-0'}`} />
+          </div>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-gray-600 hover:text-gray-900 focus:outline-none focus:text-gray-900 p-2"
+            className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none focus:text-gray-900 p-2"
           >
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               {isMobileMenuOpen ? (
@@ -203,12 +250,12 @@ const Header = ({ navigate, openModal }) => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-white/95 backdrop-blur-md mt-4 rounded-lg shadow-xl border border-gray-100">
+        <div className="lg:hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-md mt-4 rounded-lg shadow-xl border border-gray-100 dark:border-slate-800">
           <nav className="flex flex-col space-y-1 py-4 px-6">
             <NavLink text="Home" onClick={() => { navigate('home'); setIsMobileMenuOpen(false); }} />
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="courses" className="border-b-0">
-                <AccordionTrigger className="py-2 hover:no-underline font-medium text-gray-700 hover:text-indigo-600 [&[data-state=open]>svg]:text-indigo-600">Courses</AccordionTrigger>
+                <AccordionTrigger className="py-2 hover:no-underline font-medium text-gray-700 hover:text-indigo-600 [&[data-state=open]>svg]:text-indigo-600 dark:text-gray-300 dark:hover:text-sky-400 dark:[&[data-state=open]>svg]:text-sky-400">Courses</AccordionTrigger>
                 <AccordionContent>
                   <div className="pl-4 flex flex-col space-y-1 pt-1">
                     <NavLink text="All Courses" onClick={() => { navigate('courses'); setIsMobileMenuOpen(false); }} />
@@ -218,7 +265,7 @@ const Header = ({ navigate, openModal }) => {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="exams" className="border-b-0">
-                <AccordionTrigger className="py-2 hover:no-underline font-medium text-gray-700 hover:text-indigo-600 [&[data-state=open]>svg]:text-indigo-600">Exams</AccordionTrigger>
+                <AccordionTrigger className="py-2 hover:no-underline font-medium text-gray-700 hover:text-indigo-600 [&[data-state=open]>svg]:text-indigo-600 dark:text-gray-300 dark:hover:text-sky-400 dark:[&[data-state=open]>svg]:text-sky-400">Exams</AccordionTrigger>
                 <AccordionContent>
                   <div className="pl-4 flex flex-col space-y-1 pt-1">
                     <NavLink text="Entrance Exam" onClick={() => { navigate('examSubjects', { examType: 'entrance' }); setIsMobileMenuOpen(false); }} />
@@ -229,7 +276,7 @@ const Header = ({ navigate, openModal }) => {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="about" className="border-b-0">
-                <AccordionTrigger className="py-2 hover:no-underline font-medium text-gray-700 hover:text-indigo-600 [&[data-state=open]>svg]:text-indigo-600">About</AccordionTrigger>
+                <AccordionTrigger className="py-2 hover:no-underline font-medium text-gray-700 hover:text-indigo-600 [&[data-state=open]>svg]:text-indigo-600 dark:text-gray-300 dark:hover:text-sky-400 dark:[&[data-state=open]>svg]:text-sky-400">About</AccordionTrigger>
                 <AccordionContent>
                   <div className="pl-4 flex flex-col space-y-1 pt-1">
                     <NavLink text="About Us" onClick={() => { navigate('about'); setIsMobileMenuOpen(false); }} />
@@ -241,14 +288,28 @@ const Header = ({ navigate, openModal }) => {
             <NavLink text="Subscription" onClick={() => { navigate('subscription'); setIsMobileMenuOpen(false); }} />
             <NavLink text="Local Job Portal" onClick={() => { navigate('localJobPortal'); setIsMobileMenuOpen(false); }} />
             
-            {!user && (
-              <button
-                className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 w-full mt-4"
-                onClick={() => { openModal('login'); setIsMobileMenuOpen(false); }}
-              >
-                Sign In
-              </button>
-            )}
+            <div className="pt-4 mt-4 border-t border-gray-200 dark:border-slate-700">
+              {user ? (
+                  <div className="flex items-center space-x-3" onClick={() => { openModal('profile', user); setIsMobileMenuOpen(false); }}>
+                      <Avatar className="cursor-pointer">
+                          <AvatarFallback className="bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-semibold">
+                              {getInitials(user.email)}
+                          </AvatarFallback>
+                      </Avatar>
+                      <div>
+                          <p className="font-semibold text-gray-800 dark:text-gray-200">{user.email}</p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">View Profile</p>
+                      </div>
+                  </div>
+              ) : (
+                <button
+                  className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 w-full"
+                  onClick={() => { openModal('login'); setIsMobileMenuOpen(false); }}
+                >
+                  Sign In
+                </button>
+              )}
+            </div>
           </nav>
         </div>
       )}
