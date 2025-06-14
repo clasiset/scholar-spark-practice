@@ -133,6 +133,9 @@ const Index = () => {
   const goBack = () => {
     if (history.length > 1) {
       setHistory(prevHistory => prevHistory.slice(0, -1));
+    } else {
+      // If we're at the first page or somehow the history is empty, ensure we go to home
+      setHistory([{ page: 'home', data: null }]);
     }
   };
   
