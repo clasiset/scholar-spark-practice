@@ -166,7 +166,7 @@ const QuizStyles = () => (
     `}</style>
 );
 
-export const ExamDashboard = () => {
+export const ExamDashboard = ({ goBack }: { goBack?: () => void }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [userAnswers, setUserAnswers] = useState(new Array(questions.length).fill(null));
     const [flaggedQuestions, setFlaggedQuestions] = useState(new Array(questions.length).fill(false));
@@ -221,6 +221,11 @@ export const ExamDashboard = () => {
         if (!isPracticeMode) {
             setTimeLeft(30 * 60);
         }
+    };
+
+    const handleGoBack = () => {
+        handleCloseCompletionModal();
+        if(goBack) goBack();
     };
 
     const startLongPress = (index: number) => {
@@ -440,12 +445,12 @@ export const ExamDashboard = () => {
                             </button>
                         )}
 
-                        {!isPracticeMode && (
+                        {!isPracticeMode && allAnswered && (
                             <button
                                 onClick={handleFinishExam}
-                                className="text-white font-semibold py-2 px-4 rounded-lg flex items-center gap-2 transition-colors bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
+                                className="text-white font-semibold py-2 px-4 rounded-lg flex items-center gap-2 transition-colors bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600"
                             >
-                                Submit Exam
+                                Congratulations!
                             </button>
                         )}
 
@@ -508,6 +513,7 @@ export const ExamDashboard = () => {
                     incorrect={questions.length - correctAnswersCount}
                     total={questions.length}
                     onClose={handleCloseCompletionModal}
+                    goBack={handleGoBack}
                 />
             )}
         </>

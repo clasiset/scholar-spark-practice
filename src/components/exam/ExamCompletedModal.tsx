@@ -1,8 +1,8 @@
 
 import React from 'react';
-import { Trophy, CheckCircle, XCircle, Home } from 'lucide-react';
+import { Trophy, CheckCircle, XCircle, ArrowLeft, RefreshCw } from 'lucide-react';
 
-export const ExamCompletedModal = ({ score, correct, incorrect, total, onClose }) => {
+export const ExamCompletedModal = ({ score, correct, incorrect, total, onClose, goBack }) => {
   const message = score >= 60 ? "Great job! You passed the exam." : "You need more practice. Review the material and try again.";
   const messageContainerClass = "bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300";
 
@@ -47,15 +47,26 @@ export const ExamCompletedModal = ({ score, correct, incorrect, total, onClose }
 
         <div className="space-y-3">
             <button
-                onClick={onClose}
+                onClick={goBack}
                 className="w-full bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 py-3 px-6 rounded-xl font-bold text-base
                            border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700
                            transition-all duration-200 ease-in-out transform hover:scale-105
                            flex items-center justify-center space-x-2 shadow-sm
                            focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
             >
-                <Home size={20} />
-                <span>Home</span>
+                <ArrowLeft size={20} />
+                <span>Back</span>
+            </button>
+             <button
+                onClick={onClose}
+                className="w-full bg-blue-600 text-white py-3 px-6 rounded-xl font-bold text-base
+                           hover:bg-blue-700
+                           transition-all duration-200 ease-in-out transform hover:scale-105
+                           flex items-center justify-center space-x-2 shadow-sm
+                           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            >
+                <RefreshCw size={20} />
+                <span>Restart</span>
             </button>
         </div>
       </div>

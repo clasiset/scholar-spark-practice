@@ -14,7 +14,7 @@ const ExamPage: React.FC<ExamPageProps> = ({ navigate, examDetails, goBack, prev
   return (
     <div className="container mx-auto px-4 md:px-6 py-4">
       <BackButton onClick={goBack} previousPageName={previousPageName} />
-      <ExamDashboard />
+      <ExamDashboard goBack={goBack} />
     </div>
   );
 };
