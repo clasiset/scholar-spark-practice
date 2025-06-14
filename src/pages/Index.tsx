@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import HomePage from '../components/HomePage';
@@ -31,6 +32,7 @@ interface HistoryEntry {
 
 interface User {
   email: string;
+  id: string;
 }
 
 // Main App Component
@@ -40,6 +42,7 @@ const Index = () => {
   const [modalType, setModalType] = useState(''); // 'signup', 'login', 'enroll', 'startExam'
   const [modalData, setModalData] = useState(null); // Data for the modal, e.g., course title for enrollment
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const [testimonials, setTestimonials] = useState([
     {
@@ -63,11 +66,52 @@ const Index = () => {
   ]);
 
   useEffect(() => {
+    // Set up auth state listener
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log('Auth state changed:', event, session?.user);
+      if (session?.user) {
+        const userData = {
+          email: session.user.email || '',
+          id: session.user.id
+        };
+        setUser(userData);
+        window.dispatchEvent(new CustomEvent('authChange', { detail: userData }));
+      } else {
+        setUser(null);
+        window.dispatchEvent(new CustomEvent('authChange', { detail: null }));
+      }
+      setLoading(false);
+    });
+
+    // Check for existing session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) {
+        const userData = {
+          email: session.user.email || '',
+          id: session.user.id
+        };
+        setUser(userData);
+      }
+      setLoading(false);
+    });
+
+    // Listen for custom auth events (fallback for older components)
     const handleAuthChange = (event: CustomEvent) => {
-      setUser(event.detail);
+      const userData = event.detail;
+      if (userData) {
+        setUser({
+          email: userData.email || '',
+          id: userData.id || ''
+        });
+      } else {
+        setUser(null);
+      }
     };
+
     window.addEventListener('authChange', handleAuthChange as EventListener);
+
     return () => {
+      subscription.unsubscribe();
       window.removeEventListener('authChange', handleAuthChange as EventListener);
     };
   }, []);
@@ -155,6 +199,17 @@ const Index = () => {
         return <HomePage navigate={navigate} openModal={openModal} />;
     }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-slate-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600 dark:text-gray-400">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-slate-900">

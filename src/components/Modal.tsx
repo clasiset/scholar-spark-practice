@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, User, Mail, Lock, UserPlus } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 import StartExamModal from './StartExamModal';
 
 const Modal = ({ type, data, onClose, openModal, navigate }) => {
@@ -10,35 +11,81 @@ const Modal = ({ type, data, onClose, openModal, navigate }) => {
     password: '',
     confirmPassword: ''
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+    setError(''); // Clear error when user types
   };
 
-  const handleAuth = () => {
-    if (type === 'signup') {
-        if (formData.email && formData.password && formData.password === formData.confirmPassword) {
-            window.dispatchEvent(new CustomEvent('authChange', { detail: { email: formData.email } }));
-            onClose();
-        } else if (formData.password !== formData.confirmPassword) {
-            alert("Passwords do not match.");
-        } else {
-            alert("Please fill in all fields.");
+  const handleAuth = async () => {
+    setLoading(true);
+    setError('');
+
+    try {
+      if (type === 'signup') {
+        if (!formData.email || !formData.password || !formData.confirmPassword) {
+          setError("Please fill in all fields.");
+          setLoading(false);
+          return;
         }
-    } else { // login
-        if (formData.email && formData.password) {
-            window.dispatchEvent(new CustomEvent('authChange', { detail: { email: formData.email } }));
-            onClose();
-        } else {
-            alert("Please enter your email and password.");
+        
+        if (formData.password !== formData.confirmPassword) {
+          setError("Passwords do not match.");
+          setLoading(false);
+          return;
         }
+
+        const { data, error } = await supabase.auth.signUp({
+          email: formData.email,
+          password: formData.password,
+          options: {
+            emailRedirectTo: `${window.location.origin}/`
+          }
+        });
+
+        if (error) {
+          setError(error.message);
+        } else if (data.user) {
+          window.dispatchEvent(new CustomEvent('authChange', { detail: data.user }));
+          onClose();
+        }
+      } else { // login
+        if (!formData.email || !formData.password) {
+          setError("Please enter your email and password.");
+          setLoading(false);
+          return;
+        }
+
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: formData.email,
+          password: formData.password,
+        });
+
+        if (error) {
+          setError(error.message);
+        } else if (data.user) {
+          window.dispatchEvent(new CustomEvent('authChange', { detail: data.user }));
+          onClose();
+        }
+      }
+    } catch (err) {
+      setError("An unexpected error occurred. Please try again.");
+    }
+    
+    setLoading(false);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      window.dispatchEvent(new CustomEvent('authChange', { detail: null }));
+      onClose();
+    } catch (error) {
+      console.error('Error logging out:', error);
     }
   };
-
-  const handleLogout = () => {
-    window.dispatchEvent(new CustomEvent('authChange', { detail: null }));
-    onClose();
-  }
 
   if (type === 'startExam') {
     return <StartExamModal onClose={onClose} examDetails={data} navigate={navigate} />;
@@ -53,6 +100,12 @@ const Modal = ({ type, data, onClose, openModal, navigate }) => {
         >
           &times;
         </button>
+
+        {error && (
+          <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+            {error}
+          </div>
+        )}
 
         {type === 'signup' && (
           <>
@@ -118,8 +171,12 @@ const Modal = ({ type, data, onClose, openModal, navigate }) => {
                 </button>
               </div>
 
-              <button onClick={handleAuth} className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                Create Account
+              <button 
+                onClick={handleAuth} 
+                disabled={loading}
+                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? 'Creating Account...' : 'Create Account'}
               </button>
               
               <p className="text-center text-gray-600 dark:text-slate-300 mt-4">
@@ -194,8 +251,12 @@ const Modal = ({ type, data, onClose, openModal, navigate }) => {
                 <a href="#" className="text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-500">Forgot password?</a>
               </div>
 
-              <button onClick={handleAuth} className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                Sign In
+              <button 
+                onClick={handleAuth} 
+                disabled={loading}
+                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? 'Signing In...' : 'Sign In'}
               </button>
               
               <p className="text-center text-gray-600 dark:text-slate-300 mt-4">
