@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { List, Clock } from 'lucide-react';
+import { List, Clock, Home } from 'lucide-react';
+import { ExamCompletedModal } from './ExamCompletedModal';
 
 const questions = [
     { text: "The weather outside was extremely pleasant and hence we decided to ________.", options: ["employ this rare opportunity for writing letters", "enjoy a morning ride in the open", "refrain from going out for a morning walk", "utilize our time watching the television"], answer: "enjoy a morning ride in the open", hint: "Think about what people do in pleasant weather." },
@@ -176,6 +177,10 @@ export const ExamDashboard = () => {
     const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes for the exam
     const timerRef = useRef<NodeJS.Timeout>();
 
+    const [showCompletionModal, setShowCompletionModal] = useState(false);
+    const [score, setScore] = useState(0);
+    const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
+
     const longPressTimer = useRef<NodeJS.Timeout>();
 
     const currentQuestion = questions[currentQuestionIndex];
@@ -192,6 +197,30 @@ export const ExamDashboard = () => {
         newFlags[index] = !newFlags[index];
         setFlaggedQuestions(newFlags);
         setInfoModal({ show: true, message: `Question ${index + 1} has been ${newFlags[index] ? 'flagged' : 'unflagged'}.` });
+    };
+
+    const handleFinishExam = () => {
+        let correct = 0;
+        userAnswers.forEach((answer, index) => {
+            if (answer === questions[index].answer) {
+                correct++;
+            }
+        });
+        
+        setCorrectAnswersCount(correct);
+        setScore(Math.round((correct / questions.length) * 100));
+        setShowCompletionModal(true);
+    };
+
+    const handleCloseCompletionModal = () => {
+        setShowCompletionModal(false);
+        // Reset exam state
+        setCurrentQuestionIndex(0);
+        setUserAnswers(new Array(questions.length).fill(null));
+        setFlaggedQuestions(new Array(questions.length).fill(false));
+        if (!isPracticeMode) {
+            setTimeLeft(30 * 60);
+        }
     };
 
     const startLongPress = (index: number) => {
@@ -248,6 +277,7 @@ export const ExamDashboard = () => {
     const showPracticeFeedback = userAnswer !== null && isPracticeMode;
     const isLastQuestion = currentQuestionIndex === questions.length - 1;
     const isFirstQuestion = currentQuestionIndex === 0;
+    const allAnswered = userAnswers.every(answer => answer !== null);
 
     useEffect(() => {
         if (!isPracticeMode) {
@@ -255,7 +285,7 @@ export const ExamDashboard = () => {
                 setTimeLeft(prevTime => {
                     if (prevTime <= 1) {
                         clearInterval(timerRef.current!);
-                        setInfoModal({ show: true, message: "Time's up! The exam has ended." });
+                        handleFinishExam();
                         return 0;
                     }
                     return prevTime - 1;
@@ -401,6 +431,24 @@ export const ExamDashboard = () => {
                              </button>
                         )}
                         
+                        {isPracticeMode && allAnswered && (
+                            <button
+                                onClick={handleFinishExam}
+                                className="text-white font-semibold py-2 px-4 rounded-lg flex items-center gap-2 transition-colors bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600"
+                            >
+                                Finish Exam
+                            </button>
+                        )}
+
+                        {!isPracticeMode && (
+                            <button
+                                onClick={handleFinishExam}
+                                className="text-white font-semibold py-2 px-4 rounded-lg flex items-center gap-2 transition-colors bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
+                            >
+                                Submit Exam
+                            </button>
+                        )}
+
                         <div className="flex gap-4">
                             <button
                                 className="text-white font-bold py-2 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700"
@@ -453,6 +501,15 @@ export const ExamDashboard = () => {
                     </div>
                 </div>
             </div>
+            {showCompletionModal && (
+                <ExamCompletedModal
+                    score={score}
+                    correct={correctAnswersCount}
+                    incorrect={questions.length - correctAnswersCount}
+                    total={questions.length}
+                    onClose={handleCloseCompletionModal}
+                />
+            )}
         </>
     );
 };
