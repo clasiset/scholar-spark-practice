@@ -26,7 +26,7 @@ const PaymentReturnPage = ({ navigate }: { navigate: (page: string) => void }) =
         
         const pollStatus = async (): Promise<void> => {
           const { data: payment, error } = await supabase
-            .from('payments')
+            .from('payments' as any)
             .select('status')
             .eq('chapa_tx_ref', txRef)
             .single();
@@ -40,10 +40,10 @@ const PaymentReturnPage = ({ navigate }: { navigate: (page: string) => void }) =
             return;
           }
 
-          if (payment?.status === 'succeeded') {
+          if (payment && payment.status === 'succeeded') {
             setPaymentStatus('success');
             setMessage('Payment successful! Your subscription is now active.');
-          } else if (payment?.status === 'failed') {
+          } else if (payment && payment.status === 'failed') {
             setPaymentStatus('failed');
             setMessage('Payment failed. Please try again.');
           } else if (attempts < maxAttempts) {

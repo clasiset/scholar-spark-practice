@@ -53,7 +53,7 @@ export const useSubscription = () => {
       }
 
       const { data, error } = await supabase
-        .from('subscriptions')
+        .from('subscriptions' as any)
         .select(`
           *,
           plans (*)

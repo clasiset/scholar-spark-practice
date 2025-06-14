@@ -41,7 +41,7 @@ const SubscriptionPage = ({ openModal, goBack, previousPageName }: {
   const loadPlans = async () => {
     try {
       const { data, error } = await supabase
-        .from('plans')
+        .from('plans' as any)
         .select('*')
         .order('price', { ascending: true });
 
@@ -63,7 +63,7 @@ const SubscriptionPage = ({ openModal, goBack, previousPageName }: {
       
       if (user) {
         const { data, error } = await supabase
-          .from('subscriptions')
+          .from('subscriptions' as any)
           .select(`
             *,
             plans (*)
