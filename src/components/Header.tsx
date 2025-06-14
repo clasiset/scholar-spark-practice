@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import NavLink from './NavLink';
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -15,8 +16,16 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Switch } from "@/components/ui/switch";
-import { Sun, Moon } from 'lucide-react';
+import { Sun, Moon, User, Settings, Shield, CreditCard, Bell, HelpCircle, LogOut, Eye } from 'lucide-react';
 import { cn } from "@/lib/utils";
 
 const ListItem = React.forwardRef<
@@ -77,10 +86,18 @@ const Header = ({ navigate, openModal }) => {
     }
   }, [isDarkMode]);
 
-
   const getInitials = (email: string | undefined) => {
     if (!email) return 'U';
     return email[0].toUpperCase();
+  };
+
+  const handleLogout = () => {
+    // Clear user session
+    setUser(null);
+    // Dispatch auth change event
+    window.dispatchEvent(new CustomEvent('authChange', { detail: null }));
+    // Navigate to home
+    navigate('home');
   };
 
   return (
@@ -198,11 +215,70 @@ const Header = ({ navigate, openModal }) => {
             </div>
 
             {user ? (
-              <Avatar onClick={() => openModal('profile', user)} className="cursor-pointer">
-                <AvatarFallback className="bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-semibold">
-                  {getInitials(user.email)}
-                </AvatarFallback>
-              </Avatar>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Avatar className="cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all duration-200">
+                    <AvatarFallback className="bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-semibold">
+                      {getInitials(user.email)}
+                    </AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-64 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-lg" align="end">
+                  <DropdownMenuLabel className="text-center py-3">
+                    <div className="flex flex-col items-center space-y-2">
+                      <Avatar className="w-12 h-12">
+                        <AvatarFallback className="bg-gradient-to-r from-indigo-600 to-blue-600 text-white text-lg font-semibold">
+                          {getInitials(user.email)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="font-semibold text-gray-900 dark:text-gray-100">{user.email}</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Student</p>
+                      </div>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  
+                  <DropdownMenuItem onClick={() => openModal('profile', user)} className="cursor-pointer">
+                    <Eye className="mr-2 h-4 w-4" />
+                    View Profile
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuItem onClick={() => openModal('accountSettings', user)} className="cursor-pointer">
+                    <Settings className="mr-2 h-4 w-4" />
+                    Account Settings
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuItem onClick={() => openModal('privacySettings', user)} className="cursor-pointer">
+                    <Shield className="mr-2 h-4 w-4" />
+                    Privacy Settings
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuItem onClick={() => openModal('notifications', user)} className="cursor-pointer">
+                    <Bell className="mr-2 h-4 w-4" />
+                    Notifications
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuItem onClick={() => navigate('subscription')} className="cursor-pointer">
+                    <CreditCard className="mr-2 h-4 w-4" />
+                    Billing & Subscription
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuSeparator />
+                  
+                  <DropdownMenuItem onClick={() => openModal('help', user)} className="cursor-pointer">
+                    <HelpCircle className="mr-2 h-4 w-4" />
+                    Help & Support
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuSeparator />
+                  
+                  <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-red-600 dark:text-red-400 focus:text-red-600 dark:focus:text-red-400">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             ) : (
                 <div className="flex items-center space-x-2">
                   <button
@@ -284,15 +360,48 @@ const Header = ({ navigate, openModal }) => {
             
             <div className="pt-4 mt-4 border-t border-gray-200 dark:border-slate-700">
               {user ? (
-                  <div className="flex items-center space-x-3" onClick={() => { openModal('profile', user); setIsMobileMenuOpen(false); }}>
-                      <Avatar className="cursor-pointer">
-                          <AvatarFallback className="bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-semibold">
-                              {getInitials(user.email)}
-                          </AvatarFallback>
-                      </Avatar>
-                      <div>
-                          <p className="font-semibold text-gray-800 dark:text-gray-200">{user.email}</p>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">View Profile</p>
+                  <div className="space-y-3">
+                      <div className="flex items-center space-x-3">
+                          <Avatar>
+                              <AvatarFallback className="bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-semibold">
+                                  {getInitials(user.email)}
+                              </AvatarFallback>
+                          </Avatar>
+                          <div>
+                              <p className="font-semibold text-gray-800 dark:text-gray-200">{user.email}</p>
+                              <p className="text-sm text-gray-500 dark:text-gray-400">Student</p>
+                          </div>
+                      </div>
+                      
+                      <div className="space-y-2 text-sm">
+                          <button 
+                              onClick={() => { openModal('profile', user); setIsMobileMenuOpen(false); }}
+                              className="w-full text-left py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-slate-800 flex items-center"
+                          >
+                              <Eye className="mr-2 h-4 w-4" />
+                              View Profile
+                          </button>
+                          <button 
+                              onClick={() => { openModal('accountSettings', user); setIsMobileMenuOpen(false); }}
+                              className="w-full text-left py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-slate-800 flex items-center"
+                          >
+                              <Settings className="mr-2 h-4 w-4" />
+                              Account Settings
+                          </button>
+                          <button 
+                              onClick={() => { navigate('subscription'); setIsMobileMenuOpen(false); }}
+                              className="w-full text-left py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-slate-800 flex items-center"
+                          >
+                              <CreditCard className="mr-2 h-4 w-4" />
+                              Billing & Subscription
+                          </button>
+                          <button 
+                              onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }}
+                              className="w-full text-left py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-slate-800 flex items-center text-red-600 dark:text-red-400"
+                          >
+                              <LogOut className="mr-2 h-4 w-4" />
+                              Logout
+                          </button>
                       </div>
                   </div>
               ) : (

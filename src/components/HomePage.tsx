@@ -58,7 +58,11 @@ const HomePage = ({ navigate, openModal, testimonials, user }) => {
                 </div>
               </div>
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight">
-                Ready to Begin Your <span className="text-yellow-300">Learning Journey?</span>
+                {user ? (
+                  <>Welcome to your <span className="text-yellow-300">Ultimate Learning Destination</span></>
+                ) : (
+                  <>Ready to Begin Your <span className="text-yellow-300">Learning Journey?</span></>
+                )}
               </h1>
               <p className="text-base md:text-xl text-blue-100 max-w-2xl md:max-w-3xl mx-auto mb-6 md:mb-8 leading-relaxed">
                 Welcome to your ultimate learning destination. Discover a comprehensive suite of courses meticulously crafted to prepare you for crucial entrance and exit examinations. Join our supportive community and unlock your full potential on your path to success.
