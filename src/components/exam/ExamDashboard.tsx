@@ -14,11 +14,6 @@ const questions = [
 
 const QuizStyles = () => (
     <style>{`
-        .quiz-container {
-            display: flex;
-            height: calc(100vh - 4rem);
-            max-height: 800px;
-        }
         .question-nav-panel {
             display: flex;
             flex-direction: column;
@@ -256,13 +251,39 @@ export const ExamDashboard = () => {
     return (
         <>
             <QuizStyles />
-            <div className="quiz-container w-full flex justify-center items-start p-4">
+            <div className="w-full flex flex-col lg:flex-row justify-center items-start p-4 gap-8">
+                {/* Desktop Question Nav */}
+                <div className="hidden lg:flex flex-col w-72 bg-white p-6 rounded-xl shadow-lg h-fit sticky top-24">
+                     <h3 className="text-lg font-bold mb-4 border-b pb-3 text-gray-800">Questions</h3>
+                     <div className="grid grid-cols-5 gap-3">
+                        {renderNavItems(false)}
+                     </div>
+                     <div className="mt-6 border-t pt-4 space-y-3 text-sm text-gray-600">
+                        <div className="flex items-center">
+                            <span className="w-4 h-4 rounded-full mr-3 flex-shrink-0" style={{backgroundColor: '#6d28d9'}}></span>
+                            <span>Current</span>
+                        </div>
+                        <div className="flex items-center">
+                            <span className="w-4 h-4 rounded-full border-2 border-green-500 mr-3 flex-shrink-0"></span>
+                            <span>Answered</span>
+                        </div>
+                        <div className="flex items-center">
+                            <span className="w-4 h-4 rounded-full border-2 border-gray-300 mr-3 flex-shrink-0"></span>
+                            <span>Unanswered</span>
+                        </div>
+                        <div className="flex items-center">
+                            <span className="text-red-500 mr-2 text-xl" style={{lineHeight: 1}}>⚑</span>
+                            <span>Flagged (Long press)</span>
+                        </div>
+                    </div>
+                </div>
+
                 {/* Main Content Card */}
                 <div className="w-full max-w-4xl bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg flex flex-col">
                     <div className="flex justify-between items-center mb-6">
                         <div className="flex items-center gap-3">
                             <button
-                                className="p-2 rounded-md hover:bg-gray-100 transition-colors"
+                                className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition-colors"
                                 onClick={() => {
                                     setShowMobileNav(true);
                                     setShowAllMobileQuestions(true);
