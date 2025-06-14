@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { User } from 'lucide-react';
 import NavLink from './NavLink';
@@ -43,7 +42,7 @@ const Header = ({ navigate, openModal }) => {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
+        <nav className="hidden lg:flex items-center space-x-4 xl:space-x-6">
           <NavLink text="Home" onClick={() => navigate('home')} />
           <NavLink text="Courses" onClick={() => navigate('courses')} />
           <NavLink text="Programs" onClick={() => navigate('programs')} />
@@ -52,54 +51,25 @@ const Header = ({ navigate, openModal }) => {
           <NavLink text="Community" onClick={() => navigate('community')} />
           <NavLink text="Careers" onClick={() => navigate('careers')} />
           <NavLink text="About" onClick={() => navigate('about')} />
+          <NavLink text="Exit Exam" onClick={() => navigate('home')} />
+          <NavLink text="Entrance Exam" onClick={() => navigate('entranceExams')} />
+          <NavLink text="Work Exam" onClick={() => navigate('examPage')} />
+          <NavLink text="NGAT Exam" onClick={() => navigate('examPage')} />
           
           <div className="flex items-center space-x-3">
-            {user ? (
-              <button
-                className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                onClick={() => openModal('profile', user)}
-              >
-                <Avatar>
-                  <AvatarFallback className="bg-transparent text-white font-bold">{getInitials(user.email)}</AvatarFallback>
-                </Avatar>
-              </button>
-            ) : (
-              <>
-                {/* Profile Button */}
-                <button
-                  className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                  onClick={() => openModal('profile')}
-                >
-                  <User size={20} />
-                </button>
-                
-                {/* Sign In Button */}
+            {!user && (
                 <button
                   className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl"
                   onClick={() => openModal('login')}
                 >
                   Sign In
                 </button>
-              </>
             )}
           </div>
         </nav>
 
         {/* Mobile Menu Button */}
         <div className="lg:hidden flex items-center space-x-2">
-          <button
-            className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300"
-            onClick={() => openModal('profile', user)}
-          >
-            {user ? (
-               <Avatar>
-                  <AvatarFallback className="bg-transparent text-white text-sm font-bold">{getInitials(user.email)}</AvatarFallback>
-                </Avatar>
-            ) : (
-              <User size={18} />
-            )}
-          </button>
-          
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="text-gray-600 hover:text-gray-900 focus:outline-none focus:text-gray-900 p-2"
@@ -127,6 +97,10 @@ const Header = ({ navigate, openModal }) => {
             <NavLink text="Community" onClick={() => { navigate('community'); setIsMobileMenuOpen(false); }} />
             <NavLink text="Careers" onClick={() => { navigate('careers'); setIsMobileMenuOpen(false); }} />
             <NavLink text="About" onClick={() => { navigate('about'); setIsMobileMenuOpen(false); }} />
+            <NavLink text="Exit Exam" onClick={() => { navigate('home'); setIsMobileMenuOpen(false); }} />
+            <NavLink text="Entrance Exam" onClick={() => { navigate('entranceExams'); setIsMobileMenuOpen(false); }} />
+            <NavLink text="Work Exam" onClick={() => { navigate('examPage'); setIsMobileMenuOpen(false); }} />
+            <NavLink text="NGAT Exam" onClick={() => { navigate('examPage'); setIsMobileMenuOpen(false); }} />
             {!user && (
               <button
                 className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 w-full mt-4"
