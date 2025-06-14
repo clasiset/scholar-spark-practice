@@ -41,12 +41,11 @@ export const ExamHeader = ({ examMode, timeLeft, onToggleExamMode, totalQuestion
             
             <button
               onClick={onToggleExamMode}
-              className={`py-2 px-3 sm:px-6 rounded-lg font-semibold text-sm shadow-md transition-colors duration-200 ease-in-out
+              className={`py-2 px-6 rounded-lg font-medium text-sm transition-all duration-200 
                 ${examMode
-                  ? 'bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-500'
-                  : 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500'
+                  ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-blue-600 text-white hover:bg-blue-700'
                 }
-                focus:outline-none focus:ring-2 focus:ring-opacity-50
               `}
             >
               {examMode ? 'Practice Mode' : 'Exam Mode'}
