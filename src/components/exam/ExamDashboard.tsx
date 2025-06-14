@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { List } from 'lucide-react';
 
@@ -94,10 +95,10 @@ const QuizStyles = () => (
         .toggle-switch {
             position: relative;
             display: inline-block;
-            width: 130px; /* Adjusted width for text */
-            height: 40px;
+            width: 110px; /* Adjusted width for text */
+            height: 38px;
             background-color: #6d28d9; /* Darker violet */
-            border-radius: 20px;
+            border-radius: 19px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
@@ -116,25 +117,25 @@ const QuizStyles = () => (
             background-color: #6d28d9; /* Darker violet */
             -webkit-transition: .4s;
             transition: .4s;
-            border-radius: 20px; /* Same as switch for full rounding */
+            border-radius: 19px; /* Same as switch for full rounding */
             display: flex; /* Use flexbox for label positioning */
             align-items: center;
             justify-content: space-around; /* Distribute labels */
             color: white; /* Default text color for labels */
             font-weight: 600;
-            font-size: 0.875rem; /* text-sm */
+            font-size: 0.8rem; /* text-sm */
         }
         .toggle-slider:before {
             position: absolute;
             content: "";
-            height: 32px;
-            width: 60px; /* Slightly less than half of the width, adjusted */
+            height: 30px;
+            width: 52px; /* Slightly less than half of the width, adjusted */
             left: 4px;
             bottom: 4px;
             background-color: white;
             -webkit-transition: .4s;
             transition: .4s;
-            border-radius: 16px; /* Half of height for rounded thumb */
+            border-radius: 15px; /* Half of height for rounded thumb */
         }
         input:checked + .toggle-slider {
             background-color: #6d28d9; /* Darker violet */
@@ -143,9 +144,9 @@ const QuizStyles = () => (
             box-shadow: 0 0 1px #6d28d9;
         }
         input:checked + .toggle-slider:before {
-            -webkit-transform: translateX(62px);
-            -ms-transform: translateX(62px);
-            transform: translateX(62px);
+            -webkit-transform: translateX(54px);
+            -ms-transform: translateX(54px);
+            transform: translateX(54px);
         }
         .toggle-slider .label-practice,
         .toggle-slider .label-exam {
@@ -259,7 +260,7 @@ export const ExamDashboard = () => {
                 {/* Main Content Card */}
                 <div className="w-full max-w-4xl bg-white p-4 sm:p-6 lg:p-8 rounded-xl shadow-lg flex flex-col">
                     <div className="flex justify-between items-center mb-6">
-                        <div className="flex items-center gap-3 sm:gap-4">
+                        <div className="flex items-center gap-3">
                             <button
                                 className="p-2 rounded-md hover:bg-gray-100 transition-colors"
                                 onClick={() => {
@@ -270,9 +271,9 @@ export const ExamDashboard = () => {
                             >
                                 <List className="h-6 w-6 text-gray-700" />
                             </button>
-                            <h2 className="text-lg sm:text-xl font-semibold text-gray-800">Question {currentQuestionIndex + 1} of {questions.length}</h2>
+                            <h2 className="text-base sm:text-xl font-semibold text-gray-800">Question {currentQuestionIndex + 1} of {questions.length}</h2>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center">
                             <label className="toggle-switch">
                                 <input type="checkbox" checked={!isPracticeMode} onChange={() => setIsPracticeMode(!isPracticeMode)} />
                                 <span className="toggle-slider">
