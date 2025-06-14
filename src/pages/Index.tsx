@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -19,7 +20,6 @@ import JobSeekerDashboardPage from '../components/JobSeekerDashboardPage';
 import EmployerDashboardPage from '../components/EmployerDashboardPage';
 import BlogPage from '../components/BlogPage';
 import SubscriptionPage from '../components/SubscriptionPage';
-import PaymentReturnPage from '../components/PaymentReturnPage';
 
 interface HistoryEntry {
   page: string;
@@ -107,11 +107,6 @@ const Index = () => {
 
   // Main content rendering based on currentPage
   const renderPage = () => {
-    // Check for payment return route
-    if (window.location.pathname === '/payment-return') {
-      return <PaymentReturnPage navigate={navigate} />;
-    }
-
     switch (currentPage) {
       case 'home':
         return <HomePage navigate={navigate} openModal={openModal} testimonials={testimonials} user={user} />;
