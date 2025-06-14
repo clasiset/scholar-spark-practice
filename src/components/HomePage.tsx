@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { BookOpen, Trophy, Users, ArrowRight, Star } from 'lucide-react';
+import { BookOpen, Trophy, Users, ArrowRight, Star, Mail, Phone } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -145,9 +144,14 @@ const HomePage = ({ navigate, openModal, testimonials }) => {
             <div className="bg-white rounded-xl border border-gray-200 p-8 md:p-12 grid md:grid-cols-2 gap-8 items-center">
               <div>
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Our Mission</h2>
-                <p className="text-gray-600 max-w-2xl mb-8">
-                  Our mission is to democratize education by providing accessible, high-quality learning resources to students everywhere. We believe in empowering individuals to achieve their academic and career goals through innovative technology and dedicated support.
+                <p className="text-gray-600 max-w-2xl mb-6">
+                  Our mission is to democratize education by providing accessible, high-quality learning resources to students everywhere. We believe in empowering individuals to achieve their academic and career goals through:
                 </p>
+                <ul className="list-disc list-inside text-gray-600 space-y-2 mb-8">
+                    <li>Personalized instruction and project-based learning.</li>
+                    <li>Courses taught by industry experts and renowned academics.</li>
+                    <li>A supportive community and cutting-edge technology.</li>
+                </ul>
                 <Button onClick={() => navigate('about')} variant="outline">Learn More About Us <ArrowRight className="ml-2 h-4 w-4" /></Button>
               </div>
               <div className="hidden md:block">
@@ -174,8 +178,50 @@ const HomePage = ({ navigate, openModal, testimonials }) => {
           </div>
         </section>
         
-        {/* Final CTA Section */}
+        {/* Contact Us Section */}
         <section className="py-12 md:py-16 px-4 md:px-6 bg-gray-50">
+          <div className="container mx-auto">
+            <div className="text-center">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Get In Touch</h2>
+              <p className="text-gray-600 max-w-2xl mx-auto mb-8">
+                We're here to answer your questions. Connect with us for more information about our programs.
+              </p>
+            </div>
+            <div className="max-w-3xl mx-auto bg-white rounded-xl border border-gray-200 p-8 grid md:grid-cols-2 gap-8 items-center shadow-sm">
+                <div className="space-y-6">
+                  <div className="flex items-center">
+                    <div className="p-3 bg-blue-50 rounded-lg mr-4">
+                      <Phone className="h-6 w-6 text-blue-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-800">Phone</h3>
+                      <a href="tel:+251-11-123-4567" className="text-blue-600 hover:underline">+251-11-123-4567</a>
+                      <p className="text-xs text-gray-500">Mon-Fri, 9am-5pm EAT</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="p-3 bg-blue-50 rounded-lg mr-4">
+                      <Mail className="h-6 w-6 text-blue-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-800">Email</h3>
+                      <a href="mailto:info@moe-edu.et" className="text-blue-600 hover:underline">info@moe-edu.et</a>
+                    </div>
+                  </div>
+                </div>
+                <div className="text-center md:text-left">
+                  <p className="text-gray-600 mb-4">For detailed inquiries, or to provide feedback, please use our contact form.</p>
+                   <Button onClick={() => navigate('contact')} variant="outline">
+                    Full Contact Page
+                    <ArrowRight size={20} className="ml-2" />
+                  </Button>
+                </div>
+            </div>
+          </div>
+        </section>
+        
+        {/* Final CTA Section */}
+        <section className="py-12 md:py-16 px-4 md:px-6 bg-white">
           <div className="container mx-auto text-center">
              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Ready to Begin Your Learning Journey?</h2>
              <p className="text-gray-600 max-w-2xl mx-auto mb-8">
