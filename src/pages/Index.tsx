@@ -6,14 +6,10 @@ import CoursesPage from '../components/CoursesPage';
 import AboutPage from '../components/AboutPage';
 import ContactPage from '../components/ContactPage';
 import ExamSubjectsPage from '../components/ExamSubjectsPage';
-import EditProfilePage from '../components/EditProfilePage';
-import SettingsPage from '../components/SettingsPage';
-import NotificationsPage from '../components/NotificationsPage';
-import SubscriptionPage from '../components/SubscriptionPage';
 import Footer from '../components/Footer';
 import Modal from '../components/Modal';
 
-type Page = 'home' | 'courses' | 'about' | 'contact' | 'examSubjects' | 'subscription' | 'localJobPortal' | 'programs' | 'tutoring' | 'editProfile' | 'settings' | 'notifications';
+type Page = 'home' | 'courses' | 'about' | 'contact' | 'examSubjects' | 'subscription' | 'localJobPortal' | 'programs' | 'tutoring';
 
 interface User {
   email: string;
@@ -26,6 +22,26 @@ const Index = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState('');
   const [modalData, setModalData] = useState<any>(null);
+  const [testimonials, setTestimonials] = useState([
+    {
+      quote: "Zehulu helped me pass my entrance exam with excellent preparation materials.",
+      name: "Abiy Teshome",
+      role: "University Student",
+      avatar: "https://i.pravatar.cc/150?u=abiy@example.com"
+    },
+    {
+      quote: "The courses are well-structured and the tutors are very knowledgeable.",
+      name: "Meron Bekele",
+      role: "High School Graduate",
+      avatar: "https://i.pravatar.cc/150?u=meron@example.com"
+    },
+    {
+      quote: "I improved my grades significantly thanks to Zehulu's comprehensive study materials.",
+      name: "Dawit Haile",
+      role: "Student",
+      avatar: "https://i.pravatar.cc/150?u=dawit@example.com"
+    }
+  ]);
 
   const navigate = (page: Page, data?: any) => {
     console.log('Navigating to:', page, 'with data:', data);
@@ -64,10 +80,7 @@ const Index = () => {
       subscription: 'Subscription',
       localJobPortal: 'Local Job Portal',
       programs: 'Programs',
-      tutoring: 'Tutoring',
-      editProfile: 'Edit Profile',
-      settings: 'Settings',
-      notifications: 'Notifications'
+      tutoring: 'Tutoring'
     };
     return pageNames[currentPage];
   };
@@ -91,6 +104,10 @@ const Index = () => {
     setModalData(null);
   };
 
+  const addTestimonial = (testimonial: any) => {
+    setTestimonials(prev => [...prev, testimonial]);
+  };
+
   const renderCurrentPage = () => {
     switch (currentPage) {
       case 'home':
@@ -100,17 +117,9 @@ const Index = () => {
       case 'about':
         return <AboutPage goBack={goBack} previousPageName={getPreviousPageName()} />;
       case 'contact':
-        return <ContactPage goBack={goBack} previousPageName={getPreviousPageName()} addTestimonial={() => {}} />;
+        return <ContactPage goBack={goBack} previousPageName={getPreviousPageName()} addTestimonial={addTestimonial} />;
       case 'examSubjects':
         return <ExamSubjectsPage navigate={navigate} goBack={goBack} previousPageName={getPreviousPageName()} pageData={pageData} />;
-      case 'editProfile':
-        return <EditProfilePage goBack={goBack} previousPageName={getPreviousPageName()} />;
-      case 'settings':
-        return <SettingsPage goBack={goBack} previousPageName={getPreviousPageName()} />;
-      case 'notifications':
-        return <NotificationsPage goBack={goBack} previousPageName={getPreviousPageName()} />;
-      case 'subscription':
-        return <SubscriptionPage openModal={openModal} goBack={goBack} previousPageName={getPreviousPageName()} />;
       default:
         return <HomePage navigate={navigate} openModal={openModal} />;
     }
@@ -125,9 +134,7 @@ const Index = () => {
         <Modal 
           type={modalType} 
           data={modalData} 
-          onClose={closeModal}
-          openModal={openModal}
-          navigate={navigate}
+          onClose={closeModal} 
         />
       )}
     </div>
