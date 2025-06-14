@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, Bot, Send, Search, Bell, FileText, Bookmark, Building, User } from 'lucide-react';
 import BackButton from './BackButton';
 
 const LocalJobPortalPage = ({ navigate, goBack, previousPageName }: { navigate: (page: string) => void, goBack?: () => void, previousPageName?: string | null }) => {
@@ -75,11 +75,85 @@ const LocalJobPortalPage = ({ navigate, goBack, previousPageName }: { navigate: 
           </Card>
         </div>
 
-        <section className="mt-16 text-center">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">Coming Soon: Telegram Bot Integration!</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-                Get instant job alerts, search for jobs, and receive application status updates directly on Telegram. We're working hard to bring this feature to you.
-            </p>
+        <section className="mt-20 pt-12 border-t">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-extrabold text-gray-800 flex items-center justify-center gap-3">
+                <Bot className="h-10 w-10 text-blue-600" />
+                Telegram Bot Integration
+              </h2>
+              <p className="text-lg text-gray-600 mt-4 max-w-4xl mx-auto">
+                A powerful enhancement to the Local Job Portal, designed to provide real-time, seamless interaction for users. Find jobs or recruit talent faster, smarter, and more efficiently.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+                <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2 text-xl font-bold text-indigo-700"><User className="h-6 w-6" />For Job Seekers</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <ul className="space-y-3">
+                            {[
+                                { icon: <Bell className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />, text: "Instant Job Alerts tailored to your skills and preferences." },
+                                { icon: <Search className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />, text: "Job Search via Chat using keywords and filters." },
+                                { icon: <Send className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />, text: "One-Click Applications using your saved profile." },
+                                { icon: <FileText className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />, text: "Application Status Updates in real-time." },
+                                { icon: <Bell className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />, text: "Automatic Interview Reminders with all details." },
+                                { icon: <Bookmark className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />, text: "Saved Jobs Management to track interesting roles." },
+                            ].map((feature, index) => (
+                                <li key={index} className="flex items-start">
+                                    {feature.icon}
+                                    <span className="text-gray-700">{feature.text}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </CardContent>
+                </Card>
+                <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2 text-xl font-bold text-blue-700"><Building className="h-6 w-6" />For Employers</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <ul className="space-y-3">
+                            {[
+                                { icon: <Bell className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />, text: "New Applicant Alerts instantly on Telegram." },
+                                { icon: <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />, text: "Application Review Shortcuts to shortlist or reject candidates." },
+                                { icon: <Send className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />, text: "Communicate with Applicants via direct messages or interview invites." },
+                            ].map((feature, index) => (
+                                 <li key={index} className="flex items-start">
+                                    {feature.icon}
+                                    <span className="text-gray-700">{feature.text}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </CardContent>
+                </Card>
+            </div>
+
+            <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardHeader>
+                    <CardTitle className="text-xl font-bold text-gray-800 text-center">User Commands and Menu</CardTitle>
+                    <CardDescription className="text-center">Interact with our bot using these simple commands.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4 text-center">
+                        {[
+                            { cmd: "/start", desc: "Start the bot" },
+                            { cmd: "/jobs", desc: "Browse jobs" },
+                            { cmd: "/search", desc: "Search jobs" },
+                            { cmd: "/alerts", desc: "Manage alerts" },
+                            { cmd: "/applications", desc: "Track applications" },
+                            { cmd: "/profile", desc: "View/edit profile" },
+                            { cmd: "/help", desc: "Get help" },
+                        ].map(item => (
+                            <div key={item.cmd} className="p-3 bg-gray-100 rounded-lg border">
+                                <p className="font-mono font-semibold text-blue-600">{item.cmd}</p>
+                                <p className="text-sm text-gray-600">{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </CardContent>
+            </Card>
         </section>
       </div>
     </div>
