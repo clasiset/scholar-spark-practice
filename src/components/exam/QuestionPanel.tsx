@@ -52,7 +52,7 @@ export const QuestionPanel = ({ questions, currentQuestionIndex, answers, flagge
             let buttonClass = 'bg-muted text-muted-foreground hover:bg-accent border';
             
             if (index === currentQuestionIndex) {
-              buttonClass = 'bg-primary text-primary-foreground border-primary shadow-md';
+              buttonClass = 'bg-blue-600 text-white border-blue-600 shadow-md';
             } else if (isAnswered) {
               buttonClass = 'bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 border-green-200 dark:border-green-500/30';
             } else if (isFlagged && !examMode) {
@@ -73,7 +73,7 @@ export const QuestionPanel = ({ questions, currentQuestionIndex, answers, flagge
                   flex items-center justify-center
                   transition-all duration-200 hover:scale-105
                   ${buttonClass}
-                  focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 dark:focus:ring-offset-background
+                  focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50
                 `}
                 title={`Question ${index + 1}${!examMode ? ' (Long press to flag)' : ''}`}
               >
@@ -94,7 +94,7 @@ export const QuestionPanel = ({ questions, currentQuestionIndex, answers, flagge
       <div className="p-4 border-t space-y-4">
         <div className="space-y-3 text-xs text-muted-foreground">
           <div className="flex items-center">
-            <span className="w-4 h-4 rounded bg-primary mr-3 flex-shrink-0"></span>
+            <span className="w-4 h-4 rounded bg-blue-600 mr-3 flex-shrink-0"></span>
             <span>Current</span>
           </div>
           <div className="flex items-center">
@@ -119,8 +119,8 @@ export const QuestionPanel = ({ questions, currentQuestionIndex, answers, flagge
         {!examMode && (
           <button
             onClick={onFinishPracticeExam}
-            className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-3 px-4 rounded-lg font-medium text-sm 
-                       transition-all duration-200 shadow-sm flex items-center justify-center space-x-2"
+            className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium text-sm 
+                       hover:bg-blue-700 transition-all duration-200 shadow-sm flex items-center justify-center space-x-2"
           >
             <span>🏆</span>
             <span>Finish Exam</span>
