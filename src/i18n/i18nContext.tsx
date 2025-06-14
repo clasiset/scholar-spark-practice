@@ -34,9 +34,28 @@ interface TranslationKeys {
     heroTitle: string;
     heroSubtitle: string;
     getStarted: string;
+    whyChooseTitle: string;
+    feature1Title: string;
+    feature1Description: string;
+    feature2Title: string;
+    feature2Description: string;
+    feature3Title: string;
+    feature3Description: string;
+    testimonialsTitle: string;
+    testimonial1Quote: string;
+    testimonial1Name: string;
+    testimonial1Role: string;
+    testimonial2Quote: string;
+    testimonial2Name: string;
+    testimonial2Role: string;
+    testimonial3Quote: string;
+    testimonial3Name: string;
+    testimonial3Role: string;
+    ctaTitle: string;
+    ctaSubtitle: string;
+    ctaButton: string;
   };
   profile: {
-    seePublicProfile: string;
     updateInformation: string;
     accountPrivacySettings: string;
     managePreferences: string;
@@ -52,6 +71,52 @@ interface TranslationKeys {
     save: string;
     submit: string;
     back: string;
+  };
+  courses: {
+    title: string;
+    enrollNow: string;
+    studentsEnrolled: string;
+  };
+  contact: {
+    title: string;
+    name: string;
+    email: string;
+    message: string;
+    sendMessage: string;
+    namePlaceholder: string;
+    emailPlaceholder: string;
+    messagePlaceholder: string;
+    thankYou: string;
+    fillRequired: string;
+  };
+  about: {
+    title: string;
+    description1: string;
+    description2: string;
+  };
+  exam: {
+    selectSubjectAndYear: string;
+    noSubjectsFound: string;
+    searchSubjects: string;
+  };
+  footer: {
+    tagline: string;
+    quickLinks: string;
+    exams: string;
+    support: string;
+    helpCenter: string;
+    privacyPolicy: string;
+    termsOfService: string;
+    allRightsReserved: string;
+    mathematics: string;
+    physics: string;
+    chemistry: string;
+    biology: string;
+  };
+  blog: {
+    title: string;
+    subtitle: string;
+    readMore: string;
   };
 }
 

@@ -2,6 +2,7 @@
 import React from 'react';
 import { Star, ArrowRight } from 'lucide-react';
 import BackButton from './BackButton';
+import { useI18n } from '../i18n/i18nContext';
 
 const blogPosts = [
   {
@@ -58,14 +59,16 @@ const blogPosts = [
 ];
 
 const BlogPage = ({ goBack, previousPageName }) => {
+  const { t } = useI18n();
+  
   return (
     <div className="bg-gray-50 py-12">
       <div className="container mx-auto px-4 md:px-6">
         <div className="mb-8">
             <BackButton onClick={goBack} previousPageName={previousPageName} />
         </div>
-        <h1 className="text-4xl font-bold text-center text-gray-800 mb-2">From Our Blog</h1>
-        <p className="text-lg text-center text-gray-600 mb-12">Insights and articles on modern education and AI.</p>
+        <h1 className="text-4xl font-bold text-center text-gray-800 mb-2">{t.blog.title}</h1>
+        <p className="text-lg text-center text-gray-600 mb-12">{t.blog.subtitle}</p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {blogPosts.map((post, index) => (
             <div key={index} className="bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
@@ -86,7 +89,7 @@ const BlogPage = ({ goBack, previousPageName }) => {
                   <button
                     className="font-semibold text-blue-600 flex items-center gap-2 group-hover:text-blue-800 transition-colors"
                   >
-                    Read More <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    {t.blog.readMore} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
               </div>

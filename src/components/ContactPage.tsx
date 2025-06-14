@@ -2,8 +2,10 @@
 import React, { useState } from 'react';
 import BackButton from './BackButton';
 import { toast } from "sonner"
+import { useI18n } from '../i18n/i18nContext';
 
 const ContactPage = ({ goBack, previousPageName, addTestimonial }: { goBack?: () => void, previousPageName?: string | null, addTestimonial: (testimonial: any) => void }) => {
+  const { t } = useI18n();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -18,13 +20,13 @@ const ContactPage = ({ goBack, previousPageName, addTestimonial }: { goBack?: ()
         avatar: `https://i.pravatar.cc/150?u=${Math.random().toString(36).substring(7)}`
       };
       addTestimonial(newTestimonial);
-      toast.success("Thank you for your feedback!");
+      toast.success(t.contact.thankYou);
       // Clear form
       setName('');
       setEmail('');
       setMessage('');
     } else {
-      toast.error("Please fill in your name and message.");
+      toast.error(t.contact.fillRequired);
     }
   };
 
@@ -32,37 +34,37 @@ const ContactPage = ({ goBack, previousPageName, addTestimonial }: { goBack?: ()
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="container mx-auto px-6">
         <BackButton onClick={goBack} previousPageName={previousPageName} />
-        <h1 className="text-4xl font-bold text-center text-gray-800 mb-12">Contact Us</h1>
+        <h1 className="text-4xl font-bold text-center text-gray-800 mb-12">{t.contact.title}</h1>
         <div className="max-w-2xl mx-auto">
           <div className="bg-white rounded-xl shadow-lg p-8">
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
-                <label className="block text-gray-700 font-semibold mb-2">Name</label>
+                <label className="block text-gray-700 font-semibold mb-2">{t.contact.name}</label>
                 <input
                   type="text"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  placeholder="Your full name"
+                  placeholder={t.contact.namePlaceholder}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
                 />
               </div>
               <div>
-                <label className="block text-gray-700 font-semibold mb-2">Email</label>
+                <label className="block text-gray-700 font-semibold mb-2">{t.contact.email}</label>
                 <input
                   type="email"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  placeholder="Your email address"
+                  placeholder={t.contact.emailPlaceholder}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div>
-                <label className="block text-gray-700 font-semibold mb-2">Message</label>
+                <label className="block text-gray-700 font-semibold mb-2">{t.contact.message}</label>
                 <textarea
                   rows={6}
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  placeholder="Your message"
+                  placeholder={t.contact.messagePlaceholder}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   required
@@ -72,7 +74,7 @@ const ContactPage = ({ goBack, previousPageName, addTestimonial }: { goBack?: ()
                 type="submit"
                 className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition duration-300"
               >
-                Send Message
+                {t.contact.sendMessage}
               </button>
             </form>
           </div>

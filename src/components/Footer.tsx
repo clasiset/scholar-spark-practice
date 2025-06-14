@@ -1,7 +1,10 @@
 
 import React from 'react';
+import { useI18n } from '../i18n/i18nContext';
 
 const Footer = () => {
+  const { t } = useI18n();
+  
   return (
     <footer className="bg-gray-800 text-white py-12">
       <div className="container mx-auto px-6">
@@ -9,38 +12,38 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-4">Zehulu.com</h3>
             <p className="text-gray-300">
-              Your gateway to academic excellence.
+              {t.footer.tagline}
             </p>
           </div>
           <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+            <h4 className="text-lg font-semibold mb-4">{t.footer.quickLinks}</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-300 hover:text-white transition duration-300">Home</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-white transition duration-300">Courses</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-white transition duration-300">About</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-white transition duration-300">Contact</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-white transition duration-300">{t.navigation.home}</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-white transition duration-300">{t.navigation.courses}</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-white transition duration-300">{t.navigation.aboutUs}</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-white transition duration-300">{t.navigation.contactUs}</a></li>
             </ul>
           </div>
           <div>
-            <h4 className="text-lg font-semibold mb-4">Exams</h4>
+            <h4 className="text-lg font-semibold mb-4">{t.footer.exams}</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-300 hover:text-white transition duration-300">Mathematics</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-white transition duration-300">Physics</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-white transition duration-300">Chemistry</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-white transition duration-300">Biology</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-white transition duration-300">{t.footer.mathematics}</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-white transition duration-300">{t.footer.physics}</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-white transition duration-300">{t.footer.chemistry}</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-white transition duration-300">{t.footer.biology}</a></li>
             </ul>
           </div>
           <div>
-            <h4 className="text-lg font-semibold mb-4">Support</h4>
+            <h4 className="text-lg font-semibold mb-4">{t.footer.support}</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-300 hover:text-white transition duration-300">Help Center</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-white transition duration-300">Privacy Policy</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-white transition duration-300">Terms of Service</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-white transition duration-300">{t.footer.helpCenter}</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-white transition duration-300">{t.footer.privacyPolicy}</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-white transition duration-300">{t.footer.termsOfService}</a></li>
             </ul>
           </div>
         </div>
         <div className="border-t border-gray-700 mt-8 pt-8 text-center">
-          <p className="text-gray-300">&copy; 2024 Zehulu.com. All rights reserved.</p>
+          <p className="text-gray-300">&copy; 2024 Zehulu.com. {t.footer.allRightsReserved}</p>
         </div>
       </div>
     </footer>

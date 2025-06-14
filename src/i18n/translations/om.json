@@ -29,10 +29,29 @@
     "welcomeMessage": "Gara bakka barnoota keessaniitti nagaan dhuftaa.",
     "heroTitle": "Karra Gara Ogummaa Barnootaatti",
     "heroSubtitle": "Qormaata seensaa fi bahumsaa yuunivarsitii qabxii qormaataa waliigalaa fi deebii AI'n kennamuun baraadhaa.",
-    "getStarted": "Jalqabi"
+    "getStarted": "Jalqabi",
+    "whyChooseTitle": "Maaliif Sagantaa Keenya Filattan?",
+    "feature1Title": "Shaakaluu Waliigalaa",
+    "feature1Description": "Mata dureewwan qormaataa hundaaf gaafilee shaakala kumaatama ibsa bal'aa wajjin argachuu.",
+    "feature2Title": "Yaada AI'n Kennamu",
+    "feature2Description": "Ciminaa fi bakka fooyya'iinsa barbaachisu adda baasuuf yaada dhuunfaa battalumatti argachuu.",
+    "feature3Title": "Qabiyyee Ogeessaa",
+    "feature3Description": "Qabiyyeen hundi barsiisota muuxannoo qabanii fi ogeessa qormaataatiin uumamee fi ilaalameeradha.",
+    "testimonialsTitle": "Barattoonni Keenya Maal Jedhu",
+    "testimonial1Quote": "Qormaanni shaakala bifa qormaataa akka hubadhu na gargaareera. Kan eegame ol qabxii galmeesseera!",
+    "testimonial1Name": "Abiyyii Tasmaaye",
+    "testimonial1Role": "Barataa Yuunivarsitii",
+    "testimonial2Quote": "Ibsni bal'aan gaafii hundaa booda kennamu dogoggora koo keessaa akka baradhu na gargaareera.",
+    "testimonial2Name": "Maroon Kabaadaa",
+    "testimonial2Role": "Eegumsa Dhiheenna",
+    "testimonial3Quote": "Sagantaan kun saffisa barumsaa koo wajjin akkamitti akka walsimu nan jaalladha. Akka barsiisaa dhuunfaa qabachuu fakkaata!",
+    "testimonial3Name": "Daawit Ashanafii",
+    "testimonial3Role": "Barataa Sadarkaa Lammaffaa",
+    "ctaTitle": "Qormaata Keessan Keessatti Caalmuu Qophaa'aa?",
+    "ctaSubtitle": "Sagantaa keenyaan milkaa'inaan qormaata isaaniitiif qophaa'an barattootni kumaatama ta'an waliin makamaa.",
+    "ctaButton": "Imala Keessan Har'a Jalqabaa"
   },
   "profile": {
-    "seePublicProfile": "Ibsa ummataa kee ilaali",
     "updateInformation": "Odeeffannoo kee haaromsi",
     "accountPrivacySettings": "Qindaa'ina herregaa fi iccitii",
     "managePreferences": "Filannoo bulchi",
@@ -48,5 +67,51 @@
     "save": "Olkaa'i",
     "submit": "Dhiyeessi",
     "back": "Deebi'i"
+  },
+  "courses": {
+    "title": "Barnootaa Jiran",
+    "enrollNow": "Amma Galmaa'i",
+    "studentsEnrolled": "barattoonni galmaa'aniiru"
+  },
+  "contact": {
+    "title": "Nu Quunnamuu",
+    "name": "Maqaa",
+    "email": "Iimeelii",
+    "message": "Ergaa",
+    "sendMessage": "Ergaa Ergi",
+    "namePlaceholder": "Maqaa guutuu kee",
+    "emailPlaceholder": "Teessoo iimeelii kee",
+    "messagePlaceholder": "Ergaa kee",
+    "thankYou": "Yaada keetiif galatoomaa!",
+    "fillRequired": "Maaloo maqaa fi ergaa kee guuti."
+  },
+  "about": {
+    "title": "Waa'ee Sagantaa Barnootaa",
+    "description1": "Sagantaan barnootaa barattootni Itoophiyaa qormaata seensaa fi bahumsaa yuunivarsitii keessatti akka milkaa'an gargaaruuf kan deddeebiirudha.",
+    "description2": "Sagantaan keenya barattoonni qormaata barnootaa isaaniitiif gaariitti akka qophaa'an qormaata shaakala waliigalaa, yaada AI'n kennamu, fi muuxannoo barumsaa dhuunfaa kenna."
+  },
+  "exam": {
+    "selectSubjectAndYear": "Shaakalachuuf mata duree fi waggaa kee filadhu",
+    "noSubjectsFound": "Mata dureewwan barbaacha kee wajjin walsimu hin argamne.",
+    "searchSubjects": "Mata dureewwan barbaadi..."
+  },
+  "footer": {
+    "tagline": "Karra gara ogummaa barnootaatti.",
+    "quickLinks": "Hidhaannoo Saffisaa",
+    "exams": "Qormaata",
+    "support": "Deeggarsa",
+    "helpCenter": "Giddugala Gargaarsaa",
+    "privacyPolicy": "Imaamata Iccitii",
+    "termsOfService": "Haalawwan Tajaajilaa",
+    "allRightsReserved": "Mirgi hundi eegameera.",
+    "mathematics": "Herrega",
+    "physics": "Fiizikii",
+    "chemistry": "Keemistrii",
+    "biology": "Baayoloojii"
+  },
+  "blog": {
+    "title": "Biloogii Keenyaa Irraa",
+    "subtitle": "Hubannoo fi barruulee waa'ee barnootaa ammayyaa fi AI.",
+    "readMore": "Dabalataan Dubbisi"
   }
 }
