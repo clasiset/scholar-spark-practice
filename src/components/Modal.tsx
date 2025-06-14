@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Eye, EyeOff, User, Mail, Lock, UserPlus, Phone } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import StartExamModal from './StartExamModal';
-import GoogleAuthInterface from './GoogleAuthInterface';
 
 const Modal = ({ type, data, onClose, openModal, navigate }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [showGoogleInterface, setShowGoogleInterface] = useState(false);
   const [showPhoneAuth, setShowPhoneAuth] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -85,8 +83,18 @@ const Modal = ({ type, data, onClose, openModal, navigate }) => {
     setError(''); // Clear error when user types
   };
 
-  const handleGoogleAuth = () => {
-    setShowGoogleInterface(true);
+  const handleGoogleAuth = async () => {
+    setLoading(true);
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: window.location.origin,
+      },
+    });
+    if (error) {
+      setError(error.message);
+      setLoading(false);
+    }
   };
 
   const handlePhoneAuth = async () => {
@@ -181,10 +189,6 @@ const Modal = ({ type, data, onClose, openModal, navigate }) => {
 
   if (type === 'startExam') {
     return <StartExamModal onClose={onClose} examDetails={data} navigate={navigate} />;
-  }
-
-  if (showGoogleInterface) {
-    return <GoogleAuthInterface onClose={() => setShowGoogleInterface(false)} onBack={() => setShowGoogleInterface(false)} />;
   }
 
   return (
