@@ -2,7 +2,7 @@
 import React from 'react';
 import BackButton from './BackButton';
 
-const SubjectExamsPage = ({ subjectTitle, examType, navigate, goBack, previousPageName }: { subjectTitle: string, examType?: string, navigate: (page: string, data: any) => void, goBack?: () => void, previousPageName?: string | null }) => {
+const SubjectExamsPage = ({ subjectTitle, examType, navigate, goBack, previousPageName, openModal }: { subjectTitle: string, examType?: string, navigate: (page: string, data: any) => void, goBack?: () => void, previousPageName?: string | null, openModal: (type: string, data: any) => void }) => {
   const getExamDisplayName = (type?: string) => {
     switch (type) {
       case 'exit': return 'Exit Exam';
@@ -22,7 +22,7 @@ const SubjectExamsPage = ({ subjectTitle, examType, navigate, goBack, previousPa
   ];
 
   const handleStartExam = (exam: any) => {
-    navigate('examPage', { subjectTitle, year: exam.year, examType, ...exam });
+    openModal('startExam', { subjectTitle, year: exam.year, examType, examTitle, ...exam });
   };
 
   return (
