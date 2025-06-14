@@ -1,79 +1,15 @@
 
 import React, { useState } from 'react';
-import { Search, ArrowLeft, FileText } from 'lucide-react';
+import { Search, ArrowLeft } from 'lucide-react';
 import BackButton from './BackButton';
+import { examData } from '../data/examData';
 
-const entranceSubjects = [
-  { 
-    id: 1, 
-    title: 'Aptitude Test', 
-    description: 'Enhance your logical reasoning, problem-solving, and analytical thinking abilities.',
-    icon: FileText,
-    color: 'border-blue-200 hover:border-blue-300 hover:bg-blue-50'
-  },
-  { 
-    id: 2, 
-    title: 'Biology', 
-    description: 'Study life sciences including cell biology, genetics, ecology, and human anatomy.',
-    icon: FileText,
-    color: 'border-green-200 hover:border-green-300 hover:bg-green-50'
-  },
-  { 
-    id: 3, 
-    title: 'Chemistry', 
-    description: 'Explore chemical reactions, atomic theory, and organic/inorganic chemistry.',
-    icon: FileText,
-    color: 'border-purple-200 hover:border-purple-300 hover:bg-purple-50'
-  },
-  { 
-    id: 4, 
-    title: 'Civics & Ethical Education', 
-    description: 'Learn about citizenship, democracy, ethics, and civic responsibilities.',
-    icon: FileText,
-    color: 'border-indigo-200 hover:border-indigo-300 hover:bg-indigo-50'
-  },
-  { 
-    id: 5, 
-    title: 'Economics', 
-    description: 'Study micro and macroeconomics, market systems, and economic policies.',
-    icon: FileText,
-    color: 'border-yellow-200 hover:border-yellow-300 hover:bg-yellow-50'
-  },
-  { 
-    id: 6, 
-    title: 'English', 
-    description: 'Practice English language entrance exam questions covering grammar, vocabulary, and comprehension.',
-    icon: FileText,
-    color: 'border-red-200 hover:border-red-300 hover:bg-red-50'
-  },
-  { 
-    id: 7, 
-    title: 'Geography', 
-    description: 'Learn about physical geography, human geography, and environmental studies.',
-    icon: FileText,
-    color: 'border-teal-200 hover:border-teal-300 hover:bg-teal-50'
-  },
-  { 
-    id: 8, 
-    title: 'History', 
-    description: 'Explore Ethiopian and world history, civilizations, and historical events.',
-    icon: FileText,
-    color: 'border-orange-200 hover:border-orange-300 hover:bg-orange-50'
-  },
-  { 
-    id: 9, 
-    title: 'Mathematics for Natural Sciences', 
-    description: 'Test your skills in algebra, geometry, calculus, and other mathematical concepts.',
-    icon: FileText,
-    color: 'border-pink-200 hover:border-pink-300 hover:bg-pink-50'
-  }
-];
-
-const ExamSubjectsPage = ({ navigate, goBack, previousPageName }) => {
+const ExamSubjectsPage = ({ navigate, goBack, previousPageName, pageData }) => {
   const [searchTerm, setSearchTerm] = useState('');
   
-  const pageTitle = 'University Entrance Exams';
-  const subjects = entranceSubjects;
+  const examType = pageData?.examType || 'entrance';
+  const examInfo = examData[examType] || examData.entrance;
+  const { title: pageTitle, subjects } = examInfo;
 
   const filteredSubjects = subjects.filter(subject =>
     subject.title.toLowerCase().includes(searchTerm.toLowerCase()) ||

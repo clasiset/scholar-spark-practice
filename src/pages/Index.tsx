@@ -84,8 +84,8 @@ const Index = () => {
         return <AboutPage goBack={goBack} previousPageName={previousPageName} />;
       case 'contact':
         return <ContactPage goBack={goBack} previousPageName={previousPageName} />;
-      case 'entranceExams':
-        return <ExamSubjectsPage navigate={navigate} goBack={goBack} previousPageName={previousPageName} />;
+      case 'examSubjects':
+        return <ExamSubjectsPage navigate={navigate} goBack={goBack} previousPageName={previousPageName} pageData={pageData} />;
       case 'subjectExams':
         return <SubjectExamsPage navigate={navigate} subjectTitle={pageData?.subjectTitle} onStartExam={openModal} goBack={goBack} previousPageName={previousPageName} />;
       case 'examPage':

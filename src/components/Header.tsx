@@ -131,16 +131,16 @@ const Header = ({ navigate, openModal }) => {
                 <NavigationMenuTrigger>Exams</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
-                    <ListItem onClick={() => navigate('entranceExams')} title="Entrance Exam">
+                    <ListItem onClick={() => navigate('examSubjects', { examType: 'entrance' })} title="Entrance Exam">
                       Prepare for university entrance exams.
                     </ListItem>
-                    <ListItem onClick={() => navigate('examPage')} title="Exit Exam">
+                    <ListItem onClick={() => navigate('examSubjects', { examType: 'exit' })} title="Exit Exam">
                       Practice for your university exit exams.
                     </ListItem>
-                     <ListItem onClick={() => navigate('examPage')} title="Work Exam">
+                     <ListItem onClick={() => navigate('examSubjects', { examType: 'work' })} title="Work Exam">
                       Prepare for professional work exams.
                     </ListItem>
-                     <ListItem onClick={() => navigate('examPage')} title="NGAT Exam">
+                     <ListItem onClick={() => navigate('examSubjects', { examType: 'ngat' })} title="NGAT Exam">
                       Practice for the NGAT exam.
                     </ListItem>
                   </ul>
@@ -221,10 +221,10 @@ const Header = ({ navigate, openModal }) => {
                 <AccordionTrigger className="py-2 hover:no-underline font-medium text-gray-700 hover:text-indigo-600 [&[data-state=open]>svg]:text-indigo-600">Exams</AccordionTrigger>
                 <AccordionContent>
                   <div className="pl-4 flex flex-col space-y-1 pt-1">
-                    <NavLink text="Entrance Exam" onClick={() => { navigate('entranceExams'); setIsMobileMenuOpen(false); }} />
-                    <NavLink text="Exit Exam" onClick={() => { navigate('examPage'); setIsMobileMenuOpen(false); }} />
-                    <NavLink text="Work Exam" onClick={() => { navigate('examPage'); setIsMobileMenuOpen(false); }} />
-                    <NavLink text="NGAT Exam" onClick={() => { navigate('examPage'); setIsMobileMenuOpen(false); }} />
+                    <NavLink text="Entrance Exam" onClick={() => { navigate('examSubjects', { examType: 'entrance' }); setIsMobileMenuOpen(false); }} />
+                    <NavLink text="Exit Exam" onClick={() => { navigate('examSubjects', { examType: 'exit' }); setIsMobileMenuOpen(false); }} />
+                    <NavLink text="Work Exam" onClick={() => { navigate('examSubjects', { examType: 'work' }); setIsMobileMenuOpen(false); }} />
+                    <NavLink text="NGAT Exam" onClick={() => { navigate('examSubjects', { examType: 'ngat' }); setIsMobileMenuOpen(false); }} />
                   </div>
                 </AccordionContent>
               </AccordionItem>
