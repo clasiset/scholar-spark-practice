@@ -11,7 +11,8 @@ import CommunityPage from '../components/CommunityPage';
 import CareersPage from '../components/CareersPage';
 import AboutPage from '../components/AboutPage';
 import ContactPage from '../components/ContactPage';
-import EntranceExamsPage from '../components/EntranceExamsPage';
+import AllExamsPage from '../components/AllExamsPage';
+import ExamSubjectsPage from '../components/ExamSubjectsPage';
 import SubjectExamsPage from '../components/SubjectExamsPage';
 import ExamPage from '../components/ExamPage';
 import Modal from '../components/Modal';
@@ -86,7 +87,9 @@ const Index = () => {
       case 'contact':
         return <ContactPage goBack={goBack} previousPageName={previousPageName} />;
       case 'entranceExams':
-        return <EntranceExamsPage navigate={navigate} />;
+        return <AllExamsPage navigate={navigate} goBack={goBack} previousPageName={previousPageName} />;
+      case 'examSubjects':
+        return <ExamSubjectsPage navigate={navigate} examDetails={pageData} goBack={goBack} previousPageName={previousPageName} />;
       case 'subjectExams':
         return <SubjectExamsPage navigate={navigate} subjectTitle={pageData?.subjectTitle} onStartExam={openModal} goBack={goBack} previousPageName={previousPageName} />;
       case 'examPage':
