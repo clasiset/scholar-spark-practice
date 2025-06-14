@@ -56,9 +56,11 @@ const HomePage = ({ navigate, openModal }) => {
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
               Your Gateway to Academic Excellence
             </h1>
-            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
-              {t.home.heroSubtitle}
-            </p>
+            {!user && (
+              <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+                Master university entrance and exit exams with our comprehensive practice tests and AI-powered feedback.
+              </p>
+            )}
             
             {user ? (
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -80,7 +82,7 @@ const HomePage = ({ navigate, openModal }) => {
                 onClick={() => openModal('signup')}
                 className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold py-4 px-8 rounded-full text-lg shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl"
               >
-                {t.home.getStarted}
+                Get Started
               </button>
             )}
           </div>
