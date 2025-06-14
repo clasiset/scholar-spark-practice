@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -33,6 +32,31 @@ const Index = () => {
   const [modalType, setModalType] = useState(''); // 'signup', 'login', 'enroll', 'startExam'
   const [modalData, setModalData] = useState(null); // Data for the modal, e.g., course title for enrollment
 
+  const [testimonials, setTestimonials] = useState([
+    {
+      quote: "This platform transformed my understanding of complex subjects. The interactive lessons are a game-changer!",
+      name: "Alex Johnson",
+      role: "University Student",
+      avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d"
+    },
+    {
+      quote: "The flexible schedule allowed me to study while working full-time. I couldn't have passed my exams without it.",
+      name: "Maria Garcia",
+      role: "Working Professional",
+      avatar: "https://i.pravatar.cc/150?u=a042581f4e29026705d"
+    },
+    {
+      quote: "The quality of the instructors is top-notch. They are true experts who know how to teach.",
+      name: "David Smith",
+      role: "High School Graduate",
+      avatar: "https://i.pravatar.cc/150?u=a042581f4e29026706d"
+    }
+  ]);
+
+  const addTestimonial = (testimonial: any) => {
+    setTestimonials(prev => [testimonial, ...prev]);
+  };
+
   const { page: currentPage, data: pageData } = history[history.length - 1];
 
   // Navigation handler
@@ -52,7 +76,7 @@ const Index = () => {
   const previousPageName = history.length > 1 ? history[history.length - 2].page : null;
 
   // Function to open the modal with specific content
-  const openModal = (type, data = null) => {
+  const openModal = (type: any, data = null) => {
     setModalType(type);
     setModalData(data);
     setShowModal(true);
@@ -69,7 +93,7 @@ const Index = () => {
   const renderContent = () => {
     switch (currentPage) {
       case 'home':
-        return <HomePage navigate={navigate} openModal={openModal} />;
+        return <HomePage navigate={navigate} openModal={openModal} testimonials={testimonials} />;
       case 'courses':
         return <CoursesPage openModal={openModal} goBack={goBack} previousPageName={previousPageName} />;
       case 'programs':
@@ -85,7 +109,7 @@ const Index = () => {
       case 'about':
         return <AboutPage goBack={goBack} previousPageName={previousPageName} />;
       case 'contact':
-        return <ContactPage goBack={goBack} previousPageName={previousPageName} />;
+        return <ContactPage goBack={goBack} previousPageName={previousPageName} addTestimonial={addTestimonial} />;
       case 'examSubjects':
         return <ExamSubjectsPage navigate={navigate} goBack={goBack} previousPageName={previousPageName} pageData={pageData} />;
       case 'subjectExams':
@@ -103,7 +127,7 @@ const Index = () => {
       case 'subscription':
         return <SubscriptionPage openModal={openModal} goBack={goBack} previousPageName={previousPageName} />;
       default:
-        return <HomePage navigate={navigate} openModal={openModal} />;
+        return <HomePage navigate={navigate} openModal={openModal} testimonials={testimonials} />;
     }
   };
 

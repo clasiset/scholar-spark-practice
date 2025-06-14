@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 
-const HomePage = ({ navigate, openModal }) => {
+const HomePage = ({ navigate, openModal, testimonials }) => {
   const featuredCourses = [
     {
       title: 'Advanced Mathematics',
@@ -21,27 +21,6 @@ const HomePage = ({ navigate, openModal }) => {
       description: 'Explore the fundamental principles of the physical world.',
       image: 'https://images.unsplash.com/photo-1581092580433-c2c1f56a6435?auto=format&fit=crop&w=800&q=60',
     },
-  ];
-
-  const testimonials = [
-    {
-      quote: "This platform transformed my understanding of complex subjects. The interactive lessons are a game-changer!",
-      name: "Alex Johnson",
-      role: "University Student",
-      avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d"
-    },
-    {
-      quote: "The flexible schedule allowed me to study while working full-time. I couldn't have passed my exams without it.",
-      name: "Maria Garcia",
-      role: "Working Professional",
-      avatar: "https://i.pravatar.cc/150?u=a042581f4e29026705d"
-    },
-    {
-      quote: "The quality of the instructors is top-notch. They are true experts who know how to teach.",
-      name: "David Smith",
-      role: "High School Graduate",
-      avatar: "https://i.pravatar.cc/150?u=a042581f4e29026706d"
-    }
   ];
 
   return (
