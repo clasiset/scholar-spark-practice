@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle } from 'lucide-react';
 
-const LocalJobPortalPage = () => {
+const LocalJobPortalPage = ({ navigate }: { navigate: (page: string) => void }) => {
   const jobSeekerFeatures = [
     "Secure registration and login",
     "Detailed profile management",
@@ -50,7 +50,7 @@ const LocalJobPortalPage = () => {
                   </li>
                 ))}
               </ul>
-              <Button className="mt-6 w-full bg-indigo-600 hover:bg-indigo-700">Get Started</Button>
+              <Button onClick={() => navigate('jobSeekerDashboard')} className="mt-6 w-full bg-indigo-600 hover:bg-indigo-700">Get Started</Button>
             </CardContent>
           </Card>
 

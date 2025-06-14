@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -15,6 +16,7 @@ import SubjectExamsPage from '../components/SubjectExamsPage';
 import ExamPage from '../components/ExamPage';
 import Modal from '../components/Modal';
 import LocalJobPortalPage from '../components/LocalJobPortalPage';
+import JobSeekerDashboardPage from '../components/JobSeekerDashboardPage';
 
 // Main App Component
 const Index = () => {
@@ -72,7 +74,9 @@ const Index = () => {
       case 'examPage':
         return <ExamPage navigate={navigate} examDetails={pageData} />;
       case 'localJobPortal':
-        return <LocalJobPortalPage />;
+        return <LocalJobPortalPage navigate={navigate} />;
+      case 'jobSeekerDashboard':
+        return <JobSeekerDashboardPage />;
       default:
         return <HomePage navigate={navigate} openModal={openModal} />;
     }
