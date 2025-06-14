@@ -14,7 +14,7 @@ export const FooterNav = ({ onPrevious, onNext, showPrevious, showNext, examMode
               ? 'bg-secondary text-secondary-foreground hover:bg-accent border'
               : 'bg-muted text-muted-foreground/60 cursor-not-allowed border'
             }
-            flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50
+            flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 dark:focus:ring-offset-background
           `}
         >
           <ChevronLeft size={18} />
@@ -37,10 +37,10 @@ export const FooterNav = ({ onPrevious, onNext, showPrevious, showNext, examMode
             disabled={!showNext}
             className={`px-6 py-3 rounded-lg font-medium text-sm transition-all duration-200
               ${showNext
-                ? 'bg-blue-600 text-white hover:bg-blue-700 border border-blue-600 shadow-sm'
+                ? 'bg-primary text-primary-foreground hover:bg-primary/90 border border-transparent shadow-sm'
                 : 'bg-muted text-muted-foreground/60 cursor-not-allowed border'
               }
-              flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50
+              flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 dark:focus:ring-offset-background
             `}
           >
             <span>Next</span>
