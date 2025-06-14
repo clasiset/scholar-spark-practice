@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import NavLink from './NavLink';
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -153,6 +152,10 @@ const Header = ({ navigate, openModal }) => {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
+                 <NavLink text="Local Job Portal" onClick={() => navigate('localJobPortal')} />
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
                 <NavigationMenuTrigger>About</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[300px] gap-3 p-4 md:w-[400px]">
@@ -236,6 +239,7 @@ const Header = ({ navigate, openModal }) => {
               </AccordionItem>
             </Accordion>
             <NavLink text="Careers" onClick={() => { navigate('careers'); setIsMobileMenuOpen(false); }} />
+            <NavLink text="Local Job Portal" onClick={() => { navigate('localJobPortal'); setIsMobileMenuOpen(false); }} />
             
             {!user && (
               <button
