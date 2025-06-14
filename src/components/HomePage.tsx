@@ -9,6 +9,8 @@ const HomePage = ({ navigate, openModal }) => {
         "Personalized learning with AI tutors",
         "AI-powered flashcards and spaced repetition apps",
         "Adaptive testing platforms",
+        "Real-life examples (e.g., ChatGPT, Quizlet AI)",
+        "Pros & cons of using AI for exam prep",
       ],
       imageUrl: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     },
@@ -17,6 +19,7 @@ const HomePage = ({ navigate, openModal }) => {
       topics: [
         "Best platforms (Coursera, edX, Khan Academy)",
         "Courses in AI, coding, digital marketing, languages",
+        "Why micro-courses (short online courses) are trending",
         "Certification benefits for students' CVs",
       ],
       imageUrl: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
@@ -27,15 +30,17 @@ const HomePage = ({ navigate, openModal }) => {
         "Shift to project-based assessments",
         "AI-driven adaptive testing",
         "Online proctoring technologies",
+        "Equity challenges with online exams",
       ],
       imageUrl: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     },
     {
       title: "Using AI to Beat Procrastination: Study Tools You Need to Know",
       topics: [
-        "Focus apps using AI",
+        "Focus apps using AI (e.g., time management, focus music)",
         "GPT-powered writing assistants for essays",
         "AI note summarizers (e.g., Notion AI)",
+        "How to build a productive study routine with AI",
       ],
       imageUrl: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     },
@@ -45,6 +50,7 @@ const HomePage = ({ navigate, openModal }) => {
         "Real-time translation tools",
         "AI conversation partners",
         "Voice recognition apps for pronunciation",
+        "AI-generated quizzes to test language skills",
       ],
       imageUrl: "https://images.unsplash.com/photo-1521335293386-343ade58e232?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     },
@@ -158,7 +164,7 @@ const HomePage = ({ navigate, openModal }) => {
                   <div className="p-6 flex flex-col flex-grow">
                     <h3 className="text-lg font-semibold text-white mb-4 flex-grow">{post.title}</h3>
                     <ul className="space-y-2 mb-6 text-blue-100 text-sm">
-                      {post.topics.slice(0, 2).map((topic, i) => (
+                      {post.topics.slice(0, 3).map((topic, i) => (
                         <li key={i} className="flex items-start">
                           <Star size={14} className="mr-3 mt-1 text-yellow-300 flex-shrink-0" />
                           <span>{topic}</span>
