@@ -2,7 +2,7 @@
 import React, { useRef } from 'react';
 import { Flag } from 'lucide-react';
 
-export const QuestionPanel = ({ questions, currentQuestionIndex, answers, flaggedQuestions, onQuestionClick, onFlagToggleByIndex, examMode, onFinishPracticeExam }) => {
+export const QuestionPanel = ({ questions, currentQuestionIndex, answers = {}, flaggedQuestions = [], onQuestionClick, onFlagToggleByIndex, examMode, onFinishPracticeExam }) => {
   const longPressTimer = useRef(null);
   const isClicking = useRef(false);
   const LONG_PRESS_DURATION = 500; 

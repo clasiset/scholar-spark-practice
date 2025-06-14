@@ -23,6 +23,7 @@ const ExamPage: React.FC<ExamPageProps> = ({ navigate, examDetails, goBack, prev
     const [timeLeft, setTimeLeft] = useState(EXAM_DURATION);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedAnswers, setSelectedAnswers] = useState<{ [key: number]: string }>({});
+    const [flaggedQuestions, setFlaggedQuestions] = useState<number[]>([]);
     const [showExplanations, setShowExplanations] = useState<{ [key: number]: boolean }>({});
     const [explanationLoading, setExplanationLoading] = useState(false);
     const [isExamFinished, setIsExamFinished] = useState(false);
@@ -34,6 +35,7 @@ const ExamPage: React.FC<ExamPageProps> = ({ navigate, examDetails, goBack, prev
         setTimeLeft(EXAM_DURATION);
         setCurrentQuestionIndex(0);
         setSelectedAnswers({});
+        setFlaggedQuestions([]);
         setShowExplanations({});
         setIsExamFinished(false);
     }, []);
@@ -99,6 +101,14 @@ const ExamPage: React.FC<ExamPageProps> = ({ navigate, examDetails, goBack, prev
         setCurrentQuestionIndex(index);
     };
 
+    const handleFlagToggle = (questionIndex: number) => {
+        setFlaggedQuestions(prev =>
+            prev.includes(questionIndex)
+                ? prev.filter(i => i !== questionIndex)
+                : [...prev, questionIndex]
+        );
+    };
+
     const handleGetHint = () => {
         if(currentQuestion.hint) {
             toast.info(currentQuestion.hint);
@@ -118,6 +128,12 @@ const ExamPage: React.FC<ExamPageProps> = ({ navigate, examDetails, goBack, prev
     };
 
     const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+
+    const score = Object.entries(selectedAnswers).reduce((acc, [qIndex, ans]) => {
+        return questions[parseInt(qIndex)].correctAnswer === ans ? acc + 1 : acc;
+    }, 0);
+    const totalAnswered = Object.keys(selectedAnswers).length;
+    const incorrectAnswers = totalAnswered - score;
 
     return (
         <>
@@ -140,9 +156,12 @@ const ExamPage: React.FC<ExamPageProps> = ({ navigate, examDetails, goBack, prev
                             <QuestionPanel
                                 questions={questions}
                                 currentQuestionIndex={currentQuestionIndex}
-                                selectedAnswers={selectedAnswers}
-                                onQuestionSelect={handleQuestionSelect}
+                                answers={selectedAnswers}
+                                flaggedQuestions={flaggedQuestions}
+                                onQuestionClick={handleQuestionSelect}
+                                onFlagToggleByIndex={handleFlagToggle}
                                 examMode={examMode}
+                                onFinishPracticeExam={handleExamSubmit}
                             />
                         </div>
                         <div className="flex-grow lg:w-3/4 xl:w-4/5">
@@ -163,24 +182,22 @@ const ExamPage: React.FC<ExamPageProps> = ({ navigate, examDetails, goBack, prev
                     </div>
                 </main>
                 <FooterNav
-                    onPrev={handlePrev}
+                    onPrevious={handlePrev}
                     onNext={handleNext}
-                    isFirstQuestion={currentQuestionIndex === 0}
-                    isLastQuestion={currentQuestionIndex === questions.length - 1}
-                    onSubmit={handleExamSubmit}
+                    showPrevious={currentQuestionIndex > 0}
+                    showNext={currentQuestionIndex < questions.length - 1}
+                    onSubmitExam={handleExamSubmit}
                     examMode={examMode}
                 />
             </div>
             {isExamFinished && (
                 <ExamCompletedModal
-                    isOpen={isExamFinished}
-                    onClose={resetExam}
-                    score={Object.entries(selectedAnswers).reduce((acc, [qIndex, ans]) => {
-                        return questions[parseInt(qIndex)].correctAnswer === ans ? acc + 1 : acc;
-                    }, 0)}
-                    totalQuestions={Object.keys(selectedAnswers).length}
-                    onRetry={resetExam}
-                    onViewAnswers={() => { setIsExamFinished(false); }}
+                    onClose={() => { setIsExamFinished(false); }}
+                    score={score}
+                    correct={score}
+                    incorrect={incorrectAnswers}
+                    total={totalAnswered}
+                    onRestart={resetExam}
                 />
             )}
         </>
