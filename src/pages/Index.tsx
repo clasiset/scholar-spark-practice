@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -11,7 +10,6 @@ import CommunityPage from '../components/CommunityPage';
 import CareersPage from '../components/CareersPage';
 import AboutPage from '../components/AboutPage';
 import ContactPage from '../components/ContactPage';
-import AllExamsPage from '../components/AllExamsPage';
 import ExamSubjectsPage from '../components/ExamSubjectsPage';
 import SubjectExamsPage from '../components/SubjectExamsPage';
 import ExamPage from '../components/ExamPage';
@@ -87,9 +85,7 @@ const Index = () => {
       case 'contact':
         return <ContactPage goBack={goBack} previousPageName={previousPageName} />;
       case 'entranceExams':
-        return <AllExamsPage navigate={navigate} goBack={goBack} previousPageName={previousPageName} />;
-      case 'examSubjects':
-        return <ExamSubjectsPage navigate={navigate} examDetails={pageData} goBack={goBack} previousPageName={previousPageName} />;
+        return <ExamSubjectsPage navigate={navigate} goBack={goBack} previousPageName={previousPageName} />;
       case 'subjectExams':
         return <SubjectExamsPage navigate={navigate} subjectTitle={pageData?.subjectTitle} onStartExam={openModal} goBack={goBack} previousPageName={previousPageName} />;
       case 'examPage':

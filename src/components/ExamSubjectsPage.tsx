@@ -1,20 +1,79 @@
 
 import React, { useState } from 'react';
-import { Search, ArrowLeft } from 'lucide-react';
+import { Search, ArrowLeft, FileText } from 'lucide-react';
 import BackButton from './BackButton';
 
-const ExamSubjectsPage = ({ navigate, examDetails, goBack, previousPageName }) => {
+const entranceSubjects = [
+  { 
+    id: 1, 
+    title: 'Aptitude Test', 
+    description: 'Enhance your logical reasoning, problem-solving, and analytical thinking abilities.',
+    icon: FileText,
+    color: 'border-blue-200 hover:border-blue-300 hover:bg-blue-50'
+  },
+  { 
+    id: 2, 
+    title: 'Biology', 
+    description: 'Study life sciences including cell biology, genetics, ecology, and human anatomy.',
+    icon: FileText,
+    color: 'border-green-200 hover:border-green-300 hover:bg-green-50'
+  },
+  { 
+    id: 3, 
+    title: 'Chemistry', 
+    description: 'Explore chemical reactions, atomic theory, and organic/inorganic chemistry.',
+    icon: FileText,
+    color: 'border-purple-200 hover:border-purple-300 hover:bg-purple-50'
+  },
+  { 
+    id: 4, 
+    title: 'Civics & Ethical Education', 
+    description: 'Learn about citizenship, democracy, ethics, and civic responsibilities.',
+    icon: FileText,
+    color: 'border-indigo-200 hover:border-indigo-300 hover:bg-indigo-50'
+  },
+  { 
+    id: 5, 
+    title: 'Economics', 
+    description: 'Study micro and macroeconomics, market systems, and economic policies.',
+    icon: FileText,
+    color: 'border-yellow-200 hover:border-yellow-300 hover:bg-yellow-50'
+  },
+  { 
+    id: 6, 
+    title: 'English', 
+    description: 'Practice English language entrance exam questions covering grammar, vocabulary, and comprehension.',
+    icon: FileText,
+    color: 'border-red-200 hover:border-red-300 hover:bg-red-50'
+  },
+  { 
+    id: 7, 
+    title: 'Geography', 
+    description: 'Learn about physical geography, human geography, and environmental studies.',
+    icon: FileText,
+    color: 'border-teal-200 hover:border-teal-300 hover:bg-teal-50'
+  },
+  { 
+    id: 8, 
+    title: 'History', 
+    description: 'Explore Ethiopian and world history, civilizations, and historical events.',
+    icon: FileText,
+    color: 'border-orange-200 hover:border-orange-300 hover:bg-orange-50'
+  },
+  { 
+    id: 9, 
+    title: 'Mathematics for Natural Sciences', 
+    description: 'Test your skills in algebra, geometry, calculus, and other mathematical concepts.',
+    icon: FileText,
+    color: 'border-pink-200 hover:border-pink-300 hover:bg-pink-50'
+  }
+];
+
+const ExamSubjectsPage = ({ navigate, goBack, previousPageName }) => {
   const [searchTerm, setSearchTerm] = useState('');
   
-  if (!examDetails) {
-    return (
-        <div className="flex items-center justify-center h-screen">
-            <p className="text-gray-500">Loading exam details...</p>
-        </div>
-    );
-  }
-
-  const { title: pageTitle, subjects } = examDetails;
+  const pageTitle = 'University Entrance Exams';
+  const subjects = entranceSubjects;
 
   const filteredSubjects = subjects.filter(subject =>
     subject.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -33,13 +92,7 @@ const ExamSubjectsPage = ({ navigate, examDetails, goBack, previousPageName }) =
       <div className="relative z-10">
         <div className="bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-lg">
           <div className="container mx-auto px-6 py-6">
-            <button
-              onClick={goBack}
-              className="flex items-center text-blue-600 hover:text-blue-700 mb-4 transition-colors group"
-            >
-              <ArrowLeft size={20} className="mr-2 group-hover:-translate-x-1 transition-transform" />
-              Back to Exam Types
-            </button>
+            <BackButton onClick={goBack} previousPageName={previousPageName} />
             
             <div className="flex items-center mb-6">
               <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4 shadow-md">
