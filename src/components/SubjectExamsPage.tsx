@@ -7,7 +7,7 @@ const SubjectExamsPage = ({ subjectTitle, examType, navigate, goBack, previousPa
     switch (type) {
       case 'exit': return 'Exit Exam';
       case 'entrance': return 'Entrance Exam';
-      case 'work': return 'Work Placement Exam';
+      case 'work': return 'Work Exam';
       case 'ngat': return 'NGAT Exam';
       default: return 'Exam';
     }
