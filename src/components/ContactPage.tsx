@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,7 +16,6 @@ const formSchema = z.object({
   name: z.string().min(2, { message: "Full Name must be at least 2 characters." }),
   email: z.string().email({ message: "Please enter a valid email address." }),
   phone: z.string().optional(),
-  subject: z.string().min(2, { message: "Subject must be at least 2 characters." }).optional(),
   inquiryType: z.enum(["general", "support", "billing", "course_inquiry", "feedback"], {
     required_error: "Please select a reason for contacting us.",
   }),
@@ -26,7 +24,6 @@ const formSchema = z.object({
   privacyConsent: z.boolean().refine(val => val === true, {
     message: "You must agree to the privacy policy to continue.",
   }),
-  marketingOptIn: z.boolean().optional().default(false),
 });
 
 const ContactPage = ({ goBack, previousPageName, addTestimonial }: { goBack?: () => void, previousPageName?: string | null, addTestimonial: (testimonial: any) => void }) => {
@@ -36,11 +33,9 @@ const ContactPage = ({ goBack, previousPageName, addTestimonial }: { goBack?: ()
       name: '',
       email: '',
       phone: '',
-      subject: '',
       message: '',
       honeypot: '',
       privacyConsent: false,
-      marketingOptIn: false,
     },
   });
 
@@ -146,19 +141,6 @@ const ContactPage = ({ goBack, previousPageName, addTestimonial }: { goBack?: ()
                 />
                 <FormField
                   control={form.control}
-                  name="subject"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Subject (Optional)</FormLabel>
-                      <FormControl>
-                        <Input placeholder="e.g., Inquiry about a course" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
                   name="message"
                   render={({ field }) => (
                     <FormItem>
@@ -203,21 +185,6 @@ const ContactPage = ({ goBack, previousPageName, addTestimonial }: { goBack?: ()
                   )}
                 />
 
-                <FormField
-                  control={form.control}
-                  name="marketingOptIn"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                      <FormControl>
-                        <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                      </FormControl>
-                      <div className="space-y-1 leading-none">
-                        <FormLabel>Sign me up for the newsletter (Optional)</FormLabel>
-                      </div>
-                    </FormItem>
-                  )}
-                />
-
                 <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3" size="lg">
                   Send Message
                 </Button>
@@ -231,4 +198,3 @@ const ContactPage = ({ goBack, previousPageName, addTestimonial }: { goBack?: ()
 };
 
 export default ContactPage;
-
