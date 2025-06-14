@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import NavLink from './NavLink';
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -176,17 +175,11 @@ const Header = ({ navigate, openModal }) => {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger>About</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[300px] gap-3 p-4 md:w-[400px]">
-                    <ListItem onClick={() => navigate('about')} title="About Us">
-                      Learn more about our mission and team.
-                    </ListItem>
-                    <ListItem onClick={() => navigate('contact')} title="Contact Us">
-                      Get in touch with us for any inquiries.
-                    </ListItem>
-                  </ul>
-                </NavigationMenuContent>
+                 <NavLink text="About Us" onClick={() => navigate('about')} />
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                 <NavLink text="Contact Us" onClick={() => navigate('contact')} />
               </NavigationMenuItem>
 
             </NavigationMenuList>
@@ -283,18 +276,11 @@ const Header = ({ navigate, openModal }) => {
                   </div>
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="about" className="border-b-0">
-                <AccordionTrigger className="py-2 hover:no-underline font-medium text-gray-700 hover:text-indigo-600 [&[data-state=open]>svg]:text-indigo-600 dark:text-gray-300 dark:hover:text-sky-400 dark:[&[data-state=open]>svg]:text-sky-400">About</AccordionTrigger>
-                <AccordionContent>
-                  <div className="pl-4 flex flex-col space-y-1 pt-1">
-                    <NavLink text="About Us" onClick={() => { navigate('about'); setIsMobileMenuOpen(false); }} />
-                    <NavLink text="Contact Us" onClick={() => { navigate('contact'); setIsMobileMenuOpen(false); }} />
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
             </Accordion>
             <NavLink text="Subscription" onClick={() => { navigate('subscription'); setIsMobileMenuOpen(false); }} />
             <NavLink text="Local Job Portal" onClick={() => { navigate('localJobPortal'); setIsMobileMenuOpen(false); }} />
+            <NavLink text="About Us" onClick={() => { navigate('about'); setIsMobileMenuOpen(false); }} />
+            <NavLink text="Contact Us" onClick={() => { navigate('contact'); setIsMobileMenuOpen(false); }} />
             
             <div className="pt-4 mt-4 border-t border-gray-200 dark:border-slate-700">
               {user ? (
