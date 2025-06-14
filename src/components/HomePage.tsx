@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 
-const HomePage = ({ navigate, openModal, testimonials }) => {
+const HomePage = ({ navigate, openModal, testimonials, user }) => {
   const featuredCourses = [
     {
       title: 'Advanced Mathematics',
@@ -269,14 +269,12 @@ const HomePage = ({ navigate, openModal, testimonials }) => {
                 Discover the perfect course for your aspirations and join a community of learners.
              </p>
              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button onClick={() => navigate('courses')} size="lg" variant="outline">
-                    <BookOpen className="mr-2" />
-                    Browse All Courses
-                </Button>
-                <Button onClick={() => openModal('signup')} size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
-                    <Users className="mr-2" />
-                    Sign Up Now
-                </Button>
+                {!user && (
+                  <Button onClick={() => openModal('signup')} size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
+                      Get Started
+                      <ArrowRight className="ml-2" />
+                  </Button>
+                )}
              </div>
           </div>
         </section>

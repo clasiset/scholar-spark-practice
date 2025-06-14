@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import HomePage from '../components/HomePage';
@@ -25,12 +25,17 @@ interface HistoryEntry {
   data: any | null;
 }
 
+interface User {
+  email: string;
+}
+
 // Main App Component
 const Index = () => {
   const [history, setHistory] = useState<HistoryEntry[]>([{ page: 'home', data: null }]);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState(''); // 'signup', 'login', 'enroll', 'startExam'
   const [modalData, setModalData] = useState(null); // Data for the modal, e.g., course title for enrollment
+  const [user, setUser] = useState<User | null>(null);
 
   const [testimonials, setTestimonials] = useState([
     {
@@ -52,6 +57,16 @@ const Index = () => {
       avatar: "https://i.pravatar.cc/150?u=a042581f4e29026706d"
     }
   ]);
+
+  useEffect(() => {
+    const handleAuthChange = (event: CustomEvent) => {
+      setUser(event.detail);
+    };
+    window.addEventListener('authChange', handleAuthChange as EventListener);
+    return () => {
+      window.removeEventListener('authChange', handleAuthChange as EventListener);
+    };
+  }, []);
 
   const addTestimonial = (testimonial: any) => {
     setTestimonials(prev => [testimonial, ...prev]);
@@ -93,7 +108,7 @@ const Index = () => {
   const renderContent = () => {
     switch (currentPage) {
       case 'home':
-        return <HomePage navigate={navigate} openModal={openModal} testimonials={testimonials} />;
+        return <HomePage navigate={navigate} openModal={openModal} testimonials={testimonials} user={user} />;
       case 'courses':
         return <CoursesPage openModal={openModal} goBack={goBack} previousPageName={previousPageName} />;
       case 'programs':
@@ -127,7 +142,7 @@ const Index = () => {
       case 'subscription':
         return <SubscriptionPage openModal={openModal} goBack={goBack} previousPageName={previousPageName} />;
       default:
-        return <HomePage navigate={navigate} openModal={openModal} testimonials={testimonials} />;
+        return <HomePage navigate={navigate} openModal={openModal} testimonials={testimonials} user={user} />;
     }
   };
 
