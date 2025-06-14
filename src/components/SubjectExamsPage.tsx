@@ -2,11 +2,23 @@
 import React from 'react';
 import BackButton from './BackButton';
 
-const SubjectExamsPage = ({ subjectTitle, navigate, goBack, previousPageName }: { subjectTitle: string, navigate: (page: string, data: any) => void, goBack?: () => void, previousPageName?: string | null }) => {
+const SubjectExamsPage = ({ subjectTitle, examType, navigate, goBack, previousPageName }: { subjectTitle: string, examType?: string, navigate: (page: string, data: any) => void, goBack?: () => void, previousPageName?: string | null }) => {
+  const getExamDisplayName = (type?: string) => {
+    switch (type) {
+      case 'exit': return 'Exit Exam';
+      case 'entrance': return 'Entrance Exam';
+      case 'work': return 'Work Placement Exam';
+      case 'ngat': return 'NGAT Exam';
+      default: return 'Exam';
+    }
+  };
+  
+  const examTitle = getExamDisplayName(examType);
+
   const exams = [
-    { id: 1, year: '2015', title: 'Exit Exam' },
-    { id: 2, year: '2016', title: 'Exit Exam' },
-    { id: 3, year: '2017', title: 'Exit Exam' },
+    { id: 1, year: '2015', title: examTitle },
+    { id: 2, year: '2016', title: examTitle },
+    { id: 3, year: '2017', title: examTitle },
   ];
 
   const handleStartExam = (exam: any) => {
@@ -27,7 +39,7 @@ const SubjectExamsPage = ({ subjectTitle, navigate, goBack, previousPageName }: 
             />
           </div>
           <h1 className="text-xl md:text-3xl font-bold">
-            {subjectTitle} <span className="text-blue-600 dark:text-blue-400">Exit Exam</span>
+            {subjectTitle} <span className="text-blue-600 dark:text-blue-400">{examTitle}</span>
           </h1>
         </div>
 
@@ -36,7 +48,7 @@ const SubjectExamsPage = ({ subjectTitle, navigate, goBack, previousPageName }: 
             <div 
               key={exam.id}
               onClick={() => handleStartExam(exam)}
-              className="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-lg p-8 text-center cursor-pointer transition-all duration-300 transform hover:-translate-y-1"
+              className="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-lg p-8 text-center cursor-pointer transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800"
             >
               <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">{exam.year}</h2>
               <p className="text-gray-500 dark:text-gray-400">{exam.title}</p>

@@ -113,7 +113,7 @@ const Index = () => {
       case 'examSubjects':
         return <ExamSubjectsPage navigate={navigate} goBack={goBack} previousPageName={previousPageName} pageData={pageData} />;
       case 'subjectExams':
-        return <SubjectExamsPage subjectTitle={pageData?.subjectTitle} navigate={navigate} goBack={goBack} previousPageName={previousPageName} />;
+        return <SubjectExamsPage subjectTitle={pageData?.subjectTitle} examType={pageData?.examType} navigate={navigate} goBack={goBack} previousPageName={previousPageName} />;
       case 'examPage':
         return <ExamPage navigate={navigate} examDetails={pageData} goBack={goBack} previousPageName={previousPageName} />;
       case 'blog':
