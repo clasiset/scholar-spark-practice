@@ -6,6 +6,7 @@
 
 /* ... keep existing code (RTL Support) */
 
+/* Dark mode and other existing styles */
 @layer base {
   :root {
     --background: 0 0% 96.5%; /* #F6F6F6 */
@@ -14,51 +15,45 @@
     --card-foreground: 0 0% 20%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 20%;
-    --primary: 197 45% 32%; /* #2B6777 */
-    --primary-foreground: 210 40% 98%;
-    --secondary: 181 49% 43%; /* #38A3A5 */
-    --secondary-foreground: 210 40% 98%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 35 100% 56%; /* #FF9F1C */
-    --accent-foreground: 206 44% 17%;
+    --primary: 36 100% 55%; /* #FF9F1C - Optimistic Orange */
+    --primary-foreground: 0 0% 20%; /* #333333 for contrast */
+    --secondary: 181 49% 45%; /* #38A3A5 - Engaging Teal */
+    --secondary-foreground: 0 0% 96.5%; /* #F6F6F6 */
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 46.9%;
+    --accent: 181 49% 45%; /* Using Teal for accent */
+    --accent-foreground: 0 0% 96.5%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     --border: 0 0% 80%; /* #CCCCCC */
     --input: 0 0% 80%; /* #CCCCCC */
-    --ring: 197 45% 32%; /* #2B6777 */
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --ring: 181 49% 45%; /* #38A3A5 - Teal for focus ring */
     --radius: 0.5rem;
+    --brand-blue: 194 46% 32%; /* Custom var for #2B6777 */
+    --brand-blue-foreground: 0 0% 96.5%; /* #F6F6F6 */
   }
   .dark {
-    --background: 206 40% 17%; /* #1A2F3B */
+    --background: 203 39% 17%; /* #1A2F3B */
     --foreground: 0 0% 88%; /* #E0E0E0 */
-    --card: 206 28% 27%; /* #2B4553 */
-    --card-foreground: 0 0% 88%;
-    --popover: 206 40% 17%;
-    --popover-foreground: 0 0% 88%;
-    --primary: 181 49% 43%; /* #38A3A5 */
-    --primary-foreground: 206 40% 17%;
-    --secondary: 206 28% 27%;
-    --secondary-foreground: 0 0% 88%;
-    --muted: 206 28% 27%;
+    --card: 203 32% 26%; /* #2B4553 */
+    --card-foreground: 0 0% 88%; /* #E0E0E0 */
+    --popover: 203 32% 26%; /* #2B4553 */
+    --popover-foreground: 0 0% 88%; /* #E0E0E0 */
+    --primary: 35 100% 60%; /* #FFA738 */
+    --primary-foreground: 203 39% 17%; /* #1A2F3B */
+    --secondary: 181 49% 45%; /* #38A3A5 */
+    --secondary-foreground: 0 0% 88%; /* #E0E0E0 */
+    --muted: 203 32% 26%; /* #2B4553 */
     --muted-foreground: 0 0% 69%; /* #B0B0B0 */
-    --accent: 35 100% 61%; /* #FFA738 */
-    --accent-foreground: 206 44% 17%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 206 28% 27%;
-    --input: 206 28% 27%;
-    --ring: 181 49% 43%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --accent: 181 49% 45%; /* #38A3A5 */
+    --accent-foreground: 0 0% 88%; /* #E0E0E0 */
+    --destructive: 4 90% 58%; /* #F44336 */
+    --destructive-foreground: 0 0% 88%; /* #E0E0E0 */
+    --border: 203 32% 26%; /* #2B4553 */
+    --input: 203 32% 26%; /* #2B4553 */
+    --ring: 181 49% 45%; /* #38A3A5 */
+    --brand-blue: 194 46% 32%; /* Custom var for #2B6777 */
+    --brand-blue-foreground: 0 0% 96.5%; /* #F6F6F6 */
   }
 }
 
@@ -70,17 +65,17 @@
     @apply bg-background text-foreground;
     font-family: 'Inter', sans-serif;
   }
+
+  #app-background {
+    background-image: url('https://images.unsplash.com/photo-1549497042-32128e441865?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1;
+  }
+
+  .dark #app-background {
+    background-image: linear-gradient(rgba(26, 47, 59, 0.9), rgba(26, 47, 59, 0.9)), url('https://images.unsplash.com/photo-1518770660613-ee0b7596dc6d?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    opacity: 1;
+  }
 }
 
-#background-overlay {
-  background-image: url('https://images.unsplash.com/photo-1549497042-32128e441865?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.15;
-  transition: background-image 0.3s ease-in-out, opacity 0.3s ease-in-out;
-}
-
-.dark #background-overlay {
-  background-image: linear-gradient(rgba(26,47,59, 0.9), rgba(26,47,59, 0.9)), url('https://images.unsplash.com/photo-1518770660613-ee0b7596dc6d?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-  opacity: 1; /* Reset opacity as it's handled by gradient */
-}

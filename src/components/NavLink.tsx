@@ -4,7 +4,7 @@ import React from 'react';
 const NavLink = ({ text, onClick }) => {
   return (
     <button
-      className="text-foreground/80 dark:text-foreground/80 hover:text-secondary dark:hover:text-primary font-medium transition duration-300 ease-in-out py-2 px-3 rounded-md hover:bg-black/5 dark:hover:bg-white/10"
+      className="text-brand-blue-foreground/80 dark:text-foreground hover:text-secondary dark:hover:text-secondary font-medium transition duration-300 ease-in-out py-2 px-3 rounded-md"
       onClick={onClick}
     >
       {text}
@@ -13,3 +13,4 @@ const NavLink = ({ text, onClick }) => {
 };
 
 export default NavLink;
+
