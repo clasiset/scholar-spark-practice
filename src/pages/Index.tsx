@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -20,36 +21,35 @@ import EmployerDashboardPage from '../components/EmployerDashboardPage';
 import BlogPage from '../components/BlogPage';
 import SubscriptionPage from '../components/SubscriptionPage';
 
+interface HistoryEntry {
+  page: string;
+  data: any | null;
+}
+
 // Main App Component
 const Index = () => {
-  const [currentPage, setCurrentPage] = useState('home');
-  const [history, setHistory] = useState<string[]>(['home']);
+  const [history, setHistory] = useState<HistoryEntry[]>([{ page: 'home', data: null }]);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState(''); // 'signup', 'login', 'enroll', 'startExam'
   const [modalData, setModalData] = useState(null); // Data for the modal, e.g., course title for enrollment
-  const [pageData, setPageData] = useState(null); // Data to pass between pages (e.g., subject title, exam details)
+
+  const { page: currentPage, data: pageData } = history[history.length - 1];
 
   // Navigation handler
-  const navigate = (page, data = null) => {
-    if (page !== currentPage) {
-      setHistory(prevHistory => [...prevHistory, page]);
+  const navigate = (page: string, data: any = null) => {
+    const latestEntry = history[history.length - 1];
+    if (page !== latestEntry.page || JSON.stringify(data) !== JSON.stringify(latestEntry.data)) {
+      setHistory(prevHistory => [...prevHistory, { page, data }]);
     }
-    setCurrentPage(page);
-    setPageData(data);
   };
 
   const goBack = () => {
     if (history.length > 1) {
-      const newHistory = [...history];
-      newHistory.pop();
-      const previousPage = newHistory[newHistory.length - 1];
-      setHistory(newHistory);
-      setCurrentPage(previousPage);
-      setPageData(null);
+      setHistory(prevHistory => prevHistory.slice(0, -1));
     }
   };
   
-  const previousPageName = history.length > 1 ? history[history.length - 2] : null;
+  const previousPageName = history.length > 1 ? history[history.length - 2].page : null;
 
   // Function to open the modal with specific content
   const openModal = (type, data = null) => {

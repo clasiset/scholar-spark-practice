@@ -109,36 +109,6 @@ const HomePage = ({ navigate, openModal }) => {
           </div>
         </section>
 
-        {/* Features Grid */}
-        <section className="py-12 md:py-16 px-4 md:px-6">
-          <div className="container mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-8 md:mb-12">Why Choose Our Platform?</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-              <div className="text-center p-4 md:p-6 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group">
-                <div className="w-12 h-12 md:w-16 md:h-16 bg-blue-100/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <BookOpen className="text-blue-200 group-hover:text-white transition-colors duration-300" size={24} />
-                </div>
-                <h3 className="text-lg md:text-xl font-semibold mb-2 md:mb-3 text-white">Practice Mode</h3>
-                <p className="text-blue-100 text-sm md:text-base">Practice with detailed explanations and AI-powered hints</p>
-              </div>
-              <div className="text-center p-4 md:p-6 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group">
-                <div className="w-12 h-12 md:w-16 md:h-16 bg-green-100/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <Trophy className="text-green-200 group-hover:text-white transition-colors duration-300" size={24} />
-                </div>
-                <h3 className="text-lg md:text-xl font-semibold mb-2 md:mb-3 text-white">Exam Mode</h3>
-                <p className="text-blue-100 text-sm md:text-base">Simulate real exam conditions with timed sessions</p>
-              </div>
-              <div className="text-center p-4 md:p-6 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group">
-                <div className="w-12 h-12 md:w-16 md:h-16 bg-purple-100/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <Users className="text-purple-200 group-hover:text-white transition-colors duration-300" size={24} />
-                </div>
-                <h3 className="text-lg md:text-xl font-semibold mb-2 md:mb-3 text-white">Track Progress</h3>
-                <p className="text-blue-100 text-sm md:text-base">Monitor your performance and identify areas for improvement</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Featured Courses Section */}
         <section className="py-12 md:py-16 px-4 md:px-6 bg-white/5 backdrop-blur-sm">
           <div className="container mx-auto">
