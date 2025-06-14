@@ -59,10 +59,10 @@ const HomePage = ({ navigate, openModal, testimonials, user }) => {
                 </div>
               </div>
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight">
-                University <span className="text-yellow-300">Entrance</span> Exams
+                Ready to Begin Your <span className="text-yellow-300">Learning Journey?</span>
               </h1>
               <p className="text-base md:text-xl text-blue-100 max-w-2xl md:max-w-3xl mx-auto mb-6 md:mb-8 leading-relaxed">
-                Practice with subject-specific questions to prepare for your university entrance examination.
+                Discover the perfect course for your aspirations and join a community of learners.
               </p>
             </div>
             
