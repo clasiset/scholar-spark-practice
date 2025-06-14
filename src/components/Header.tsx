@@ -255,7 +255,7 @@ const Header = ({ navigate, openModal }) => {
                     
                     <div className="py-2">
                       <button 
-                        onClick={() => { openModal('editProfile', user); setIsProfileOpen(false); }}
+                        onClick={() => { navigate('editProfile', user); setIsProfileOpen(false); }}
                         className="w-full text-left px-4 py-3 text-sm hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
                       >
                         <User className={`${isRTL ? 'ml-3' : 'mr-3'} h-5 w-5 text-green-600 dark:text-green-400`} />
@@ -266,7 +266,7 @@ const Header = ({ navigate, openModal }) => {
                       </button>
                       
                       <button 
-                        onClick={() => { openModal('accountSettings', user); setIsProfileOpen(false); }}
+                        onClick={() => { navigate('settings', user); setIsProfileOpen(false); }}
                         className="w-full text-left px-4 py-3 text-sm hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
                       >
                         <Settings className={`${isRTL ? 'ml-3' : 'mr-3'} h-5 w-5 text-gray-600 dark:text-gray-400`} />
@@ -277,7 +277,7 @@ const Header = ({ navigate, openModal }) => {
                       </button>
                       
                       <button 
-                        onClick={() => { openModal('notifications', user); setIsProfileOpen(false); }}
+                        onClick={() => { navigate('notifications', user); setIsProfileOpen(false); }}
                         className="w-full text-left px-4 py-3 text-sm hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
                       >
                         <Bell className={`${isRTL ? 'ml-3' : 'mr-3'} h-5 w-5 text-yellow-600 dark:text-yellow-400`} />
@@ -411,18 +411,25 @@ const Header = ({ navigate, openModal }) => {
                       
                       <div className="space-y-2 text-sm">
                           <button 
-                              onClick={() => { openModal('editProfile', user); setIsMobileMenuOpen(false); }}
+                              onClick={() => { navigate('editProfile', user); setIsMobileMenuOpen(false); }}
                               className="w-full text-left py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-slate-800 flex items-center"
                           >
                               <User className="mr-2 h-4 w-4" />
                               {t.auth.editProfile}
                           </button>
                           <button 
-                              onClick={() => { openModal('accountSettings', user); setIsMobileMenuOpen(false); }}
+                              onClick={() => { navigate('settings', user); setIsMobileMenuOpen(false); }}
                               className="w-full text-left py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-slate-800 flex items-center"
                           >
                               <Settings className="mr-2 h-4 w-4" />
                               {t.auth.settings}
+                          </button>
+                          <button 
+                              onClick={() => { navigate('notifications', user); setIsMobileMenuOpen(false); }}
+                              className="w-full text-left py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-slate-800 flex items-center"
+                          >
+                              <Bell className="mr-2 h-4 w-4" />
+                              {t.auth.notifications}
                           </button>
                           <button 
                               onClick={() => { navigate('subscription'); setIsMobileMenuOpen(false); }}

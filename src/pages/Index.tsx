@@ -20,6 +20,9 @@ import JobSeekerDashboardPage from '../components/JobSeekerDashboardPage';
 import EmployerDashboardPage from '../components/EmployerDashboardPage';
 import BlogPage from '../components/BlogPage';
 import SubscriptionPage from '../components/SubscriptionPage';
+import EditProfilePage from '../components/EditProfilePage';
+import SettingsPage from '../components/SettingsPage';
+import NotificationsPage from '../components/NotificationsPage';
 
 interface HistoryEntry {
   page: string;
@@ -109,7 +112,7 @@ const Index = () => {
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
-        return <HomePage navigate={navigate} openModal={openModal} testimonials={testimonials} user={user} />;
+        return <HomePage navigate={navigate} openModal={openModal} />;
       case 'courses':
         return <CoursesPage openModal={openModal} goBack={goBack} previousPageName={previousPageName} />;
       case 'programs':
@@ -142,8 +145,14 @@ const Index = () => {
         return <EmployerDashboardPage goBack={goBack} previousPageName={previousPageName} />;
       case 'subscription':
         return <SubscriptionPage openModal={openModal} goBack={goBack} previousPageName={previousPageName} />;
+      case 'editProfile':
+        return <EditProfilePage user={user} goBack={goBack} previousPageName={previousPageName} />;
+      case 'settings':
+        return <SettingsPage user={user} goBack={goBack} previousPageName={previousPageName} />;
+      case 'notifications':
+        return <NotificationsPage user={user} goBack={goBack} previousPageName={previousPageName} />;
       default:
-        return <HomePage navigate={navigate} openModal={openModal} testimonials={testimonials} user={user} />;
+        return <HomePage navigate={navigate} openModal={openModal} />;
     }
   };
 
