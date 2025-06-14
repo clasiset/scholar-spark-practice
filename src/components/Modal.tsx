@@ -16,6 +16,31 @@ const Modal = ({ type, data, onClose, openModal, navigate }) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  const handleAuth = () => {
+    if (type === 'signup') {
+        if (formData.email && formData.password && formData.password === formData.confirmPassword) {
+            window.dispatchEvent(new CustomEvent('authChange', { detail: { email: formData.email } }));
+            onClose();
+        } else if (formData.password !== formData.confirmPassword) {
+            alert("Passwords do not match.");
+        } else {
+            alert("Please fill in all fields.");
+        }
+    } else { // login
+        if (formData.email && formData.password) {
+            window.dispatchEvent(new CustomEvent('authChange', { detail: { email: formData.email } }));
+            onClose();
+        } else {
+            alert("Please enter your email and password.");
+        }
+    }
+  };
+
+  const handleLogout = () => {
+    window.dispatchEvent(new CustomEvent('authChange', { detail: null }));
+    onClose();
+  }
+
   if (type === 'startExam') {
     return <StartExamModal onClose={onClose} examDetails={data} navigate={navigate} />;
   }
@@ -94,7 +119,7 @@ const Modal = ({ type, data, onClose, openModal, navigate }) => {
                 </button>
               </div>
 
-              <button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+              <button onClick={handleAuth} className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
                 Create Account
               </button>
               
@@ -176,7 +201,7 @@ const Modal = ({ type, data, onClose, openModal, navigate }) => {
                 <a href="#" className="text-sm text-blue-600 hover:text-blue-700">Forgot password?</a>
               </div>
 
-              <button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+              <button onClick={handleAuth} className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
                 Sign In
               </button>
               
@@ -211,19 +236,28 @@ const Modal = ({ type, data, onClose, openModal, navigate }) => {
             <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4">
               <User className="text-white" size={32} />
             </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">User Profile</h2>
-            <p className="text-gray-600 mb-6">Manage your account settings</p>
-            <div className="space-y-3">
-              <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200">
-                View Profile
-              </button>
-              <button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200">
-                Settings
-              </button>
-              <button className="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200">
-                Logout
-              </button>
-            </div>
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">{data?.email || 'User Profile'}</h2>
+            <p className="text-gray-600 mb-6">{data?.email ? 'Manage your account settings' : 'Sign in to manage your profile.'}</p>
+            {data?.email ? (
+              <div className="space-y-3">
+                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200">
+                  View Profile
+                </button>
+                <button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200">
+                  Settings
+                </button>
+                <button onClick={handleLogout} className="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200">
+                  Logout
+                </button>
+              </div>
+            ) : (
+                <button 
+                  onClick={() => { onClose(); openModal('login'); }} 
+                  className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                >
+                  Sign In
+                </button>
+            )}
           </div>
         )}
 

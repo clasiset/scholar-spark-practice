@@ -1,10 +1,29 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { User } from 'lucide-react';
 import NavLink from './NavLink';
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const Header = ({ navigate, openModal }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState<{ email: string } | null>(null);
+
+  useEffect(() => {
+    const handleAuthChange = (event: CustomEvent) => {
+      setUser(event.detail);
+    };
+
+    window.addEventListener('authChange', handleAuthChange as EventListener);
+
+    return () => {
+      window.removeEventListener('authChange', handleAuthChange as EventListener);
+    };
+  }, []);
+
+  const getInitials = (email: string | undefined) => {
+    if (!email) return 'U';
+    return email[0].toUpperCase();
+  };
 
   return (
     <header className="bg-white/95 backdrop-blur-md shadow-lg py-3 md:py-4 px-4 md:px-6 lg:px-12 sticky top-0 z-50 border-b border-blue-100">
@@ -35,21 +54,34 @@ const Header = ({ navigate, openModal }) => {
           <NavLink text="About" onClick={() => navigate('about')} />
           
           <div className="flex items-center space-x-3">
-            {/* Profile Button */}
-            <button
-              className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-              onClick={() => openModal('profile')}
-            >
-              <User size={20} />
-            </button>
-            
-            {/* Sign In Button */}
-            <button
-              className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl"
-              onClick={() => openModal('login')}
-            >
-              Sign In
-            </button>
+            {user ? (
+              <button
+                className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                onClick={() => openModal('profile', user)}
+              >
+                <Avatar>
+                  <AvatarFallback className="bg-transparent text-white font-bold">{getInitials(user.email)}</AvatarFallback>
+                </Avatar>
+              </button>
+            ) : (
+              <>
+                {/* Profile Button */}
+                <button
+                  className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  onClick={() => openModal('profile')}
+                >
+                  <User size={20} />
+                </button>
+                
+                {/* Sign In Button */}
+                <button
+                  className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl"
+                  onClick={() => openModal('login')}
+                >
+                  Sign In
+                </button>
+              </>
+            )}
           </div>
         </nav>
 
@@ -57,9 +89,15 @@ const Header = ({ navigate, openModal }) => {
         <div className="lg:hidden flex items-center space-x-2">
           <button
             className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300"
-            onClick={() => openModal('profile')}
+            onClick={() => openModal('profile', user)}
           >
-            <User size={18} />
+            {user ? (
+               <Avatar>
+                  <AvatarFallback className="bg-transparent text-white text-sm font-bold">{getInitials(user.email)}</AvatarFallback>
+                </Avatar>
+            ) : (
+              <User size={18} />
+            )}
           </button>
           
           <button
@@ -89,12 +127,14 @@ const Header = ({ navigate, openModal }) => {
             <NavLink text="Community" onClick={() => { navigate('community'); setIsMobileMenuOpen(false); }} />
             <NavLink text="Careers" onClick={() => { navigate('careers'); setIsMobileMenuOpen(false); }} />
             <NavLink text="About" onClick={() => { navigate('about'); setIsMobileMenuOpen(false); }} />
-            <button
-              className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 w-full mt-4"
-              onClick={() => { openModal('login'); setIsMobileMenuOpen(false); }}
-            >
-              Sign In
-            </button>
+            {!user && (
+              <button
+                className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 w-full mt-4"
+                onClick={() => { openModal('login'); setIsMobileMenuOpen(false); }}
+              >
+                Sign In
+              </button>
+            )}
           </nav>
         </div>
       )}
