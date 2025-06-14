@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { Search, ArrowLeft } from 'lucide-react';
+import { Search } from 'lucide-react';
 import BackButton from './BackButton';
 import { examData } from '../data/examData';
 
@@ -40,21 +39,23 @@ const ExamSubjectsPage = ({ navigate, goBack, previousPageName, pageData }) => {
               </h1>
             </div>
             
-            <div className="relative max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            <div className="relative max-w-lg mx-auto">
+              <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
               <input
                 type="text"
                 placeholder="Search subjects..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/90 backdrop-blur-sm"
+                className="w-full pl-12 pr-4 py-3 bg-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
             </div>
           </div>
         </div>
 
         <div className="container mx-auto px-6 py-8">
-          <p className="text-gray-700 text-center mb-8 font-medium">Select your subject and year to start practicing</p>
+          {!searchTerm && (
+            <p className="text-gray-700 text-center mb-8 font-medium">Select your subject and year to start practicing</p>
+          )}
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredSubjects.map((subject) => {
