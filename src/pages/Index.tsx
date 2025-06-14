@@ -19,6 +19,7 @@ import JobSeekerDashboardPage from '../components/JobSeekerDashboardPage';
 import EmployerDashboardPage from '../components/EmployerDashboardPage';
 import BlogPage from '../components/BlogPage';
 import SubscriptionPage from '../components/SubscriptionPage';
+import PaymentReturnPage from '../components/PaymentReturnPage';
 
 interface HistoryEntry {
   page: string;
@@ -105,7 +106,12 @@ const Index = () => {
   };
 
   // Main content rendering based on currentPage
-  const renderContent = () => {
+  const renderPage = () => {
+    // Check for payment return route
+    if (window.location.pathname === '/payment-return') {
+      return <PaymentReturnPage navigate={navigate} />;
+    }
+
     switch (currentPage) {
       case 'home':
         return <HomePage navigate={navigate} openModal={openModal} testimonials={testimonials} user={user} />;
@@ -147,10 +153,10 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-slate-900 font-sans antialiased flex flex-col">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
       <Header navigate={navigate} openModal={openModal} />
-      <main className="flex-grow">
-        {renderContent()}
+      <main className="flex-1">
+        {renderPage()}
       </main>
       <Footer />
       {showModal && <Modal type={modalType} data={modalData} onClose={closeModal} openModal={openModal} navigate={navigate} />}
