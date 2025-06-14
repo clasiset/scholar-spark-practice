@@ -62,7 +62,7 @@ const BlogPage = ({ goBack, previousPageName }) => {
     <div className="bg-gray-50 py-12">
       <div className="container mx-auto px-4 md:px-6">
         <div className="mb-8">
-            <BackButton goBack={goBack} previousPageName={previousPageName} />
+            <BackButton onClick={goBack} previousPageName={previousPageName} />
         </div>
         <h1 className="text-4xl font-bold text-center text-gray-800 mb-2">From Our Blog</h1>
         <p className="text-lg text-center text-gray-600 mb-12">Insights and articles on modern education and AI.</p>
