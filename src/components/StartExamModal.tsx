@@ -1,10 +1,8 @@
 
 import React from 'react';
-import { X, FileText, Lightbulb, BookOpen } from 'lucide-react';
+import { X, FileText, Lightbulb } from 'lucide-react';
 
 const StartExamModal = ({ onClose, examDetails, navigate }) => {
-  const examTitle = (examDetails?.examTitle || 'exam').toLowerCase();
-
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-lg shadow-xl max-w-md w-full relative">
@@ -22,14 +20,14 @@ const StartExamModal = ({ onClose, examDetails, navigate }) => {
             </div>
             <div>
               <h2 className="text-xl font-bold text-gray-900">Start Your Exam</h2>
-              <p className="text-gray-600">Begin your {examDetails?.subjectTitle} {examDetails?.year} {examTitle}</p>
+              <p className="text-gray-600">Begin your {examDetails?.subjectTitle} {examDetails?.year} entrance exam</p>
             </div>
           </div>
 
           <div className="bg-gray-50 rounded-lg p-6 mb-6">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center">
-                <BookOpen className="text-gray-600 mr-3" size={20} />
+                <FileText className="text-gray-600 mr-3" size={20} />
                 <h3 className="font-semibold text-gray-900">Start Now</h3>
               </div>
               <span className="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">Ready</span>
