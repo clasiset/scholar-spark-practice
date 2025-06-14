@@ -2,12 +2,16 @@
 import React from 'react';
 import BackButton from './BackButton';
 
-const SubjectExamsPage = ({ subjectTitle, onStartExam, goBack, previousPageName }: { subjectTitle: string, onStartExam: any, goBack?: () => void, previousPageName?: string | null }) => {
+const SubjectExamsPage = ({ subjectTitle, navigate, goBack, previousPageName }: { subjectTitle: string, navigate: (page: string, data: any) => void, goBack?: () => void, previousPageName?: string | null }) => {
   const exams = [
     { id: 1, year: '2015', title: 'Exit Exam' },
     { id: 2, year: '2016', title: 'Exit Exam' },
     { id: 3, year: '2017', title: 'Exit Exam' },
   ];
+
+  const handleStartExam = (exam: any) => {
+    navigate('examPage', { subjectTitle, year: exam.year, ...exam });
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-800 dark:text-gray-200">
@@ -31,7 +35,7 @@ const SubjectExamsPage = ({ subjectTitle, onStartExam, goBack, previousPageName 
           {exams.map((exam) => (
             <div 
               key={exam.id}
-              onClick={() => onStartExam('startExam', { subjectTitle, year: exam.year, ...exam })}
+              onClick={() => handleStartExam(exam)}
               className="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-lg p-8 text-center cursor-pointer transition-all duration-300 transform hover:-translate-y-1"
             >
               <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">{exam.year}</h2>
