@@ -39,19 +39,43 @@ const HomePage = ({ navigate, openModal }) => {
     }
   ];
 
+  const handleExploreEntrance = () => {
+    navigate('examSubjects', { examType: 'entrance' });
+  };
+
+  const handleExploreExit = () => {
+    navigate('examSubjects', { examType: 'exit' });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-      {/* Hero Section */}
-      <section className="relative py-20 px-6 lg:px-12">
+      {/* Hero Section - Full Height */}
+      <section className="relative min-h-screen flex items-center justify-center px-6 lg:px-12">
         <div className="container mx-auto text-center">
           <div className="mb-8">
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-              {user ? t.home.welcomeMessage : t.home.heroTitle}
+              Your Gateway to Academic Excellence
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
               {t.home.heroSubtitle}
             </p>
-            {!user && (
+            
+            {user ? (
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button
+                  onClick={handleExploreEntrance}
+                  className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold py-4 px-8 rounded-full text-lg shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl w-full sm:w-auto"
+                >
+                  Explore Entrance Exams
+                </button>
+                <button
+                  onClick={handleExploreExit}
+                  className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-4 px-8 rounded-full text-lg shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl w-full sm:w-auto"
+                >
+                  Explore Exit Exams
+                </button>
+              </div>
+            ) : (
               <button
                 onClick={() => openModal('signup')}
                 className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold py-4 px-8 rounded-full text-lg shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl"
@@ -60,6 +84,13 @@ const HomePage = ({ navigate, openModal }) => {
               </button>
             )}
           </div>
+        </div>
+        
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
         </div>
       </section>
 
