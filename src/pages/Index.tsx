@@ -17,6 +17,7 @@ import ExamPage from '../components/ExamPage';
 import Modal from '../components/Modal';
 import LocalJobPortalPage from '../components/LocalJobPortalPage';
 import JobSeekerDashboardPage from '../components/JobSeekerDashboardPage';
+import EmployerDashboardPage from '../components/EmployerDashboardPage';
 
 // Main App Component
 const Index = () => {
@@ -77,6 +78,8 @@ const Index = () => {
         return <LocalJobPortalPage navigate={navigate} />;
       case 'jobSeekerDashboard':
         return <JobSeekerDashboardPage />;
+      case 'employerDashboard':
+        return <EmployerDashboardPage />;
       default:
         return <HomePage navigate={navigate} openModal={openModal} />;
     }

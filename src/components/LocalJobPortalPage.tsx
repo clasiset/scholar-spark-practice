@@ -68,7 +68,7 @@ const LocalJobPortalPage = ({ navigate }: { navigate: (page: string) => void }) 
                   </li>
                 ))}
               </ul>
-              <Button className="mt-6 w-full bg-blue-600 hover:bg-blue-700">Post a Job</Button>
+              <Button onClick={() => navigate('employerDashboard')} className="mt-6 w-full bg-blue-600 hover:bg-blue-700">Post a Job</Button>
             </CardContent>
           </Card>
         </div>
