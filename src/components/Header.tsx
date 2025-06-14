@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import NavLink from './NavLink';
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -15,16 +16,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Switch } from "@/components/ui/switch";
-import { Sun, Moon, User, Settings, Shield, CreditCard, Bell, HelpCircle, LogOut, Eye, Globe, Briefcase, GraduationCap, Languages, Heart, UserCog, MapPin } from 'lucide-react';
+import { Sun, Moon, User, Settings, CreditCard, Bell, LogOut, Eye } from 'lucide-react';
 import { cn } from "@/lib/utils";
 
 const ListItem = React.forwardRef<
@@ -86,6 +79,20 @@ const Header = ({ navigate, openModal }) => {
     }
   }, [isDarkMode]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('.profile-dropdown')) {
+        setIsProfileOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   const getInitials = (email: string | undefined) => {
     if (!email) return 'U';
     return email[0].toUpperCase();
@@ -98,6 +105,7 @@ const Header = ({ navigate, openModal }) => {
     window.dispatchEvent(new CustomEvent('authChange', { detail: null }));
     // Navigate to home
     navigate('home');
+    setIsProfileOpen(false);
   };
 
   return (
@@ -215,21 +223,20 @@ const Header = ({ navigate, openModal }) => {
             </div>
 
             {user ? (
-              <div 
-                className="relative"
-                onMouseEnter={() => setIsProfileOpen(true)}
-                onMouseLeave={() => setIsProfileOpen(false)}
-              >
-                <Avatar className="cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all duration-200">
+              <div className="relative profile-dropdown">
+                <Avatar 
+                  className="cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all duration-200"
+                  onClick={() => setIsProfileOpen(!isProfileOpen)}
+                >
                   <AvatarFallback className="bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-semibold">
                     {getInitials(user.email)}
                   </AvatarFallback>
                 </Avatar>
                 
                 {isProfileOpen && (
-                  <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-xl rounded-lg z-50">
+                  <div className="absolute right-0 mt-2 w-72 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-xl rounded-lg z-50">
                     <div className="p-4 border-b border-gray-200 dark:border-slate-700">
-                      <div className="flex items-center space-y-2">
+                      <div className="flex items-center space-x-3">
                         <Avatar className="w-12 h-12">
                           <AvatarFallback className="bg-gradient-to-r from-indigo-600 to-blue-600 text-white text-lg font-semibold">
                             {getInitials(user.email)}
@@ -243,167 +250,73 @@ const Header = ({ navigate, openModal }) => {
                     </div>
                     
                     <div className="py-2">
-                      {/* Profile & Personal */}
-                      <div className="px-2 py-1">
-                        <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider px-2 mb-1">Profile & Personal</p>
-                        
-                        <button 
-                          onClick={() => openModal('viewProfile', user)}
-                          className="w-full text-left px-3 py-2 text-sm rounded-md hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center group"
-                        >
-                          <Eye className="mr-3 h-4 w-4 text-blue-600 dark:text-blue-400" />
-                          <div>
-                            <div className="font-medium">View Public Profile</div>
-                            <div className="text-xs text-gray-500">See how others view your profile</div>
-                          </div>
-                        </button>
-                        
-                        <button 
-                          onClick={() => openModal('editProfile', user)}
-                          className="w-full text-left px-3 py-2 text-sm rounded-md hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
-                        >
-                          <User className="mr-3 h-4 w-4 text-green-600 dark:text-green-400" />
-                          <div>
-                            <div className="font-medium">Edit Profile</div>
-                            <div className="text-xs text-gray-500">Update photo, bio, contact info</div>
-                          </div>
-                        </button>
-                        
-                        <button 
-                          onClick={() => openModal('personalInfo', user)}
-                          className="w-full text-left px-3 py-2 text-sm rounded-md hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
-                        >
-                          <UserCog className="mr-3 h-4 w-4 text-purple-600 dark:text-purple-400" />
-                          <div>
-                            <div className="font-medium">Personal Information</div>
-                            <div className="text-xs text-gray-500">Name, location, languages</div>
-                          </div>
-                        </button>
-                      </div>
+                      <button 
+                        onClick={() => { openModal('viewProfile', user); setIsProfileOpen(false); }}
+                        className="w-full text-left px-4 py-3 text-sm hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
+                      >
+                        <Eye className="mr-3 h-5 w-5 text-blue-600 dark:text-blue-400" />
+                        <div>
+                          <div className="font-medium">View Profile</div>
+                          <div className="text-xs text-gray-500">See your public profile</div>
+                        </div>
+                      </button>
+                      
+                      <button 
+                        onClick={() => { openModal('editProfile', user); setIsProfileOpen(false); }}
+                        className="w-full text-left px-4 py-3 text-sm hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
+                      >
+                        <User className="mr-3 h-5 w-5 text-green-600 dark:text-green-400" />
+                        <div>
+                          <div className="font-medium">Edit Profile</div>
+                          <div className="text-xs text-gray-500">Update your information</div>
+                        </div>
+                      </button>
+                      
+                      <button 
+                        onClick={() => { openModal('accountSettings', user); setIsProfileOpen(false); }}
+                        className="w-full text-left px-4 py-3 text-sm hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
+                      >
+                        <Settings className="mr-3 h-5 w-5 text-gray-600 dark:text-gray-400" />
+                        <div>
+                          <div className="font-medium">Settings</div>
+                          <div className="text-xs text-gray-500">Account & privacy settings</div>
+                        </div>
+                      </button>
+                      
+                      <button 
+                        onClick={() => { openModal('notifications', user); setIsProfileOpen(false); }}
+                        className="w-full text-left px-4 py-3 text-sm hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
+                      >
+                        <Bell className="mr-3 h-5 w-5 text-yellow-600 dark:text-yellow-400" />
+                        <div>
+                          <div className="font-medium">Notifications</div>
+                          <div className="text-xs text-gray-500">Manage preferences</div>
+                        </div>
+                      </button>
+                      
+                      <button 
+                        onClick={() => { navigate('subscription'); setIsProfileOpen(false); }}
+                        className="w-full text-left px-4 py-3 text-sm hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
+                      >
+                        <CreditCard className="mr-3 h-5 w-5 text-green-600 dark:text-green-400" />
+                        <div>
+                          <div className="font-medium">Subscription</div>
+                          <div className="text-xs text-gray-500">Billing & plans</div>
+                        </div>
+                      </button>
 
                       <div className="border-t border-gray-200 dark:border-slate-700 my-1"></div>
 
-                      {/* Professional & Academic */}
-                      <div className="px-2 py-1">
-                        <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider px-2 mb-1">Professional & Academic</p>
-                        
-                        <button 
-                          onClick={() => openModal('workExperience', user)}
-                          className="w-full text-left px-3 py-2 text-sm rounded-md hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
-                        >
-                          <Briefcase className="mr-3 h-4 w-4 text-orange-600 dark:text-orange-400" />
-                          <div>
-                            <div className="font-medium">Work Experience</div>
-                            <div className="text-xs text-gray-500">Add your professional background</div>
-                          </div>
-                        </button>
-                        
-                        <button 
-                          onClick={() => openModal('education', user)}
-                          className="w-full text-left px-3 py-2 text-sm rounded-md hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
-                        >
-                          <GraduationCap className="mr-3 h-4 w-4 text-indigo-600 dark:text-indigo-400" />
-                          <div>
-                            <div className="font-medium">Education</div>
-                            <div className="text-xs text-gray-500">Schools, degrees, certifications</div>
-                          </div>
-                        </button>
-                        
-                        <button 
-                          onClick={() => openModal('skillsLanguages', user)}
-                          className="w-full text-left px-3 py-2 text-sm rounded-md hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
-                        >
-                          <Languages className="mr-3 h-4 w-4 text-cyan-600 dark:text-cyan-400" />
-                          <div>
-                            <div className="font-medium">Skills & Languages</div>
-                            <div className="text-xs text-gray-500">Expertise and language proficiency</div>
-                          </div>
-                        </button>
-                      </div>
-
-                      <div className="border-t border-gray-200 dark:border-slate-700 my-1"></div>
-
-                      {/* Account & Security */}
-                      <div className="px-2 py-1">
-                        <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider px-2 mb-1">Account & Security</p>
-                        
-                        <button 
-                          onClick={() => openModal('accountSettings', user)}
-                          className="w-full text-left px-3 py-2 text-sm rounded-md hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
-                        >
-                          <Settings className="mr-3 h-4 w-4 text-gray-600 dark:text-gray-400" />
-                          <div>
-                            <div className="font-medium">Account Settings</div>
-                            <div className="text-xs text-gray-500">Password, email, security</div>
-                          </div>
-                        </button>
-                        
-                        <button 
-                          onClick={() => openModal('privacySettings', user)}
-                          className="w-full text-left px-3 py-2 text-sm rounded-md hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
-                        >
-                          <Shield className="mr-3 h-4 w-4 text-red-600 dark:text-red-400" />
-                          <div>
-                            <div className="font-medium">Privacy & Visibility</div>
-                            <div className="text-xs text-gray-500">Control who sees your information</div>
-                          </div>
-                        </button>
-                        
-                        <button 
-                          onClick={() => openModal('notifications', user)}
-                          className="w-full text-left px-3 py-2 text-sm rounded-md hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
-                        >
-                          <Bell className="mr-3 h-4 w-4 text-yellow-600 dark:text-yellow-400" />
-                          <div>
-                            <div className="font-medium">Notifications</div>
-                            <div className="text-xs text-gray-500">Email, push, and app preferences</div>
-                          </div>
-                        </button>
-                      </div>
-
-                      <div className="border-t border-gray-200 dark:border-slate-700 my-1"></div>
-
-                      {/* Billing & Support */}
-                      <div className="px-2 py-1">
-                        <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider px-2 mb-1">Billing & Support</p>
-                        
-                        <button 
-                          onClick={() => navigate('subscription')}
-                          className="w-full text-left px-3 py-2 text-sm rounded-md hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
-                        >
-                          <CreditCard className="mr-3 h-4 w-4 text-green-600 dark:text-green-400" />
-                          <div>
-                            <div className="font-medium">Billing & Subscription</div>
-                            <div className="text-xs text-gray-500">Manage payments and plans</div>
-                          </div>
-                        </button>
-                        
-                        <button 
-                          onClick={() => openModal('help', user)}
-                          className="w-full text-left px-3 py-2 text-sm rounded-md hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
-                        >
-                          <HelpCircle className="mr-3 h-4 w-4 text-blue-600 dark:text-blue-400" />
-                          <div>
-                            <div className="font-medium">Help & Support</div>
-                            <div className="text-xs text-gray-500">Get assistance and tutorials</div>
-                          </div>
-                        </button>
-                      </div>
-
-                      <div className="border-t border-gray-200 dark:border-slate-700 my-1"></div>
-
-                      <div className="px-2 py-1">
-                        <button 
-                          onClick={handleLogout}
-                          className="w-full text-left px-3 py-2 text-sm rounded-md hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center text-red-600 dark:text-red-400"
-                        >
-                          <LogOut className="mr-3 h-4 w-4" />
-                          <div>
-                            <div className="font-medium">Sign Out</div>
-                            <div className="text-xs">Securely log out of your account</div>
-                          </div>
-                        </button>
-                      </div>
+                      <button 
+                        onClick={handleLogout}
+                        className="w-full text-left px-4 py-3 text-sm hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center text-red-600 dark:text-red-400"
+                      >
+                        <LogOut className="mr-3 h-5 w-5" />
+                        <div>
+                          <div className="font-medium">Sign Out</div>
+                          <div className="text-xs">Log out of your account</div>
+                        </div>
+                      </button>
                     </div>
                   </div>
                 )}
@@ -504,7 +417,7 @@ const Header = ({ navigate, openModal }) => {
                       
                       <div className="space-y-2 text-sm">
                           <button 
-                              onClick={() => { openModal('profile', user); setIsMobileMenuOpen(false); }}
+                              onClick={() => { openModal('viewProfile', user); setIsMobileMenuOpen(false); }}
                               className="w-full text-left py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-slate-800 flex items-center"
                           >
                               <Eye className="mr-2 h-4 w-4" />
