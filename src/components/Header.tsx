@@ -89,7 +89,7 @@ const Header = ({ navigate, openModal }) => {
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center cursor-pointer group" onClick={() => navigate('home')}>
-          <div className="w-8 h-8 md:w-10 md:h-10 mr-2 md:mr-3 rounded-full overflow-hidden shadow-md group-hover:shadow-lg transition-shadow duration-300 bg-white border-2 border-blue-200 dark:border-slate-700">
+          <div className="w-8 h-8 md:w-10 md:h-10 mr-2 md:mr-3 rounded-full overflow-hidden shadow-md group-hover:shadow-lg transition-shadow duration-300 border-2 border-blue-200 dark:border-slate-700">
             <img 
               src="/lovable-uploads/b4a3ff1d-fa0f-4e7a-8584-0b818b023773.png" 
               alt="Logo" 
