@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { List } from 'lucide-react';
+import { List, Clock } from 'lucide-react';
 
 const questions = [
     { text: "The weather outside was extremely pleasant and hence we decided to ________.", options: ["employ this rare opportunity for writing letters", "enjoy a morning ride in the open", "refrain from going out for a morning walk", "utilize our time watching the television"], answer: "enjoy a morning ride in the open", hint: "Think about what people do in pleasant weather." },
@@ -173,6 +173,8 @@ export const ExamDashboard = () => {
     const [showMobileNav, setShowMobileNav] = useState(false);
     const [showAllMobileQuestions, setShowAllMobileQuestions] = useState(false);
     const [infoModal, setInfoModal] = useState({ show: false, message: '' });
+    const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes for the exam
+    const timerRef = useRef<NodeJS.Timeout>();
 
     const longPressTimer = useRef<NodeJS.Timeout>();
 
@@ -247,6 +249,35 @@ export const ExamDashboard = () => {
     const isLastQuestion = currentQuestionIndex === questions.length - 1;
     const isFirstQuestion = currentQuestionIndex === 0;
 
+    useEffect(() => {
+        if (!isPracticeMode) {
+            timerRef.current = setInterval(() => {
+                setTimeLeft(prevTime => {
+                    if (prevTime <= 1) {
+                        clearInterval(timerRef.current!);
+                        setInfoModal({ show: true, message: "Time's up! The exam has ended." });
+                        return 0;
+                    }
+                    return prevTime - 1;
+                });
+            }, 1000);
+        } else if (timerRef.current) {
+            clearInterval(timerRef.current);
+        }
+
+        return () => {
+            if (timerRef.current) {
+                clearInterval(timerRef.current);
+            }
+        };
+    }, [isPracticeMode]);
+
+    const formatTime = (seconds: number) => {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    };
+
     return (
         <>
             <QuizStyles />
@@ -293,14 +324,22 @@ export const ExamDashboard = () => {
                             </button>
                             <h2 className="text-base sm:text-xl font-semibold text-gray-800">Question {currentQuestionIndex + 1} of {questions.length}</h2>
                         </div>
-                        <div className="flex items-center">
-                            <label className="toggle-switch">
-                                <input type="checkbox" checked={!isPracticeMode} onChange={() => setIsPracticeMode(!isPracticeMode)} />
-                                <span className="toggle-slider">
-                                    <span className="label-practice">Practice</span>
-                                    <span className="label-exam">Exam</span>
-                                </span>
-                            </label>
+                        <div className="flex items-center space-x-4">
+                            {!isPracticeMode && (
+                                <div className="flex items-center text-red-600 font-semibold bg-red-100 px-3 py-1 rounded-md">
+                                    <Clock size={16} className="mr-2" />
+                                    <span>{formatTime(timeLeft)}</span>
+                                </div>
+                            )}
+                            <div className="flex items-center">
+                                <label className="toggle-switch">
+                                    <input type="checkbox" checked={!isPracticeMode} onChange={() => setIsPracticeMode(!isPracticeMode)} />
+                                    <span className="toggle-slider">
+                                        <span className="label-practice">Practice</span>
+                                        <span className="label-exam">Exam</span>
+                                    </span>
+                                </label>
+                            </div>
                         </div>
                     </div>
 
