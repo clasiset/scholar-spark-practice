@@ -1,6 +1,6 @@
-
 import React, { useState, useEffect } from 'react';
 import NavLink from './NavLink';
+import LanguageSwitcher from './LanguageSwitcher';
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   NavigationMenu,
@@ -19,6 +19,7 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Sun, Moon, User, Settings, CreditCard, Bell, LogOut, Eye } from 'lucide-react';
 import { cn } from "@/lib/utils";
+import { useI18n } from '../i18n/i18nContext';
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -47,6 +48,7 @@ const ListItem = React.forwardRef<
 ListItem.displayName = "ListItem";
 
 const Header = ({ navigate, openModal }) => {
+  const { t, isRTL } = useI18n();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [user, setUser] = useState<{ email: string } | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -109,7 +111,7 @@ const Header = ({ navigate, openModal }) => {
   };
 
   return (
-    <header className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-lg py-3 md:py-4 px-4 md:px-6 lg:px-12 sticky top-0 z-50 border-b border-blue-100 dark:border-slate-800">
+    <header className={`bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-lg py-3 md:py-4 px-4 md:px-6 lg:px-12 sticky top-0 z-50 border-b border-blue-100 dark:border-slate-800 ${isRTL ? 'rtl' : 'ltr'}`}>
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center cursor-pointer group" onClick={() => navigate('home')}>
@@ -130,11 +132,11 @@ const Header = ({ navigate, openModal }) => {
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavLink text="Home" onClick={() => navigate('home')} />
+                <NavLink text={t.navigation.home} onClick={() => navigate('home')} />
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Courses</NavigationMenuTrigger>
+                <NavigationMenuTrigger>{t.navigation.courses}</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                     <li className="row-span-3">
@@ -153,18 +155,18 @@ const Header = ({ navigate, openModal }) => {
                           </div>
                           <div className="text-lg font-medium">Zehulu.com</div>
                           <p className="text-sm leading-tight text-muted-foreground">
-                            Your gateway to academic excellence.
+                            {t.home.heroTitle}
                           </p>
                         </a>
                       </NavigationMenuLink>
                     </li>
-                    <ListItem onClick={() => navigate('courses')} title="All Courses">
+                    <ListItem onClick={() => navigate('courses')} title={t.navigation.allCourses}>
                       Browse our comprehensive course catalog.
                     </ListItem>
-                    <ListItem onClick={() => navigate('programs')} title="Programs">
+                    <ListItem onClick={() => navigate('programs')} title={t.navigation.programs}>
                       Structured learning paths for success.
                     </ListItem>
-                    <ListItem onClick={() => navigate('tutoring')} title="Tutoring">
+                    <ListItem onClick={() => navigate('tutoring')} title={t.navigation.tutoring}>
                       Personalized one-on-one tutoring sessions.
                     </ListItem>
                   </ul>
@@ -172,19 +174,19 @@ const Header = ({ navigate, openModal }) => {
               </NavigationMenuItem>
               
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Exams</NavigationMenuTrigger>
+                <NavigationMenuTrigger>{t.navigation.exams}</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
-                    <ListItem onClick={() => navigate('examSubjects', { examType: 'entrance' })} title="Entrance Exam">
+                    <ListItem onClick={() => navigate('examSubjects', { examType: 'entrance' })} title={t.navigation.entranceExam}>
                       Prepare for university entrance exams.
                     </ListItem>
-                    <ListItem onClick={() => navigate('examSubjects', { examType: 'exit' })} title="Exit Exam">
+                    <ListItem onClick={() => navigate('examSubjects', { examType: 'exit' })} title={t.navigation.exitExam}>
                       Practice for your university exit exams.
                     </ListItem>
-                     <ListItem onClick={() => navigate('examSubjects', { examType: 'work' })} title="Work Exam">
+                     <ListItem onClick={() => navigate('examSubjects', { examType: 'work' })} title={t.navigation.workExam}>
                       Prepare for professional work exams.
                     </ListItem>
-                     <ListItem onClick={() => navigate('examSubjects', { examType: 'ngat' })} title="NGAT Exam">
+                     <ListItem onClick={() => navigate('examSubjects', { examType: 'ngat' })} title={t.navigation.ngatExam}>
                       Practice for the NGAT exam.
                     </ListItem>
                   </ul>
@@ -192,25 +194,27 @@ const Header = ({ navigate, openModal }) => {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                 <NavLink text="Subscription" onClick={() => navigate('subscription')} />
+                 <NavLink text={t.navigation.subscription} onClick={() => navigate('subscription')} />
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                 <NavLink text="Local Job Portal" onClick={() => navigate('localJobPortal')} />
+                 <NavLink text={t.navigation.localJobPortal} onClick={() => navigate('localJobPortal')} />
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                 <NavLink text="About Us" onClick={() => navigate('about')} />
+                 <NavLink text={t.navigation.aboutUs} onClick={() => navigate('about')} />
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                 <NavLink text="Contact Us" onClick={() => navigate('contact')} />
+                 <NavLink text={t.navigation.contactUs} onClick={() => navigate('contact')} />
               </NavigationMenuItem>
 
             </NavigationMenuList>
           </NavigationMenu>
           
           <div className="flex items-center space-x-4 pl-6">
+            <LanguageSwitcher />
+            
             <div className="flex items-center">
               <Sun className={`h-5 w-5 text-yellow-500 transition-all ${isDarkMode ? 'scale-0' : 'scale-100'}`} />
               <Switch
@@ -234,7 +238,7 @@ const Header = ({ navigate, openModal }) => {
                 </Avatar>
                 
                 {isProfileOpen && (
-                  <div className="absolute right-0 mt-2 w-72 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-xl rounded-lg z-50">
+                  <div className={`absolute ${isRTL ? 'left-0' : 'right-0'} mt-2 w-72 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-xl rounded-lg z-50`}>
                     <div className="p-4 border-b border-gray-200 dark:border-slate-700">
                       <div className="flex items-center space-x-3">
                         <Avatar className="w-12 h-12">
@@ -244,31 +248,20 @@ const Header = ({ navigate, openModal }) => {
                         </Avatar>
                         <div>
                           <p className="font-semibold text-gray-900 dark:text-gray-100">{user.email}</p>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">Student Account</p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">{t.auth.studentAccount}</p>
                         </div>
                       </div>
                     </div>
                     
                     <div className="py-2">
                       <button 
-                        onClick={() => { openModal('viewProfile', user); setIsProfileOpen(false); }}
-                        className="w-full text-left px-4 py-3 text-sm hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
-                      >
-                        <Eye className="mr-3 h-5 w-5 text-blue-600 dark:text-blue-400" />
-                        <div>
-                          <div className="font-medium">View Profile</div>
-                          <div className="text-xs text-gray-500">See your public profile</div>
-                        </div>
-                      </button>
-                      
-                      <button 
                         onClick={() => { openModal('editProfile', user); setIsProfileOpen(false); }}
                         className="w-full text-left px-4 py-3 text-sm hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
                       >
-                        <User className="mr-3 h-5 w-5 text-green-600 dark:text-green-400" />
+                        <User className={`${isRTL ? 'ml-3' : 'mr-3'} h-5 w-5 text-green-600 dark:text-green-400`} />
                         <div>
-                          <div className="font-medium">Edit Profile</div>
-                          <div className="text-xs text-gray-500">Update your information</div>
+                          <div className="font-medium">{t.auth.editProfile}</div>
+                          <div className="text-xs text-gray-500">{t.profile.updateInformation}</div>
                         </div>
                       </button>
                       
@@ -276,10 +269,10 @@ const Header = ({ navigate, openModal }) => {
                         onClick={() => { openModal('accountSettings', user); setIsProfileOpen(false); }}
                         className="w-full text-left px-4 py-3 text-sm hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
                       >
-                        <Settings className="mr-3 h-5 w-5 text-gray-600 dark:text-gray-400" />
+                        <Settings className={`${isRTL ? 'ml-3' : 'mr-3'} h-5 w-5 text-gray-600 dark:text-gray-400`} />
                         <div>
-                          <div className="font-medium">Settings</div>
-                          <div className="text-xs text-gray-500">Account & privacy settings</div>
+                          <div className="font-medium">{t.auth.settings}</div>
+                          <div className="text-xs text-gray-500">{t.profile.accountPrivacySettings}</div>
                         </div>
                       </button>
                       
@@ -287,10 +280,10 @@ const Header = ({ navigate, openModal }) => {
                         onClick={() => { openModal('notifications', user); setIsProfileOpen(false); }}
                         className="w-full text-left px-4 py-3 text-sm hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
                       >
-                        <Bell className="mr-3 h-5 w-5 text-yellow-600 dark:text-yellow-400" />
+                        <Bell className={`${isRTL ? 'ml-3' : 'mr-3'} h-5 w-5 text-yellow-600 dark:text-yellow-400`} />
                         <div>
-                          <div className="font-medium">Notifications</div>
-                          <div className="text-xs text-gray-500">Manage preferences</div>
+                          <div className="font-medium">{t.auth.notifications}</div>
+                          <div className="text-xs text-gray-500">{t.profile.managePreferences}</div>
                         </div>
                       </button>
                       
@@ -298,10 +291,10 @@ const Header = ({ navigate, openModal }) => {
                         onClick={() => { navigate('subscription'); setIsProfileOpen(false); }}
                         className="w-full text-left px-4 py-3 text-sm hover:bg-gray-100 dark:hover:bg-slate-700 flex items-center"
                       >
-                        <CreditCard className="mr-3 h-5 w-5 text-green-600 dark:text-green-400" />
+                        <CreditCard className={`${isRTL ? 'ml-3' : 'mr-3'} h-5 w-5 text-green-600 dark:text-green-400`} />
                         <div>
-                          <div className="font-medium">Subscription</div>
-                          <div className="text-xs text-gray-500">Billing & plans</div>
+                          <div className="font-medium">{t.navigation.subscription}</div>
+                          <div className="text-xs text-gray-500">{t.profile.billingPlans}</div>
                         </div>
                       </button>
 
@@ -311,10 +304,10 @@ const Header = ({ navigate, openModal }) => {
                         onClick={handleLogout}
                         className="w-full text-left px-4 py-3 text-sm hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center text-red-600 dark:text-red-400"
                       >
-                        <LogOut className="mr-3 h-5 w-5" />
+                        <LogOut className={`${isRTL ? 'ml-3' : 'mr-3'} h-5 w-5`} />
                         <div>
-                          <div className="font-medium">Sign Out</div>
-                          <div className="text-xs">Log out of your account</div>
+                          <div className="font-medium">{t.auth.logout}</div>
+                          <div className="text-xs">{t.profile.logoutAccount}</div>
                         </div>
                       </button>
                     </div>
@@ -327,13 +320,13 @@ const Header = ({ navigate, openModal }) => {
                     className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-sky-400 font-semibold py-2 px-6 rounded-full transition-colors"
                     onClick={() => openModal('login')}
                   >
-                    Login
+                    {t.auth.login}
                   </button>
                   <button
                     className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl"
                     onClick={() => openModal('signup')}
                   >
-                    Sign Up
+                    {t.auth.signUp}
                   </button>
                 </div>
             )}
@@ -342,6 +335,7 @@ const Header = ({ navigate, openModal }) => {
 
         {/* Mobile Menu Button */}
         <div className="lg:hidden flex items-center space-x-2">
+          <LanguageSwitcher />
           <div className="flex items-center">
             <Sun className={`h-5 w-5 text-yellow-500 transition-all ${isDarkMode ? 'scale-0' : 'scale-100'}`} />
             <Switch
@@ -371,34 +365,34 @@ const Header = ({ navigate, openModal }) => {
       {isMobileMenuOpen && (
         <div className="lg:hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-md mt-4 rounded-lg shadow-xl border border-gray-100 dark:border-slate-800">
           <nav className="flex flex-col space-y-1 py-4 px-6">
-            <NavLink text="Home" onClick={() => { navigate('home'); setIsMobileMenuOpen(false); }} />
+            <NavLink text={t.navigation.home} onClick={() => { navigate('home'); setIsMobileMenuOpen(false); }} />
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="courses" className="border-b-0">
-                <AccordionTrigger className="py-2 hover:no-underline font-medium text-gray-700 hover:text-indigo-600 [&[data-state=open]>svg]:text-indigo-600 dark:text-gray-300 dark:hover:text-sky-400 dark:[&[data-state=open]>svg]:text-sky-400">Courses</AccordionTrigger>
+                <AccordionTrigger className="py-2 hover:no-underline font-medium text-gray-700 hover:text-indigo-600 [&[data-state=open]>svg]:text-indigo-600 dark:text-gray-300 dark:hover:text-sky-400 dark:[&[data-state=open]>svg]:text-sky-400">{t.navigation.courses}</AccordionTrigger>
                 <AccordionContent>
                   <div className="pl-4 flex flex-col space-y-1 pt-1">
-                    <NavLink text="All Courses" onClick={() => { navigate('courses'); setIsMobileMenuOpen(false); }} />
-                    <NavLink text="Programs" onClick={() => { navigate('programs'); setIsMobileMenuOpen(false); }} />
-                    <NavLink text="Tutoring" onClick={() => { navigate('tutoring'); setIsMobileMenuOpen(false); }} />
+                    <NavLink text={t.navigation.allCourses} onClick={() => { navigate('courses'); setIsMobileMenuOpen(false); }} />
+                    <NavLink text={t.navigation.programs} onClick={() => { navigate('programs'); setIsMobileMenuOpen(false); }} />
+                    <NavLink text={t.navigation.tutoring} onClick={() => { navigate('tutoring'); setIsMobileMenuOpen(false); }} />
                   </div>
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="exams" className="border-b-0">
-                <AccordionTrigger className="py-2 hover:no-underline font-medium text-gray-700 hover:text-indigo-600 [&[data-state=open]>svg]:text-indigo-600 dark:text-gray-300 dark:hover:text-sky-400 dark:[&[data-state=open]>svg]:text-sky-400">Exams</AccordionTrigger>
+                <AccordionTrigger className="py-2 hover:no-underline font-medium text-gray-700 hover:text-indigo-600 [&[data-state=open]>svg]:text-indigo-600 dark:text-gray-300 dark:hover:text-sky-400 dark:[&[data-state=open]>svg]:text-sky-400">{t.navigation.exams}</AccordionTrigger>
                 <AccordionContent>
                   <div className="pl-4 flex flex-col space-y-1 pt-1">
-                    <NavLink text="Entrance Exam" onClick={() => { navigate('examSubjects', { examType: 'entrance' }); setIsMobileMenuOpen(false); }} />
-                    <NavLink text="Exit Exam" onClick={() => { navigate('examSubjects', { examType: 'exit' }); setIsMobileMenuOpen(false); }} />
-                    <NavLink text="Work Exam" onClick={() => { navigate('examSubjects', { examType: 'work' }); setIsMobileMenuOpen(false); }} />
-                    <NavLink text="NGAT Exam" onClick={() => { navigate('examSubjects', { examType: 'ngat' }); setIsMobileMenuOpen(false); }} />
+                    <NavLink text={t.navigation.entranceExam} onClick={() => { navigate('examSubjects', { examType: 'entrance' }); setIsMobileMenuOpen(false); }} />
+                    <NavLink text={t.navigation.exitExam} onClick={() => { navigate('examSubjects', { examType: 'exit' }); setIsMobileMenuOpen(false); }} />
+                    <NavLink text={t.navigation.workExam} onClick={() => { navigate('examSubjects', { examType: 'work' }); setIsMobileMenuOpen(false); }} />
+                    <NavLink text={t.navigation.ngatExam} onClick={() => { navigate('examSubjects', { examType: 'ngat' }); setIsMobileMenuOpen(false); }} />
                   </div>
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
-            <NavLink text="Subscription" onClick={() => { navigate('subscription'); setIsMobileMenuOpen(false); }} />
-            <NavLink text="Local Job Portal" onClick={() => { navigate('localJobPortal'); setIsMobileMenuOpen(false); }} />
-            <NavLink text="About Us" onClick={() => { navigate('about'); setIsMobileMenuOpen(false); }} />
-            <NavLink text="Contact Us" onClick={() => { navigate('contact'); setIsMobileMenuOpen(false); }} />
+            <NavLink text={t.navigation.subscription} onClick={() => { navigate('subscription'); setIsMobileMenuOpen(false); }} />
+            <NavLink text={t.navigation.localJobPortal} onClick={() => { navigate('localJobPortal'); setIsMobileMenuOpen(false); }} />
+            <NavLink text={t.navigation.aboutUs} onClick={() => { navigate('about'); setIsMobileMenuOpen(false); }} />
+            <NavLink text={t.navigation.contactUs} onClick={() => { navigate('contact'); setIsMobileMenuOpen(false); }} />
             
             <div className="pt-4 mt-4 border-t border-gray-200 dark:border-slate-700">
               {user ? (
@@ -411,38 +405,38 @@ const Header = ({ navigate, openModal }) => {
                           </Avatar>
                           <div>
                               <p className="font-semibold text-gray-800 dark:text-gray-200">{user.email}</p>
-                              <p className="text-sm text-gray-500 dark:text-gray-400">Student</p>
+                              <p className="text-sm text-gray-500 dark:text-gray-400">{t.auth.studentAccount}</p>
                           </div>
                       </div>
                       
                       <div className="space-y-2 text-sm">
                           <button 
-                              onClick={() => { openModal('viewProfile', user); setIsMobileMenuOpen(false); }}
+                              onClick={() => { openModal('editProfile', user); setIsMobileMenuOpen(false); }}
                               className="w-full text-left py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-slate-800 flex items-center"
                           >
-                              <Eye className="mr-2 h-4 w-4" />
-                              View Profile
+                              <User className="mr-2 h-4 w-4" />
+                              {t.auth.editProfile}
                           </button>
                           <button 
                               onClick={() => { openModal('accountSettings', user); setIsMobileMenuOpen(false); }}
                               className="w-full text-left py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-slate-800 flex items-center"
                           >
                               <Settings className="mr-2 h-4 w-4" />
-                              Account Settings
+                              {t.auth.settings}
                           </button>
                           <button 
                               onClick={() => { navigate('subscription'); setIsMobileMenuOpen(false); }}
                               className="w-full text-left py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-slate-800 flex items-center"
                           >
                               <CreditCard className="mr-2 h-4 w-4" />
-                              Billing & Subscription
+                              {t.navigation.subscription}
                           </button>
                           <button 
                               onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }}
                               className="w-full text-left py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-slate-800 flex items-center text-red-600 dark:text-red-400"
                           >
                               <LogOut className="mr-2 h-4 w-4" />
-                              Logout
+                              {t.auth.logout}
                           </button>
                       </div>
                   </div>
@@ -452,13 +446,13 @@ const Header = ({ navigate, openModal }) => {
                     className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 w-full"
                     onClick={() => { openModal('signup'); setIsMobileMenuOpen(false); }}
                   >
-                    Sign Up
+                    {t.auth.signUp}
                   </button>
                   <button
                     className="text-center w-full py-2 px-6 rounded-full font-semibold text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-slate-600 hover:bg-gray-100 dark:hover:bg-slate-800"
                     onClick={() => { openModal('login'); setIsMobileMenuOpen(false); }}
                   >
-                    Login
+                    {t.auth.login}
                   </button>
                 </div>
               )}

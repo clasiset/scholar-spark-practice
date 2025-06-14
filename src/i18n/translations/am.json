@@ -1,0 +1,52 @@
+
+{
+  "navigation": {
+    "home": "መነሻ",
+    "courses": "ትምህርቶች",
+    "exams": "ፈተናዎች",
+    "subscription": "ምዝገባ",
+    "localJobPortal": "የሥራ መፈለጊያ",
+    "aboutUs": "ስለ እኛ",
+    "contactUs": "አግኙን",
+    "allCourses": "ሁሉም ትምህርቶች",
+    "programs": "ፕሮግራሞች",
+    "tutoring": "የግል ትምህርት",
+    "entranceExam": "የመግቢያ ፈተና",
+    "exitExam": "የመውጫ ፈተና",
+    "workExam": "የሥራ ፈተና",
+    "ngatExam": "ንጋት ፈተና"
+  },
+  "auth": {
+    "login": "ግባ",
+    "signUp": "ተመዝገብ",
+    "logout": "ውጣ",
+    "editProfile": "መገለጫ አርትዕ",
+    "settings": "ቅንብሮች",
+    "notifications": "ማሳወቂያዎች",
+    "studentAccount": "የተማሪ መለያ"
+  },
+  "home": {
+    "welcomeMessage": "ወደ የመማሪያ መድረሻዎ እንኳን በደህና መጡ።",
+    "heroTitle": "የአካዳሚክ ብቃትዎ መግቢያ በር",
+    "heroSubtitle": "በአጠቃላይ የመልመጃ ፈተናዎች እና በ AI የሚሰጡ ግብረመልሶች የዩኒቨርሲቲ መግቢያ እና መውጫ ፈተናዎችን ይማሩ።",
+    "getStarted": "ይጀምሩ"
+  },
+  "profile": {
+    "seePublicProfile": "የህዝብ መገለጫዎን ይመልከቱ",
+    "updateInformation": "መረጃዎን ያዘምኑ",
+    "accountPrivacySettings": "የመለያ እና ግላዊነት ቅንብሮች",
+    "managePreferences": "ምርጫዎችን ያስተዳድሩ",
+    "billingPlans": "የክፍያ እና እቅዶች",
+    "logoutAccount": "ከመለያዎ ይውጡ"
+  },
+  "common": {
+    "search": "ፈልግ",
+    "loading": "በመጫን ላይ...",
+    "error": "ስህተት",
+    "success": "ተሳክቷል",
+    "cancel": "ሰርዝ",
+    "save": "አስቀምጥ",
+    "submit": "አስገባ",
+    "back": "ተመለስ"
+  }
+}

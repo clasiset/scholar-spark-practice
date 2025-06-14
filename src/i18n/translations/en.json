@@ -1,0 +1,52 @@
+
+{
+  "navigation": {
+    "home": "Home",
+    "courses": "Courses",
+    "exams": "Exams",
+    "subscription": "Subscription",
+    "localJobPortal": "Local Job Portal",
+    "aboutUs": "About Us",
+    "contactUs": "Contact Us",
+    "allCourses": "All Courses",
+    "programs": "Programs",
+    "tutoring": "Tutoring",
+    "entranceExam": "Entrance Exam",
+    "exitExam": "Exit Exam",
+    "workExam": "Work Exam",
+    "ngatExam": "NGAT Exam"
+  },
+  "auth": {
+    "login": "Login",
+    "signUp": "Sign Up",
+    "logout": "Sign Out",
+    "editProfile": "Edit Profile",
+    "settings": "Settings",
+    "notifications": "Notifications",
+    "studentAccount": "Student Account"
+  },
+  "home": {
+    "welcomeMessage": "Welcome to your ultimate learning destination.",
+    "heroTitle": "Your Gateway to Academic Excellence",
+    "heroSubtitle": "Master university entrance and exit exams with our comprehensive practice tests and AI-powered feedback.",
+    "getStarted": "Get Started"
+  },
+  "profile": {
+    "seePublicProfile": "See your public profile",
+    "updateInformation": "Update your information",
+    "accountPrivacySettings": "Account & privacy settings",
+    "managePreferences": "Manage preferences",
+    "billingPlans": "Billing & plans",
+    "logoutAccount": "Log out of your account"
+  },
+  "common": {
+    "search": "Search",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "submit": "Submit",
+    "back": "Back"
+  }
+}

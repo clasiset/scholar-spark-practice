@@ -1,301 +1,160 @@
-import React from 'react';
-import { BookOpen, Trophy, Users, ArrowRight, Star, Mail, Phone } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 
-const HomePage = ({ navigate, openModal, testimonials, user }) => {
-  const featuredCourses = [
+import React, { useState, useEffect } from 'react';
+import { useI18n } from '../i18n/i18nContext';
+
+const HomePage = ({ navigate, openModal }) => {
+  const { t } = useI18n();
+  const [user, setUser] = useState<{ email: string } | null>(null);
+
+  useEffect(() => {
+    const handleAuthChange = (event: CustomEvent) => {
+      setUser(event.detail);
+    };
+
+    window.addEventListener('authChange', handleAuthChange as EventListener);
+
+    return () => {
+      window.removeEventListener('authChange', handleAuthChange as EventListener);
+    };
+  }, []);
+
+  const testimonials = [
     {
-      title: 'Advanced Mathematics',
-      description: 'Master calculus, algebra, and statistics with expert guidance.',
-      image: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=800&q=60',
+      quote: "The practice tests helped me understand the exam format perfectly. I scored higher than I ever expected!",
+      name: "አብይ ተስፋዬ",
+      role: "University Student",
+      avatar: "https://i.pravatar.cc/150?u=abiy@example.com"
     },
     {
-      title: 'Modern Web Development',
-      description: 'Build responsive and dynamic websites with React and Node.js.',
-      image: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=800&q=60',
+      quote: "The detailed explanations after each question really helped me learn from my mistakes.",
+      name: "Meron Kebede",
+      role: "Recent Graduate", 
+      avatar: "https://i.pravatar.cc/150?u=meron@example.com"
     },
     {
-      title: 'Introduction to Physics',
-      description: 'Explore the fundamental principles of the physical world.',
-      image: 'https://images.unsplash.com/photo-1581092580433-c2c1f56a6435?auto=format&fit=crop&w=800&q=60',
-    },
+      quote: "I love how the platform adapts to my learning pace. It's like having a personal tutor!",
+      name: "ዳዊት አሸናፊ",
+      role: "High School Student",
+      avatar: "https://i.pravatar.cc/150?u=dawit@example.com"
+    }
   ];
 
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
       {/* Hero Section */}
-      <section className="h-screen relative flex items-center justify-center text-white overflow-hidden">
-        {/* Interactive Education Background */}
-        <div className="absolute inset-0">
-          <div 
-            className="w-full h-full bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `linear-gradient(rgb(37, 99, 235), rgb(59, 130, 246))`
-            }}
-          />
-          {/* Animated overlay particles */}
-          <div className="absolute inset-0">
-            <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-white/20 rounded-full animate-pulse"></div>
-            <div className="absolute top-3/4 right-1/4 w-3 h-3 bg-yellow-300/30 rounded-full animate-bounce delay-300"></div>
-            <div className="absolute top-1/2 left-3/4 w-2 h-2 bg-white/15 rounded-full animate-pulse delay-700"></div>
-            <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-blue-200/40 rounded-full animate-ping delay-500"></div>
+      <section className="relative py-20 px-6 lg:px-12">
+        <div className="container mx-auto text-center">
+          <div className="mb-8">
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+              {user ? t.home.welcomeMessage : t.home.heroTitle}
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+              {t.home.heroSubtitle}
+            </p>
+            {!user && (
+              <button
+                onClick={() => openModal('signup')}
+                className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold py-4 px-8 rounded-full text-lg shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl"
+              >
+                {t.home.getStarted}
+              </button>
+            )}
           </div>
-        </div>
-        
-        {/* Content overlay */}
-        <div className="relative z-10 container mx-auto px-4 md:px-6 text-center">
-            <div className="mb-6 md:mb-8">
-              <div className="w-16 h-16 md:w-24 md:h-24 mx-auto mb-4 md:mb-6 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center shadow-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 p-1">
-                <div className="w-full h-full bg-white rounded-full overflow-hidden">
-                  <img 
-                    src="/lovable-uploads/b4a3ff1d-fa0f-4e7a-8584-0b818b023773.png" 
-                    alt="Ministry of Education Logo" 
-                    className="w-full h-full object-cover scale-110" 
-                  />
-                </div>
-              </div>
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight">
-                {user ? (
-                  <>Welcome to your <span className="text-yellow-300">Ultimate Learning Destination</span></>
-                ) : (
-                  <>Ready to Begin Your <span className="text-yellow-300">Learning Journey?</span></>
-                )}
-              </h1>
-              <p className="text-base md:text-xl text-blue-100 max-w-2xl md:max-w-3xl mx-auto mb-6 md:mb-8 leading-relaxed">
-                Welcome to your ultimate learning destination. Discover a comprehensive suite of courses meticulously crafted to prepare you for crucial entrance and exit examinations. Join our supportive community and unlock your full potential on your path to success.
-              </p>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center mb-12 md:mb-16 px-4">
-              {!user ? (
-                <button
-                  onClick={() => openModal('signup')}
-                  className="bg-gradient-to-r from-yellow-400/90 to-orange-500/90 hover:from-yellow-500/90 hover:to-orange-600/90 backdrop-blur-md text-white px-8 md:px-10 py-4 md:py-5 rounded-xl font-semibold text-lg md:text-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-3 border border-white/20 group"
-                >
-                  <Users size={20} className="group-hover:scale-110 transition-transform duration-300" />
-                  <span>Get Started</span>
-                  <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-300" />
-                </button>
-              ) : (
-                <>
-                  <button
-                    onClick={() => navigate('examSubjects', { examType: 'Entrance' })}
-                    className="bg-white/10 backdrop-blur-md text-white hover:bg-white/20 px-6 md:px-8 py-3 md:py-4 rounded-xl font-semibold text-sm md:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-2 border border-white/20 group"
-                  >
-                    <BookOpen size={20} className="group-hover:rotate-12 transition-transform duration-300" />
-                    <span className="hidden sm:inline">Explore Entrance Exams</span>
-                    <span className="sm:hidden">Entrance Exams</span>
-                    <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-                  </button>
-                  <button
-                    onClick={() => navigate('examSubjects', { examType: 'Exit' })}
-                    className="bg-gradient-to-r from-yellow-400/90 to-orange-500/90 hover:from-yellow-500/90 hover:to-orange-600/90 backdrop-blur-md text-white px-6 md:px-8 py-3 md:py-4 rounded-xl font-semibold text-sm md:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-2 border border-white/20 group"
-                  >
-                    <Trophy size={20} className="group-hover:rotate-12 transition-transform duration-300" />
-                    <span className="hidden sm:inline">Explore Exit Exams</span>
-                    <span className="sm:hidden">Exit Exams</span>
-                    <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-                  </button>
-                </>
-              )}
-            </div>
         </div>
       </section>
 
-      <div className="bg-gray-50">
-        {/* Featured Courses Section */}
-        <section className="py-12 md:py-16 px-4 md:px-6">
-          <div className="container mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-8 md:mb-12">Featured Courses</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {featuredCourses.map((course, index) => (
-                <Card key={index} className="bg-white border border-gray-200 overflow-hidden group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                  <img src={course.image} alt={course.title} className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" />
-                  <CardHeader>
-                    <CardTitle className="text-xl text-gray-900">{course.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600 text-sm md:text-base mb-4">{course.description}</p>
-                    <Button onClick={() => navigate('courses')} variant="secondary" className="w-full">Learn More <ArrowRight className="ml-2 h-4 w-4" /></Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Testimonials Section */}
-        <section className="py-12 md:py-16 px-4 md:px-6 bg-white">
-          <div className="container mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-8 md:mb-12">What Our Students Say</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-              {testimonials.map((testimonial, index) => (
-                <Card key={index} className="bg-white border border-gray-200 flex flex-col justify-between">
-                  <CardContent className="pt-6">
-                    <div className="flex mb-4">
-                      {[...Array(5)].map((_, i) => <Star key={i} className="text-yellow-400 fill-yellow-400 h-5 w-5" />)}
-                    </div>
-                    <p className="text-gray-600 mb-4">"{testimonial.quote}"</p>
-                  </CardContent>
-                  <div className="p-6 pt-0 flex items-center">
-                    <Avatar>
-                      <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
-                      <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
-                    </Avatar>
-                    <div className="ml-4">
-                      <p className="font-semibold text-gray-900">{testimonial.name}</p>
-                      <p className="text-sm text-gray-500">{testimonial.role}</p>
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-        
-        {/* About Us/Mission Section */}
-        <section className="py-12 md:py-16 px-4 md:px-6 bg-gray-50">
-          <div className="container mx-auto">
-            <div className="bg-white rounded-xl border border-gray-200 p-8 md:p-12 grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Our Mission</h2>
-                <p className="text-gray-600 max-w-2xl mb-6">
-                  Our mission is to democratize education by providing accessible, high-quality learning resources to students everywhere. We believe in empowering individuals to achieve their academic and career goals through:
-                </p>
-                <ul className="list-disc list-inside text-gray-600 space-y-2 mb-8">
-                    <li>Personalized instruction and project-based learning.</li>
-                    <li>Courses taught by industry experts and renowned academics.</li>
-                    <li>A supportive community and cutting-edge technology.</li>
-                </ul>
-                <HoverCard>
-                  <HoverCardTrigger asChild>
-                    <Button onClick={() => navigate('about')} variant="outline">Learn More About Us <ArrowRight className="ml-2 h-4 w-4" /></Button>
-                  </HoverCardTrigger>
-                  <HoverCardContent className="w-96">
-                    <div className="text-center mb-4">
-                        <h3 className="text-lg font-bold text-gray-800">Get In Touch</h3>
-                        <p className="text-sm text-gray-600">
-                            We're here to answer your questions.
-                        </p>
-                    </div>
-                    <div className="space-y-4">
-                      <div className="flex items-center">
-                        <div className="p-2 bg-blue-50 rounded-md mr-3">
-                          <Phone className="h-5 w-5 text-blue-600" />
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-gray-800 text-sm">Phone</h4>
-                          <a href="tel:+251-11-123-4567" className="text-blue-600 hover:underline text-sm">+251-11-123-4567</a>
-                          <p className="text-xs text-gray-500">Mon-Fri, 9am-5pm EAT</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center">
-                        <div className="p-2 bg-blue-50 rounded-md mr-3">
-                          <Mail className="h-5 w-5 text-blue-600" />
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-gray-800 text-sm">Email</h4>
-                          <a href="mailto:info@moe-edu.et" className="text-blue-600 hover:underline text-sm">info@moe-edu.et</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mt-4 pt-4 border-t text-center">
-                      <p className="text-gray-600 mb-2 text-xs">For detailed inquiries, or to provide feedback, use our full contact page.</p>
-                       <Button onClick={() => navigate('contact')} variant="outline" size="sm" className="w-full">
-                        Full Contact Page
-                        <ArrowRight size={16} className="ml-2" />
-                      </Button>
-                    </div>
-                  </HoverCardContent>
-                </HoverCard>
+      {/* Features Section */}
+      <section className="py-20 px-6 lg:px-12 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm">
+        <div className="container mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white mb-16">
+            Why Choose Our Platform?
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center p-8 rounded-xl bg-white dark:bg-slate-800 shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg className="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
               </div>
-              <div className="hidden md:block">
-                 <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=60" alt="Students learning" className="rounded-lg shadow-lg" />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Blog CTA Section */}
-        <section className="py-12 md:py-16 px-4 md:px-6 bg-white">
-          <div className="container mx-auto">
-            <div className="text-center bg-gray-50 rounded-xl border border-gray-200 p-8 md:p-12 hover:bg-gray-100 transition-colors duration-300">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Explore Our Blog</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto mb-8">
-                Discover insights, tips, and the latest trends in AI-powered education and exam preparation.
-              </p>
-              <Button onClick={() => navigate('blog')} variant="outline">
-                <BookOpen size={20} className="mr-2"/>
-                <span>Read Articles</span>
-                <ArrowRight size={20} className="ml-2" />
-              </Button>
-            </div>
-          </div>
-        </section>
-        
-        {/* Contact Us Section */}
-        <section className="py-12 md:py-16 px-4 md:px-6 bg-gray-50">
-          <div className="container mx-auto">
-            <div className="text-center">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Get In Touch</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto mb-8">
-                We're here to answer your questions. Connect with us for more information about our programs.
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Comprehensive Practice</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Access thousands of practice questions covering all exam topics with detailed explanations.
               </p>
             </div>
-            <div className="max-w-3xl mx-auto bg-white rounded-xl border border-gray-200 p-8 grid md:grid-cols-2 gap-8 items-center shadow-sm">
-                <div className="space-y-6">
-                  <div className="flex items-center">
-                    <div className="p-3 bg-blue-50 rounded-lg mr-4">
-                      <Phone className="h-6 w-6 text-blue-600" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-800">Phone</h3>
-                      <a href="tel:+251-11-123-4567" className="text-blue-600 hover:underline">+251-11-123-4567</a>
-                      <p className="text-xs text-gray-500">Mon-Fri, 9am-5pm EAT</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="p-3 bg-blue-50 rounded-lg mr-4">
-                      <Mail className="h-6 w-6 text-blue-600" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-800">Email</h3>
-                      <a href="mailto:info@moe-edu.et" className="text-blue-600 hover:underline">info@moe-edu.et</a>
-                    </div>
-                  </div>
-                </div>
-                <div className="text-center md:text-left">
-                  <p className="text-gray-600 mb-4">For detailed inquiries, or to provide feedback, please use our contact form.</p>
-                   <Button onClick={() => navigate('contact')} variant="outline">
-                    Full Contact Page
-                    <ArrowRight size={20} className="ml-2" />
-                  </Button>
-                </div>
+            
+            <div className="text-center p-8 rounded-xl bg-white dark:bg-slate-800 shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">AI-Powered Feedback</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                Get instant, personalized feedback to identify your strengths and areas for improvement.
+              </p>
+            </div>
+            
+            <div className="text-center p-8 rounded-xl bg-white dark:bg-slate-800 shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg className="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Expert Content</h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                All content is created and reviewed by experienced educators and exam specialists.
+              </p>
             </div>
           </div>
-        </section>
-        
-        {/* Final CTA Section */}
-        <section className="py-12 md:py-16 px-4 md:px-6 bg-white">
-          <div className="container mx-auto text-center">
-             <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Ready to Begin Your Learning Journey?</h2>
-             <p className="text-gray-600 max-w-2xl mx-auto mb-8">
-                Discover the perfect course for your aspirations and join a community of learners.
-             </p>
-             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                {!user && (
-                  <Button onClick={() => openModal('signup')} size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
-                      Get Started
-                      <ArrowRight className="ml-2" />
-                  </Button>
-                )}
-             </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-20 px-6 lg:px-12">
+        <div className="container mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white mb-16">
+            What Our Students Say
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <div key={index} className="bg-white dark:bg-slate-800 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div className="flex items-center mb-6">
+                  <img 
+                    src={testimonial.avatar} 
+                    alt={testimonial.name}
+                    className="w-12 h-12 rounded-full mr-4"
+                  />
+                  <div>
+                    <h4 className="font-semibold text-gray-900 dark:text-white">{testimonial.name}</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{testimonial.role}</p>
+                  </div>
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 italic">"{testimonial.quote}"</p>
+              </div>
+            ))}
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 px-6 lg:px-12 bg-gradient-to-r from-indigo-600 to-blue-600">
+        <div className="container mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+            Ready to Excel in Your Exams?
+          </h2>
+          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+            Join thousands of students who have successfully prepared for their exams with our platform.
+          </p>
+          {!user && (
+            <button
+              onClick={() => openModal('signup')}
+              className="bg-white hover:bg-gray-100 text-indigo-600 font-bold py-4 px-8 rounded-full text-lg shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105"
+            >
+              Start Your Journey Today
+            </button>
+          )}
+        </div>
+      </section>
     </div>
   );
 };

@@ -1,0 +1,52 @@
+
+{
+  "navigation": {
+    "home": "Mana",
+    "courses": "Barnootaa",
+    "exams": "Imtihaan",
+    "subscription": "Galmee",
+    "localJobPortal": "Hojii Naannoo",
+    "aboutUs": "Waa'ee Keenya",
+    "contactUs": "Nu Quunnamuu",
+    "allCourses": "Barnootaa Hunda",
+    "programs": "Sagantaalee",
+    "tutoring": "Barsiisuu Dhuunfaa",
+    "entranceExam": "Imtihaan Seensaa",
+    "exitExam": "Imtihaan Bahumsaa",
+    "workExam": "Imtihaan Hojii",
+    "ngatExam": "Imtihaan NGAT"
+  },
+  "auth": {
+    "login": "Seeni",
+    "signUp": "Galmaa'i",
+    "logout": "Ba'i",
+    "editProfile": "Ibsa Gulaali",
+    "settings": "Qindaa'ina",
+    "notifications": "Beeksisa",
+    "studentAccount": "Herrega Barataa"
+  },
+  "home": {
+    "welcomeMessage": "Gara bakka barnoota keessaniitti nagaan dhuftaa.",
+    "heroTitle": "Karra Gara Ogummaa Barnootaatti",
+    "heroSubtitle": "Qormaata seensaa fi bahumsaa yuunivarsitii qabxii qormaataa waliigalaa fi deebii AI'n kennamuun baraadhaa.",
+    "getStarted": "Jalqabi"
+  },
+  "profile": {
+    "seePublicProfile": "Ibsa ummataa kee ilaali",
+    "updateInformation": "Odeeffannoo kee haaromsi",
+    "accountPrivacySettings": "Qindaa'ina herregaa fi iccitii",
+    "managePreferences": "Filannoo bulchi",
+    "billingPlans": "Kaffaltii fi karoora",
+    "logoutAccount": "Herrega kee keessaa ba'i"
+  },
+  "common": {
+    "search": "Barbaadi",
+    "loading": "Fe'aa jira...",
+    "error": "Dogoggora",
+    "success": "Milka'e",
+    "cancel": "Dhiisi",
+    "save": "Olkaa'i",
+    "submit": "Dhiyeessi",
+    "back": "Deebi'i"
+  }
+}

@@ -1,0 +1,52 @@
+
+{
+  "navigation": {
+    "home": "الرئيسية",
+    "courses": "الدورات",
+    "exams": "الامتحانات",
+    "subscription": "الاشتراك",
+    "localJobPortal": "بوابة الوظائف المحلية",
+    "aboutUs": "معلومات عنا",
+    "contactUs": "اتصل بنا",
+    "allCourses": "جميع الدورات",
+    "programs": "البرامج",
+    "tutoring": "التدريس الخاص",
+    "entranceExam": "امتحان القبول",
+    "exitExam": "امتحان التخرج",
+    "workExam": "امتحان العمل",
+    "ngatExam": "امتحان نجات"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "signUp": "إنشاء حساب",
+    "logout": "تسجيل الخروج",
+    "editProfile": "تحرير الملف الشخصي",
+    "settings": "الإعدادات",
+    "notifications": "الإشعارات",
+    "studentAccount": "حساب الطالب"
+  },
+  "home": {
+    "welcomeMessage": "مرحباً بك في وجهة التعلم المثلى.",
+    "heroTitle": "بوابتك إلى التميز الأكاديمي",
+    "heroSubtitle": "أتقن امتحانات القبول والتخرج الجامعي من خلال اختباراتنا الشاملة والتغذية الراجعة المدعومة بالذكاء الاصطناعي.",
+    "getStarted": "ابدأ الآن"
+  },
+  "profile": {
+    "seePublicProfile": "عرض ملفك الشخصي العام",
+    "updateInformation": "تحديث معلوماتك",
+    "accountPrivacySettings": "إعدادات الحساب والخصوصية",
+    "managePreferences": "إدارة التفضيلات",
+    "billingPlans": "الفواتير والخطط",
+    "logoutAccount": "تسجيل الخروج من حسابك"
+  },
+  "common": {
+    "search": "بحث",
+    "loading": "جارٍ التحميل...",
+    "error": "خطأ",
+    "success": "نجح",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "submit": "إرسال",
+    "back": "رجوع"
+  }
+}
