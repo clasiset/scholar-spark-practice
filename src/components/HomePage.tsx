@@ -3,6 +3,7 @@ import { BookOpen, Trophy, Users, ArrowRight, Star, Mail, Phone } from 'lucide-r
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 
 const HomePage = ({ navigate, openModal, testimonials }) => {
   const featuredCourses = [
@@ -152,7 +153,47 @@ const HomePage = ({ navigate, openModal, testimonials }) => {
                     <li>Courses taught by industry experts and renowned academics.</li>
                     <li>A supportive community and cutting-edge technology.</li>
                 </ul>
-                <Button onClick={() => navigate('about')} variant="outline">Learn More About Us <ArrowRight className="ml-2 h-4 w-4" /></Button>
+                <HoverCard>
+                  <HoverCardTrigger asChild>
+                    <Button onClick={() => navigate('about')} variant="outline">Learn More About Us <ArrowRight className="ml-2 h-4 w-4" /></Button>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-96">
+                    <div className="text-center mb-4">
+                        <h3 className="text-lg font-bold text-gray-800">Get In Touch</h3>
+                        <p className="text-sm text-gray-600">
+                            We're here to answer your questions.
+                        </p>
+                    </div>
+                    <div className="space-y-4">
+                      <div className="flex items-center">
+                        <div className="p-2 bg-blue-50 rounded-md mr-3">
+                          <Phone className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-gray-800 text-sm">Phone</h4>
+                          <a href="tel:+251-11-123-4567" className="text-blue-600 hover:underline text-sm">+251-11-123-4567</a>
+                          <p className="text-xs text-gray-500">Mon-Fri, 9am-5pm EAT</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center">
+                        <div className="p-2 bg-blue-50 rounded-md mr-3">
+                          <Mail className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-gray-800 text-sm">Email</h4>
+                          <a href="mailto:info@moe-edu.et" className="text-blue-600 hover:underline text-sm">info@moe-edu.et</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-4 pt-4 border-t text-center">
+                      <p className="text-gray-600 mb-2 text-xs">For detailed inquiries, or to provide feedback, use our full contact page.</p>
+                       <Button onClick={() => navigate('contact')} variant="outline" size="sm" className="w-full">
+                        Full Contact Page
+                        <ArrowRight size={16} className="ml-2" />
+                      </Button>
+                    </div>
+                  </HoverCardContent>
+                </HoverCard>
               </div>
               <div className="hidden md:block">
                  <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=60" alt="Students learning" className="rounded-lg shadow-lg" />
