@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Eye, EyeOff, User, Mail, Lock, UserPlus, Phone } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import StartExamModal from './StartExamModal';
@@ -17,6 +17,68 @@ const Modal = ({ type, data, onClose, openModal, navigate }) => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Check for Google OAuth completion on component mount
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    const state = urlParams.get('state');
+    
+    if (code && state) {
+      // OAuth flow completed, handle the Google signup
+      handleGoogleOAuthComplete();
+    }
+    
+    // Listen for Google auth success events
+    const handleGoogleAuthSuccess = (event) => {
+      const { email, name } = event.detail;
+      // Simulate successful signup with Google account
+      window.dispatchEvent(new CustomEvent('authChange', { 
+        detail: { 
+          email: email,
+          id: 'google-user-' + Date.now(),
+          name: name
+        } 
+      }));
+      onClose();
+    };
+
+    window.addEventListener('googleAuthSuccess', handleGoogleAuthSuccess);
+    
+    return () => {
+      window.removeEventListener('googleAuthSuccess', handleGoogleAuthSuccess);
+    };
+  }, [onClose]);
+
+  const handleGoogleOAuthComplete = async () => {
+    try {
+      // Get the stored email from localStorage
+      const selectedEmail = localStorage.getItem('selectedGoogleEmail') || 'google-user@example.com';
+      
+      // Clean up localStorage
+      localStorage.removeItem('selectedGoogleEmail');
+      
+      // Simulate successful Google authentication
+      const googleUser = {
+        email: selectedEmail,
+        id: 'google-user-' + Date.now(),
+        name: 'Google User'
+      };
+      
+      // Dispatch auth change event
+      window.dispatchEvent(new CustomEvent('authChange', { detail: googleUser }));
+      
+      // Close modal and navigate to home
+      onClose();
+      
+      // Clean up URL parameters
+      window.history.replaceState({}, document.title, window.location.pathname);
+      
+    } catch (error) {
+      console.error('Google OAuth completion error:', error);
+      setError('Failed to complete Google authentication');
+    }
+  };
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));

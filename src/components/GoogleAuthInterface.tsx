@@ -10,6 +10,16 @@ interface GoogleAuthInterfaceProps {
 const GoogleAuthInterface: React.FC<GoogleAuthInterfaceProps> = ({ onClose, onBack }) => {
   const [selectedAccount, setSelectedAccount] = useState('hzqielemail@gmail.com');
 
+  const handleGoogleOAuth = () => {
+    // Store the selected email in localStorage to use after OAuth
+    localStorage.setItem('selectedGoogleEmail', selectedAccount);
+    
+    // Redirect to the actual Google OAuth URL
+    const googleOAuthUrl = 'https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?access_type=offline&client_id=655462982262-utviqnfkli8nvefabcvdbu3ajb8qcibo.apps.googleusercontent.com&prompt=consent&redirect_uri=https%3A%2F%2Fstackblitz.com%2Fapi%2Fusers%2Fauth%2Fgoogle_oauth2%2Fcallback&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&state=9972f4d49dd9091d6c8b7f2eb600768538a53478eb8def24&service=lso&o2v=1&flowName=GeneralOAuthFlow';
+    
+    window.location.href = googleOAuthUrl;
+  };
+
   return (
     <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
       <div className="bg-gray-900 text-white rounded-2xl shadow-2xl p-0 max-w-md w-full relative border border-gray-700 animate-fade-in overflow-hidden">
@@ -97,36 +107,13 @@ const GoogleAuthInterface: React.FC<GoogleAuthInterfaceProps> = ({ onClose, onBa
                 አረጋገጥ
               </button>
               <button 
-                onClick={() => {
-                  // Simulate Google auth success
-                  setTimeout(() => {
-                    onClose();
-                    // You can dispatch a custom event here to simulate successful Google auth
-                    window.dispatchEvent(new CustomEvent('googleAuthSuccess', { 
-                      detail: { 
-                        email: selectedAccount,
-                        name: 'User Name'
-                      } 
-                    }));
-                  }, 1000);
-                }}
+                onClick={handleGoogleOAuth}
                 className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded transition-colors"
               >
                 ግላዊነት
               </button>
               <button 
-                onClick={() => {
-                  // Simulate Google auth success
-                  setTimeout(() => {
-                    onClose();
-                    window.dispatchEvent(new CustomEvent('googleAuthSuccess', { 
-                      detail: { 
-                        email: selectedAccount,
-                        name: 'User Name'
-                      } 
-                    }));
-                  }, 1000);
-                }}
+                onClick={handleGoogleOAuth}
                 className="px-6 py-2 bg-white text-gray-900 text-sm rounded hover:bg-gray-100 transition-colors"
               >
                 ውሎች
