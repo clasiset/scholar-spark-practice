@@ -57,6 +57,7 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, goBack, previou
 
   const [originalData, setOriginalData] = useState<ProfileData>(profileData);
   const [hasChanges, setHasChanges] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   React.useEffect(() => {
     // Check for changes
@@ -64,6 +65,8 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, goBack, previou
   }, [profileData, originalData]);
 
   const handleInputChange = (field: keyof ProfileData, value: string) => {
+    if (!isEditing) return;
+    
     setProfileData(prev => ({
       ...prev,
       [field]: value
@@ -71,6 +74,8 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, goBack, previou
   };
 
   const handleSocialLinkChange = (index: number, field: 'platform' | 'url', value: string) => {
+    if (!isEditing) return;
+    
     setProfileData(prev => ({
       ...prev,
       socialLinks: prev.socialLinks.map((link, i) => 
@@ -80,6 +85,8 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, goBack, previou
   };
 
   const addSocialLink = () => {
+    if (!isEditing) return;
+    
     setProfileData(prev => ({
       ...prev,
       socialLinks: [...prev.socialLinks, { platform: '', url: '' }]
@@ -87,6 +94,8 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, goBack, previou
   };
 
   const removeSocialLink = (index: number) => {
+    if (!isEditing) return;
+    
     setProfileData(prev => ({
       ...prev,
       socialLinks: prev.socialLinks.filter((_, i) => i !== index)
@@ -94,6 +103,8 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, goBack, previou
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isEditing) return;
+    
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
@@ -108,10 +119,16 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, goBack, previou
   };
 
   const removeImage = () => {
+    if (!isEditing) return;
+    
     setProfileData(prev => ({
       ...prev,
       avatarUrl: ''
     }));
+  };
+
+  const handleEdit = () => {
+    setIsEditing(true);
   };
 
   const handleSave = async () => {
@@ -120,6 +137,7 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, goBack, previou
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       setOriginalData(profileData);
+      setIsEditing(false);
       toast({
         title: t.common.success,
         description: "Profile updated successfully!",
@@ -135,6 +153,7 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, goBack, previou
 
   const handleCancel = () => {
     setProfileData(originalData);
+    setIsEditing(false);
   };
 
   const getInitials = (email: string) => {
@@ -147,12 +166,42 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, goBack, previou
         <BackButton onClick={goBack} previousPageName={previousPageName} />
         
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-            {t.auth.editProfile}
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            {t.profile.updateInformation}
-          </p>
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                {t.auth.editProfile}
+              </h1>
+              <p className="text-gray-600 dark:text-gray-400">
+                {t.profile.updateInformation}
+              </p>
+            </div>
+            
+            {!isEditing ? (
+              <Button onClick={handleEdit} variant="outline">
+                <Camera className="w-4 h-4 mr-2" />
+                Edit Profile
+              </Button>
+            ) : (
+              <div className="flex space-x-3">
+                <Button onClick={handleCancel} variant="outline" disabled={!hasChanges}>
+                  <RotateCcw className="w-4 h-4 mr-2" />
+                  {t.common.cancel}
+                </Button>
+                <Button onClick={handleSave} disabled={!hasChanges}>
+                  <Save className="w-4 h-4 mr-2" />
+                  {t.common.save} Changes
+                </Button>
+              </div>
+            )}
+          </div>
+          
+          {isEditing && (
+            <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+              <p className="text-sm text-blue-800 dark:text-blue-200">
+                You are now editing your profile. Make your changes and click "Save Changes" when done.
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="space-y-6">
@@ -174,12 +223,20 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, goBack, previou
                 </Avatar>
                 <div className="space-y-2">
                   <div className="flex space-x-3">
-                    <Button onClick={() => fileInputRef.current?.click()} variant="outline">
+                    <Button 
+                      onClick={() => fileInputRef.current?.click()} 
+                      variant="outline"
+                      disabled={!isEditing}
+                    >
                       <Camera className="w-4 h-4 mr-2" />
                       {profileData.avatarUrl ? 'Change Image' : 'Upload Image'}
                     </Button>
                     {profileData.avatarUrl && (
-                      <Button onClick={removeImage} variant="outline">
+                      <Button 
+                        onClick={removeImage} 
+                        variant="outline"
+                        disabled={!isEditing}
+                      >
                         <X className="w-4 h-4 mr-2" />
                         Remove Image
                       </Button>
@@ -214,6 +271,8 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, goBack, previou
                     value={profileData.firstName}
                     onChange={(e) => handleInputChange('firstName', e.target.value)}
                     placeholder="Enter your first name"
+                    disabled={!isEditing}
+                    className={!isEditing ? "bg-gray-50 dark:bg-slate-800" : ""}
                   />
                 </div>
                 <div>
@@ -223,6 +282,8 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, goBack, previou
                     value={profileData.lastName}
                     onChange={(e) => handleInputChange('lastName', e.target.value)}
                     placeholder="Enter your last name"
+                    disabled={!isEditing}
+                    className={!isEditing ? "bg-gray-50 dark:bg-slate-800" : ""}
                   />
                 </div>
               </div>
@@ -250,6 +311,8 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, goBack, previou
                   value={profileData.phoneNumber}
                   onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
                   placeholder="+1 (555) 123-4567"
+                  disabled={!isEditing}
+                  className={!isEditing ? "bg-gray-50 dark:bg-slate-800" : ""}
                 />
               </div>
 
@@ -260,6 +323,8 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, goBack, previou
                   value={profileData.location}
                   onChange={(e) => handleInputChange('location', e.target.value)}
                   placeholder="City, Country"
+                  disabled={!isEditing}
+                  className={!isEditing ? "bg-gray-50 dark:bg-slate-800" : ""}
                 />
               </div>
 
@@ -271,6 +336,8 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, goBack, previou
                   value={profileData.websiteUrl}
                   onChange={(e) => handleInputChange('websiteUrl', e.target.value)}
                   placeholder="https://yourwebsite.com"
+                  disabled={!isEditing}
+                  className={!isEditing ? "bg-gray-50 dark:bg-slate-800" : ""}
                 />
               </div>
 
@@ -281,7 +348,8 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, goBack, previou
                   value={profileData.bio}
                   onChange={(e) => handleInputChange('bio', e.target.value)}
                   placeholder="Tell us about yourself..."
-                  className="min-h-[100px]"
+                  className={`min-h-[100px] ${!isEditing ? "bg-gray-50 dark:bg-slate-800" : ""}`}
+                  disabled={!isEditing}
                 />
                 <p className="text-sm text-gray-500 mt-1">
                   {profileData.bio.length}/500 characters
@@ -303,6 +371,7 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, goBack, previou
                     value={link.platform}
                     onChange={(e) => handleSocialLinkChange(index, 'platform', e.target.value)}
                     className="flex-1"
+                    disabled={!isEditing}
                   />
                   <Input
                     placeholder="URL"
@@ -310,34 +379,29 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, goBack, previou
                     value={link.url}
                     onChange={(e) => handleSocialLinkChange(index, 'url', e.target.value)}
                     className="flex-2"
+                    disabled={!isEditing}
                   />
                   <Button
                     onClick={() => removeSocialLink(index)}
                     variant="outline"
                     size="icon"
+                    disabled={!isEditing}
                   >
                     <X className="w-4 h-4" />
                   </Button>
                 </div>
               ))}
-              <Button onClick={addSocialLink} variant="outline" className="w-full">
+              <Button 
+                onClick={addSocialLink} 
+                variant="outline" 
+                className="w-full"
+                disabled={!isEditing}
+              >
                 <Plus className="w-4 h-4 mr-2" />
                 Add Social Link
               </Button>
             </CardContent>
           </Card>
-
-          {/* Action Buttons */}
-          <div className="flex justify-end space-x-4 pb-8">
-            <Button onClick={handleCancel} variant="outline" disabled={!hasChanges}>
-              <RotateCcw className="w-4 h-4 mr-2" />
-              {t.common.cancel}
-            </Button>
-            <Button onClick={handleSave} disabled={!hasChanges}>
-              <Save className="w-4 h-4 mr-2" />
-              {t.common.save} Changes
-            </Button>
-          </div>
         </div>
       </div>
     </div>
