@@ -22,13 +22,13 @@ const SubjectExamsPage = ({ subjectTitle, examType, navigate, goBack, previousPa
   ];
 
   const handleStartExam = (exam: any) => {
-    navigate('examPage', { subjectTitle, year: exam.year, ...exam });
+    navigate('examPage', { subjectTitle, year: exam.year, examType, ...exam });
   };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-800 dark:text-gray-200">
       <div className="container mx-auto px-4 md:px-6 py-6">
-        <BackButton onClick={goBack} previousPageName={previousPageName || 'Departments'} />
+        <BackButton onClick={goBack} previousPageName={previousPageName} />
         
         <div className="flex items-center mt-6 mb-12">
           <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center mr-3 md:mr-4 shadow-sm overflow-hidden border border-gray-200 dark:border-gray-700">

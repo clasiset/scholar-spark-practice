@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Search } from 'lucide-react';
 import BackButton from './BackButton';
@@ -63,7 +64,7 @@ const ExamSubjectsPage = ({ navigate, goBack, previousPageName, pageData }) => {
               return (
                 <div
                   key={subject.id}
-                  onClick={() => navigate('subjectExams', { subjectTitle: subject.title })}
+                  onClick={() => navigate('subjectExams', { subjectTitle: subject.title, examType })}
                   className={`bg-white/90 backdrop-blur-sm rounded-lg border-2 ${subject.color} p-6 cursor-pointer transition-all duration-300 hover:shadow-xl transform hover:-translate-y-1`}
                 >
                   <div className="flex items-start space-x-4">
