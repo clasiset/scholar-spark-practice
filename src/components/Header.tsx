@@ -97,7 +97,7 @@ const Header = ({ navigate, openModal }) => {
             />
           </div>
           <span className="text-lg md:text-2xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent dark:text-transparent dark:bg-gradient-to-r dark:from-sky-400 dark:to-cyan-300">
-            EduPlatform
+            Zehulu.com
           </span>
         </div>
 
@@ -127,7 +127,7 @@ const Header = ({ navigate, openModal }) => {
                               className="w-full h-full object-cover scale-110" 
                             />
                           </div>
-                          <div className="text-lg font-medium">EduPlatform</div>
+                          <div className="text-lg font-medium">Zehulu.com</div>
                           <p className="text-sm leading-tight text-muted-foreground">
                             Your gateway to academic excellence.
                           </p>

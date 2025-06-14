@@ -7,9 +7,9 @@ const Footer = () => {
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">EduPlatform</h3>
+            <h3 className="text-xl font-bold mb-4">Zehulu.com</h3>
             <p className="text-gray-300">
-              Your trusted partner for Ethiopian university entrance and exit exam preparation.
+              Your gateway to academic excellence.
             </p>
           </div>
           <div>
@@ -40,7 +40,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="border-t border-gray-700 mt-8 pt-8 text-center">
-          <p className="text-gray-300">&copy; 2024 EduPlatform. All rights reserved.</p>
+          <p className="text-gray-300">&copy; 2024 Zehulu.com. All rights reserved.</p>
         </div>
       </div>
     </footer>
