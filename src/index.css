@@ -33,24 +33,24 @@
     --brand-blue-foreground: 0 0% 96.5%; /* #F6F6F6 */
   }
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 36 100% 55%; /* #FF9F1C */
-    --primary-foreground: 0 0% 20%; /* #333333 */
+    --background: 203 39% 17%; /* #1A2F3B */
+    --foreground: 0 0% 88%; /* #E0E0E0 */
+    --card: 203 32% 26%; /* #2B4553 */
+    --card-foreground: 0 0% 88%; /* #E0E0E0 */
+    --popover: 203 32% 26%; /* #2B4553 */
+    --popover-foreground: 0 0% 88%; /* #E0E0E0 */
+    --primary: 35 100% 60%; /* #FFA738 */
+    --primary-foreground: 203 39% 17%; /* #1A2F3B */
     --secondary: 181 49% 45%; /* #38A3A5 */
-    --secondary-foreground: 0 0% 96.5%; /* #F6F6F6 */
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 181 49% 45%; /* Using Teal for accent */
-    --accent-foreground: 0 0% 96.5%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
+    --secondary-foreground: 0 0% 88%; /* #E0E0E0 */
+    --muted: 203 32% 26%; /* #2B4553 */
+    --muted-foreground: 0 0% 69%; /* #B0B0B0 */
+    --accent: 181 49% 45%; /* #38A3A5 */
+    --accent-foreground: 0 0% 88%; /* #E0E0E0 */
+    --destructive: 4 90% 58%; /* #F44336 */
+    --destructive-foreground: 0 0% 88%; /* #E0E0E0 */
+    --border: 203 32% 26%; /* #2B4553 */
+    --input: 203 32% 26%; /* #2B4553 */
     --ring: 181 49% 45%; /* #38A3A5 */
     --brand-blue: 194 46% 32%; /* Custom var for #2B6777 */
     --brand-blue-foreground: 0 0% 96.5%; /* #F6F6F6 */
@@ -65,4 +65,17 @@
     @apply bg-background text-foreground;
     font-family: 'Inter', sans-serif;
   }
+
+  #app-background {
+    background-image: url('https://images.unsplash.com/photo-1549497042-32128e441865?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1;
+  }
+
+  .dark #app-background {
+    background-image: linear-gradient(rgba(26, 47, 59, 0.9), rgba(26, 47, 59, 0.9)), url('https://images.unsplash.com/photo-1518770660613-ee0b7596dc6d?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    opacity: 1;
+  }
 }
+
