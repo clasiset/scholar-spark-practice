@@ -290,41 +290,43 @@ export const ExamDashboard = () => {
                     </div>
 
                     <div className="flex-grow">
-                        <p className="text-lg text-gray-700 mb-6">{currentQuestion.text}</p>
-                        <div className="space-y-4">
-                            {currentQuestion.options.map((option, i) => {
-                                const optionLetter = String.fromCharCode(65 + i);
-                                const isSelected = userAnswer === option;
-                                const isCorrect = currentQuestion.answer === option;
+                        <div className="max-w-4xl mx-auto w-full">
+                            <p className="text-lg text-gray-700 mb-6">{currentQuestion.text}</p>
+                            <div className="space-y-4">
+                                {currentQuestion.options.map((option, i) => {
+                                    const optionLetter = String.fromCharCode(65 + i);
+                                    const isSelected = userAnswer === option;
+                                    const isCorrect = currentQuestion.answer === option;
 
-                                let labelClass = "flex items-center gap-4 w-full p-4 border rounded-lg cursor-pointer transition-colors hover:bg-gray-50";
-                                if (isSelected) labelClass += " bg-indigo-100 border-indigo-500";
-                                if (showPracticeFeedback) {
-                                    if(isCorrect) labelClass += " correct-answer";
-                                    else if(isSelected) labelClass += " incorrect-answer";
-                                }
-                                
-                                return (
-                                    <div key={i}>
-                                        <input
-                                            type="radio"
-                                            id={`q${currentQuestionIndex}_${i}`}
-                                            name={`question${currentQuestionIndex}`}
-                                            value={option}
-                                            className="hidden peer"
-                                            checked={isSelected}
-                                            onChange={() => handleAnswerSelect(option)}
-                                            disabled={showPracticeFeedback}
-                                        />
-                                        <label htmlFor={`q${currentQuestionIndex}_${i}`} className={labelClass}>
-                                            <span className={`flex-shrink-0 w-8 h-8 flex items-center justify-center border-2 rounded-full font-semibold text-gray-500 ${isSelected ? 'bg-indigo-600 text-white border-indigo-600' : ''}`}>
-                                                {optionLetter}
-                                            </span>
-                                            <span className="text-gray-700">{option}</span>
-                                        </label>
-                                    </div>
-                                );
-                            })}
+                                    let labelClass = "flex items-center gap-4 w-full p-4 border rounded-lg cursor-pointer transition-colors hover:bg-gray-50";
+                                    if (isSelected) labelClass += " bg-indigo-100 border-indigo-500";
+                                    if (showPracticeFeedback) {
+                                        if(isCorrect) labelClass += " correct-answer";
+                                        else if(isSelected) labelClass += " incorrect-answer";
+                                    }
+                                    
+                                    return (
+                                        <div key={i}>
+                                            <input
+                                                type="radio"
+                                                id={`q${currentQuestionIndex}_${i}`}
+                                                name={`question${currentQuestionIndex}`}
+                                                value={option}
+                                                className="hidden peer"
+                                                checked={isSelected}
+                                                onChange={() => handleAnswerSelect(option)}
+                                                disabled={showPracticeFeedback}
+                                            />
+                                            <label htmlFor={`q${currentQuestionIndex}_${i}`} className={labelClass}>
+                                                <span className={`flex-shrink-0 w-8 h-8 flex items-center justify-center border-2 rounded-full font-semibold text-gray-500 ${isSelected ? 'bg-indigo-600 text-white border-indigo-600' : ''}`}>
+                                                    {optionLetter}
+                                                </span>
+                                                <span className="text-gray-700">{option}</span>
+                                            </label>
+                                        </div>
+                                    );
+                                })}
+                            </div>
                         </div>
                     </div>
 
