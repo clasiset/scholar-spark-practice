@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -19,6 +18,7 @@ import LocalJobPortalPage from '../components/LocalJobPortalPage';
 import JobSeekerDashboardPage from '../components/JobSeekerDashboardPage';
 import EmployerDashboardPage from '../components/EmployerDashboardPage';
 import BlogPage from '../components/BlogPage';
+import SubscriptionPage from '../components/SubscriptionPage';
 
 // Main App Component
 const Index = () => {
@@ -100,6 +100,8 @@ const Index = () => {
         return <JobSeekerDashboardPage goBack={goBack} previousPageName={previousPageName} />;
       case 'employerDashboard':
         return <EmployerDashboardPage goBack={goBack} previousPageName={previousPageName} />;
+      case 'subscription':
+        return <SubscriptionPage openModal={openModal} goBack={goBack} previousPageName={previousPageName} />;
       default:
         return <HomePage navigate={navigate} openModal={openModal} />;
     }

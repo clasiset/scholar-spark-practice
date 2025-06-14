@@ -148,6 +148,10 @@ const Header = ({ navigate, openModal }) => {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
+                 <NavLink text="Subscription" onClick={() => navigate('subscription')} />
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
                  <NavLink text="Local Job Portal" onClick={() => navigate('localJobPortal')} />
               </NavigationMenuItem>
 
@@ -234,6 +238,7 @@ const Header = ({ navigate, openModal }) => {
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
+            <NavLink text="Subscription" onClick={() => { navigate('subscription'); setIsMobileMenuOpen(false); }} />
             <NavLink text="Local Job Portal" onClick={() => { navigate('localJobPortal'); setIsMobileMenuOpen(false); }} />
             
             {!user && (
