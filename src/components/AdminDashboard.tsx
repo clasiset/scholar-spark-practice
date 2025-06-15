@@ -96,15 +96,15 @@ const AdminDashboard = () => {
         />
       )}
 
-      {/* Responsive Sidebar */}
+      {/* Fixed Full Height Sidebar */}
       <aside className={`${
         sidebarCollapsed ? 'w-16' : 'w-72'
       } ${
         mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-      } fixed lg:relative h-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-r border-slate-200/60 dark:border-slate-700/60 flex flex-col shadow-2xl transition-all duration-300 z-50`}>
+      } fixed top-0 left-0 h-screen bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-r border-slate-200/60 dark:border-slate-700/60 flex flex-col shadow-2xl transition-all duration-300 z-50 overflow-y-auto`}>
         
         {/* Sidebar Header */}
-        <div className="p-6 border-b border-slate-200/60 dark:border-slate-700/60">
+        <div className="p-6 border-b border-slate-200/60 dark:border-slate-700/60 flex-shrink-0">
           <div className="flex items-center justify-between">
             {!sidebarCollapsed && (
               <div className="flex items-center gap-3">
@@ -166,7 +166,7 @@ const AdminDashboard = () => {
 
         {/* Quick Actions */}
         {!sidebarCollapsed && (
-          <div className="p-6 border-t border-slate-200/60 dark:border-slate-700/60">
+          <div className="p-6 border-t border-slate-200/60 dark:border-slate-700/60 flex-shrink-0">
             <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-4 uppercase tracking-wider">Quick Actions</h3>
             <div className="space-y-2">
               <button 
@@ -195,8 +195,10 @@ const AdminDashboard = () => {
         )}
       </aside>
 
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0">
+      {/* Main Content Area with margin to account for fixed sidebar */}
+      <div className={`flex-1 flex flex-col min-w-0 transition-all duration-300 ${
+        sidebarCollapsed ? 'lg:ml-16' : 'lg:ml-72'
+      }`}>
         {/* Enhanced Header with Standard Dashboard Components */}
         <header className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-b border-slate-200/60 dark:border-slate-700/60 px-6 py-4 shadow-sm sticky top-0 z-30">
           <div className="flex items-center justify-between gap-4">

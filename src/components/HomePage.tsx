@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
-import { useI18n } from '../i18n/i18nContext';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+
+import React from 'react';
 import { 
   BookOpen, 
   Users, 
+  Clock, 
+  Star, 
+  ChevronRight, 
+  Play, 
   Award, 
-  Calendar,
-  ArrowRight,
-  Play,
-  Star,
+  Target,
   CheckCircle,
+  ArrowRight,
+  Zap,
+  Shield,
   TrendingUp,
   Globe,
   MessageCircle,
@@ -20,11 +22,11 @@ import {
 } from 'lucide-react';
 import { User } from '../types';
 
-// Add this explicit interface for the props
+// Updated interface to match the props being passed from Index.tsx
 export interface HomePageProps {
-  navigate: any;
-  openModal: any;
-  user?: User; // Make user optional to fix the TypeScript error
+  navigate: (page: string, data?: any) => void;
+  openModal: (type: any, data?: any) => void;
+  user: User | null; // Updated to match the actual prop type
 }
 
 const HomePage: React.FC<HomePageProps> = ({ navigate, openModal, user }) => {
