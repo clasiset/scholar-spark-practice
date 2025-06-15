@@ -59,32 +59,32 @@ const blogPosts = [
 
 const BlogPage = ({ goBack, previousPageName }) => {
   return (
-    <div className="bg-gray-50 py-12">
+    <div className="bg-background py-12 text-foreground">
       <div className="container mx-auto px-4 md:px-6">
         <div className="mb-8">
             <BackButton onClick={goBack} previousPageName={previousPageName} />
         </div>
-        <h1 className="text-4xl font-bold text-center text-gray-800 mb-2">From Our Blog</h1>
-        <p className="text-lg text-center text-gray-600 mb-12">Insights and articles on modern education and AI.</p>
+        <h1 className="text-4xl font-bold text-center text-foreground mb-2">From Our Blog</h1>
+        <p className="text-lg text-center text-muted-foreground mb-12">Insights and articles on modern education and AI.</p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {blogPosts.map((post, index) => (
-            <div key={index} className="bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
+            <div key={index} className="bg-card rounded-xl border border-border overflow-hidden flex flex-col group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
               <div className="aspect-w-16 aspect-h-9">
                 <img src={post.imageUrl} alt={post.title} className="w-full h-full object-cover" />
               </div>
               <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4 flex-grow">{post.title}</h3>
-                <ul className="space-y-2 mb-6 text-gray-600 text-sm">
+                <h3 className="text-lg font-semibold text-card-foreground mb-4 flex-grow">{post.title}</h3>
+                <ul className="space-y-2 mb-6 text-muted-foreground text-sm">
                   {post.topics.map((topic, i) => (
                     <li key={i} className="flex items-start">
-                      <Star size={14} className="mr-3 mt-1 text-yellow-400 flex-shrink-0" />
+                      <Star size={14} className="mr-3 mt-1 text-accent flex-shrink-0" />
                       <span>{topic}</span>
                     </li>
                   ))}
                 </ul>
                 <div className="mt-auto">
                   <button
-                    className="font-semibold text-blue-600 flex items-center gap-2 group-hover:text-blue-800 transition-colors"
+                    className="font-semibold text-primary flex items-center gap-2 group-hover:text-primary/80 transition-colors"
                   >
                     Read More <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                   </button>
