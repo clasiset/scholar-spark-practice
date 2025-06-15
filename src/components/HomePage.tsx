@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useI18n } from '../i18n/i18nContext';
 import { 
   BookOpen, 
   Users, 
