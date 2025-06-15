@@ -20,13 +20,14 @@ const SubscriptionPage = ({ openModal, history, navigateToHistory }: {
       price: 500,
       currency: 'ETB',
       interval: 'month',
-      shortDescription: 'Perfect for small businesses starting their digital journey',
+      shortDescription: 'Ideal for individual learners starting their self-study journey.',
       features: [
-        'Up to 100 transactions/month',
-        'Basic payment methods',
-        'Email support',
-        'Transaction history',
-        'Mobile app access'
+        'Up to 100 Questions/Month',
+        'Access to Selected Courses',
+        'Basic Blog Access',
+        'AI Assistant (Basic)',
+        'Standard Email Support',
+        'Basic Progress Tracking'
       ],
       icon: Crown,
       iconColor: 'text-yellow-500 dark:text-yellow-400',
@@ -35,21 +36,24 @@ const SubscriptionPage = ({ openModal, history, navigateToHistory }: {
       textColor: 'text-white dark:text-yellow-950',
       borderColor: 'border-4 border-yellow-500 dark:border-yellow-400',
       popular: true,
+      isCurrent: true, // This is the default plan
     },
     {
-      id: 'professional',
-      name: 'Professional',
+      id: 'pro',
+      name: 'Pro',
       price: 1200,
       currency: 'ETB',
       interval: 'month',
-      shortDescription: 'Ideal for growing businesses with higher transaction volumes',
+      shortDescription: 'For serious students and professionals requiring comprehensive resources.',
       features: [
-        'Up to 1,000 transactions/month',
-        'All payment methods',
-        'Priority support',
-        'Advanced analytics',
-        'API access',
-        'Custom branding'
+        'Everything in Basic, plus:',
+        'Up to 500 Questions/Month',
+        'Full Course Library Access',
+        'Premium Blog & Exclusive Content',
+        'AI Assistant (Enhanced)',
+        'Priority Email & Chat Support',
+        'Advanced Analytics',
+        'Course Completion Certificates',
       ],
       icon: Zap,
       iconColor: 'text-green-600 dark:text-green-400',
@@ -58,21 +62,24 @@ const SubscriptionPage = ({ openModal, history, navigateToHistory }: {
       textColor: 'text-white dark:text-green-950',
       borderColor: 'border-border',
       popular: false,
+      isCurrent: false,
     },
     {
-      id: 'enterprise',
-      name: 'Enterprise',
+      id: 'premium',
+      name: 'Premium',
       price: 2500,
       currency: 'ETB',
       interval: 'month',
-      shortDescription: 'Complete solution for large businesses and enterprises',
+      shortDescription: 'Complete solution for educational institutions and corporate training.',
       features: [
-        'Unlimited transactions',
-        'All premium features',
-        'Dedicated account manager',
-        'Custom integrations',
-        'White-label solutions',
-        'SLA guarantee'
+        'Everything in Pro, plus:',
+        'Unlimited Question Bank Access',
+        'Dedicated AI Assistant',
+        'White-Label Platform',
+        'Custom Course Creation',
+        'Dedicated Account Manager',
+        'SLA Guarantee',
+        'Advanced User Management',
       ],
       icon: Crown,
       iconColor: 'text-red-600 dark:text-red-400',
@@ -81,6 +88,7 @@ const SubscriptionPage = ({ openModal, history, navigateToHistory }: {
       textColor: 'text-white dark:text-red-950',
       borderColor: 'border-border',
       popular: false,
+      isCurrent: false,
     }
   ];
 
@@ -107,9 +115,14 @@ const SubscriptionPage = ({ openModal, history, navigateToHistory }: {
               key={plan.id}
               className={`bg-card rounded-xl shadow-lg p-8 text-center flex flex-col transform transition-transform duration-300 hover:scale-105 relative ${plan.borderColor}`}
             >
-              {plan.popular && (
+              {plan.popular && !plan.isCurrent && (
                 <div className="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2">
                   <span className="bg-yellow-500 dark:bg-yellow-400 text-white dark:text-yellow-950 text-xs font-bold px-4 py-1 rounded-full uppercase">Most Popular</span>
+                </div>
+              )}
+               {plan.isCurrent && (
+                <div className="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2">
+                  <span className="bg-yellow-500 dark:bg-yellow-400 text-white dark:text-yellow-950 text-xs font-bold px-4 py-1 rounded-full uppercase">Current Plan</span>
                 </div>
               )}
               <div className="flex-grow">
@@ -133,12 +146,21 @@ const SubscriptionPage = ({ openModal, history, navigateToHistory }: {
                   ))}
                 </ul>
               </div>
-              <button
-                onClick={() => openModal('login')}
-                className={`w-full font-semibold py-3 px-4 rounded-lg transition duration-300 ${plan.buttonColor} ${plan.textColor}`}
-              >
-                Choose {plan.name}
-              </button>
+              {plan.isCurrent ? (
+                <button
+                  disabled
+                  className="w-full font-semibold py-3 px-4 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-700 dark:text-gray-400 cursor-not-allowed"
+                >
+                  Current Plan
+                </button>
+              ) : (
+                <button
+                  onClick={() => openModal('login')}
+                  className={`w-full font-semibold py-3 px-4 rounded-lg transition duration-300 ${plan.buttonColor} ${plan.textColor}`}
+                >
+                  Choose {plan.name}
+                </button>
+              )}
             </div>
           ))}
         </div>
