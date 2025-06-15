@@ -63,17 +63,17 @@ const ContactPage = ({ goBack, previousPageName, addTestimonial }: { goBack?: ()
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-background py-12">
       <div className="container mx-auto px-6">
         <BackButton onClick={goBack} previousPageName={previousPageName} />
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">Get in Touch</h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <h1 className="text-4xl font-bold text-foreground mb-4">Get in Touch</h1>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
             Have a question? We'd love to hear from you! Please fill out the form below, and our team will get back to you as soon as possible.
           </p>
         </div>
         <div className="max-w-2xl mx-auto mt-12">
-          <div className="bg-white rounded-xl shadow-lg p-8">
+          <div className="bg-card rounded-xl shadow-lg p-8">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField
@@ -177,7 +177,7 @@ const ContactPage = ({ goBack, previousPageName, addTestimonial }: { goBack?: ()
                       </FormControl>
                       <div className="space-y-1 leading-none">
                         <FormLabel>
-                          I agree to the <a href="#" className="text-indigo-600 hover:underline">Privacy Policy</a>.
+                          I agree to the <a href="#" className="text-link hover:underline">Privacy Policy</a>.
                         </FormLabel>
                         <FormMessage />
                       </div>
@@ -185,7 +185,7 @@ const ContactPage = ({ goBack, previousPageName, addTestimonial }: { goBack?: ()
                   )}
                 />
 
-                <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3" size="lg">
+                <Button type="submit" className="w-full font-semibold py-3" size="lg">
                   Send Message
                 </Button>
               </form>

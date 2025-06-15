@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Facebook, Twitter, Linkedin, Youtube, Instagram } from 'lucide-react';
 
@@ -29,11 +28,11 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4 text-foreground">Company</h4>
             <ul className="space-y-3 text-sm">
-              <li><a href="#" className="text-primary hover:text-accent transition duration-300">About Us</a></li>
-              <li><a href="#" className="text-primary hover:text-accent transition duration-300">Courses</a></li>
-              <li><a href="#" className="text-primary hover:text-accent transition duration-300">Blog</a></li>
-              <li><a href="#" className="text-primary hover:text-accent transition duration-300">Careers</a></li>
-              <li><a href="#" className="text-primary hover:text-accent transition duration-300">Contact Us</a></li>
+              <li><a href="#" className="text-link hover:text-accent transition duration-300">About Us</a></li>
+              <li><a href="#" className="text-link hover:text-accent transition duration-300">Courses</a></li>
+              <li><a href="#" className="text-link hover:text-accent transition duration-300">Blog</a></li>
+              <li><a href="#" className="text-link hover:text-accent transition duration-300">Careers</a></li>
+              <li><a href="#" className="text-link hover:text-accent transition duration-300">Contact Us</a></li>
             </ul>
           </div>
 
@@ -41,11 +40,11 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4 text-foreground">Exams</h4>
             <ul className="space-y-3 text-sm">
-              <li><a href="#" className="text-primary hover:text-accent transition duration-300">Mathematics</a></li>
-              <li><a href="#" className="text-primary hover:text-accent transition duration-300">Physics</a></li>
-              <li><a href="#" className="text-primary hover:text-accent transition duration-300">Chemistry</a></li>
-              <li><a href="#" className="text-primary hover:text-accent transition duration-300">Biology</a></li>
-              <li><a href="#" className="text-primary hover:text-accent transition duration-300">Testimonials</a></li>
+              <li><a href="#" className="text-link hover:text-accent transition duration-300">Mathematics</a></li>
+              <li><a href="#" className="text-link hover:text-accent transition duration-300">Physics</a></li>
+              <li><a href="#" className="text-link hover:text-accent transition duration-300">Chemistry</a></li>
+              <li><a href="#" className="text-link hover:text-accent transition duration-300">Biology</a></li>
+              <li><a href="#" className="text-link hover:text-accent transition duration-300">Testimonials</a></li>
             </ul>
           </div>
 

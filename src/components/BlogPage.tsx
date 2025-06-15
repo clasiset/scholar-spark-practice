@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Star, ArrowRight } from 'lucide-react';
 import BackButton from './BackButton';
@@ -84,7 +83,7 @@ const BlogPage = ({ goBack, previousPageName }) => {
                 </ul>
                 <div className="mt-auto">
                   <button
-                    className="font-semibold text-primary flex items-center gap-2 group-hover:text-primary/80 transition-colors"
+                    className="font-semibold text-link flex items-center gap-2 group-hover:text-link/80 transition-colors"
                   >
                     Read More <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                   </button>

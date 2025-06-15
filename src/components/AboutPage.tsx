@@ -1,4 +1,3 @@
-
 import React from 'react';
 import BackButton from './BackButton';
 import { Target, Eye, Gem, BookOpen, HeartHandshake } from 'lucide-react';
@@ -62,14 +61,14 @@ const AboutPage = ({ goBack, previousPageName }: { goBack?: () => void, previous
              <h2 className="text-3xl font-bold mb-12 text-center text-card-foreground">Our Guiding Principles</h2>
             <div className="grid md:grid-cols-2 gap-12">
               <div className="flex items-start">
-                  <Target className="h-10 w-10 text-primary mr-4 flex-shrink-0 mt-1" />
+                  <Target className="h-10 w-10 text-accent mr-4 flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="text-2xl font-semibold text-card-foreground">Our Mission</h3>
                     <p className="text-muted-foreground mt-2">To provide high-quality, affordable, and accessible online education that equips individuals with the knowledge and skills necessary to thrive.</p>
                   </div>
               </div>
               <div className="flex items-start">
-                  <Eye className="h-10 w-10 text-primary mr-4 flex-shrink-0 mt-1" />
+                  <Eye className="h-10 w-10 text-accent mr-4 flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="text-2xl font-semibold text-card-foreground">Our Vision</h3>
                     <p className="text-muted-foreground mt-2">To be the leading online educational platform in Ethiopia, fostering a community of lifelong learners and innovators who drive positive change.</p>
@@ -81,7 +80,7 @@ const AboutPage = ({ goBack, previousPageName }: { goBack?: () => void, previous
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div className="flex items-start">
                   <div className="flex-shrink-0">
-                    <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary/10 text-primary">
+                    <div className="flex items-center justify-center h-12 w-12 rounded-md bg-accent/10 text-accent">
                       <Gem className="h-6 w-6" />
                     </div>
                   </div>
@@ -92,7 +91,7 @@ const AboutPage = ({ goBack, previousPageName }: { goBack?: () => void, previous
                 </div>
                 <div className="flex items-start">
                   <div className="flex-shrink-0">
-                    <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary/10 text-primary">
+                    <div className="flex items-center justify-center h-12 w-12 rounded-md bg-accent/10 text-accent">
                       <BookOpen className="h-6 w-6" />
                     </div>
                   </div>
@@ -103,7 +102,7 @@ const AboutPage = ({ goBack, previousPageName }: { goBack?: () => void, previous
                 </div>
                 <div className="flex items-start">
                    <div className="flex-shrink-0">
-                    <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary/10 text-primary">
+                    <div className="flex items-center justify-center h-12 w-12 rounded-md bg-accent/10 text-accent">
                       <HeartHandshake className="h-6 w-6" />
                     </div>
                   </div>
@@ -127,7 +126,7 @@ const AboutPage = ({ goBack, previousPageName }: { goBack?: () => void, previous
                 <div key={member.name} className="bg-card text-card-foreground p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
                   <img src={member.avatar} alt={member.name} className="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-border" />
                   <h4 className="text-xl font-semibold mb-1 text-foreground">{member.name}</h4>
-                  <p className="text-primary mb-2">{member.role}</p>
+                  <p className="text-accent mb-2">{member.role}</p>
                   <p className="text-muted-foreground text-sm">{member.bio}</p>
                 </div>
               ))}
