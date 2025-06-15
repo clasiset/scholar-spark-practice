@@ -189,3 +189,5 @@ const HomePage: React.FC<HomePageProps> = ({ navigate, openModal, user }) => {
     </div>
   );
 };
+
+export default HomePage;
