@@ -14,7 +14,9 @@ import {
   TrendingUp,
   Globe,
   MessageCircle,
-  Heart
+  Heart,
+  Bot,
+  ClipboardList
 } from 'lucide-react';
 import { User } from '../types';
 
@@ -22,7 +24,7 @@ import { User } from '../types';
 export interface HomePageProps {
   navigate: any;
   openModal: any;
-  user?: any; // Make user optional to fix the TypeScript error
+  user?: User; // Make user optional to fix the TypeScript error
 }
 
 const HomePage: React.FC<HomePageProps> = ({ navigate, openModal, user }) => {
