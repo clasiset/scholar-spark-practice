@@ -1,12 +1,7 @@
-
 import React from 'react';
-import { useI18n } from '../i18n/i18nContext';
+import { useI18n } from './i18n/i18nContext';
 import { Bot, ClipboardList } from 'lucide-react';
-
-interface User {
-  email: string;
-  id: string;
-}
+import { User } from '../types';
 
 export interface HomePageProps {
   navigate: (page: string, data?: any) => void;

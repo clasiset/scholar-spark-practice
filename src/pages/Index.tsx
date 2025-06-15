@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { type Tables } from '@/integrations/supabase/types';
@@ -22,15 +21,11 @@ import SubscriptionPage from '../components/SubscriptionPage';
 import EditProfilePage from '../components/EditProfilePage';
 import SettingsPage from '../components/SettingsPage';
 import NotificationsPage from '../components/NotificationsPage';
+import { User } from '../types';
 
 interface HistoryEntry {
   page: string;
   data: any | null;
-}
-
-interface User {
-  email: string;
-  id: string;
 }
 
 // Main App Component
