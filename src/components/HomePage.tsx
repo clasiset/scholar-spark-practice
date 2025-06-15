@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useI18n } from '../i18n/i18nContext';
 import { 
@@ -22,12 +21,12 @@ import {
   ClipboardList
 } from 'lucide-react';
 import { User } from '../types';
+import { Link } from 'react-router-dom';
 
-// Updated interface to match the props being passed from Index.tsx
 export interface HomePageProps {
   navigate: (page: string, data?: any) => void;
   openModal: (type: any, data?: any) => void;
-  user: User | null; // Updated to match the actual prop type
+  user: User | null;
 }
 
 const HomePage = ({ navigate, openModal, user }: HomePageProps) => {
@@ -91,6 +90,12 @@ const HomePage = ({ navigate, openModal, user }: HomePageProps) => {
                 >
                   Explore Exit Exams
                 </button>
+                <Link
+                  to="/admin"
+                  className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold py-4 px-8 rounded-full text-lg shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl w-full sm:w-auto"
+                >
+                  Admin Dashboard
+                </Link>
               </div>
             ) : (
               <button

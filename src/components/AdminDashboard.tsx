@@ -19,7 +19,8 @@ import {
   Filter,
   Download,
   User,
-  BookPlus
+  BookPlus,
+  Home
 } from "lucide-react";
 import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import DashboardOverview from "./admin/DashboardOverview";
@@ -168,6 +169,20 @@ const AdminDashboard = () => {
               </div>
             );
           })}
+          
+          <div className="mt-auto relative group">
+            <SidebarLink 
+              to="/" 
+              icon={Home}
+            >
+              {!sidebarCollapsed && "Back to Site"}
+            </SidebarLink>
+            {sidebarCollapsed && (
+              <div className="absolute left-full ml-3 px-3 py-2 bg-slate-900 dark:bg-slate-700 text-white text-sm rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                Back to Site
+              </div>
+            )}
+          </div>
         </nav>
 
         {/* Quick Actions */}
