@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Menu } from 'lucide-react';
 import ModeToggle from './ModeToggle';
@@ -26,27 +27,27 @@ export const ExamHeaderComponent = ({
   };
 
   return (
-    <header className="bg-white p-4 border-b border-gray-200 shadow-sm flex justify-between items-center">
+    <header className="bg-card p-4 border-b border-border shadow-sm flex justify-between items-center">
       <div>
-        <nav className="text-sm text-gray-600 mb-1 sm:mb-2">
+        <nav className="text-sm text-muted-foreground mb-1 sm:mb-2">
           {breadcrumbs.map((crumb, index) => (
             <span key={index} className="mr-1">
               {crumb} {index < breadcrumbs.length - 1 && <span className="mx-1">/</span>}
             </span>
           ))}
         </nav>
-        <h1 className="text-lg sm:text-xl font-semibold text-gray-800">{title}</h1>
+        <h1 className="text-lg sm:text-xl font-semibold text-card-foreground">{title}</h1>
       </div>
       <div className="flex items-center space-x-2 sm:space-x-4">
-        {!examMode && <span className="text-gray-600 text-sm hidden md:inline">Practice Mode</span>}
+        {!examMode && <span className="text-muted-foreground text-sm hidden md:inline">Practice Mode</span>}
         {examMode && (
-          <span className="text-blue-600 font-semibold text-base sm:text-lg">
+          <span className="text-blue-600 dark:text-blue-400 font-semibold text-base sm:text-lg">
             Time: {formatTime(timeLeft)}
           </span>
         )}
         <button
           onClick={onToggleQuestionGrid}
-          className="p-2 rounded-lg hover:bg-gray-100 text-gray-700 lg:hidden"
+          className="p-2 rounded-lg hover:bg-muted text-muted-foreground lg:hidden"
           title="View All Questions"
         >
           <Menu size={24} />

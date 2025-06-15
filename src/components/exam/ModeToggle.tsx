@@ -13,7 +13,7 @@ const ModeToggle = ({ examMode, onToggle }: ModeToggleProps) => {
       onClick={onToggle}
       className={cn(
         "relative flex items-center w-40 h-10 rounded-full p-1 cursor-pointer transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-        examMode ? "bg-blue-600" : "bg-gray-200 dark:bg-gray-700"
+        "bg-purple-600"
       )}
       role="switch"
       aria-checked={examMode}
@@ -29,7 +29,7 @@ const ModeToggle = ({ examMode, onToggle }: ModeToggleProps) => {
         <span
           className={cn(
             "z-10 text-sm font-semibold transition-colors duration-300",
-            !examMode ? "text-card-foreground" : "text-white"
+            !examMode ? "text-purple-600 dark:text-purple-300" : "text-white"
           )}
         >
           Practice
@@ -37,7 +37,7 @@ const ModeToggle = ({ examMode, onToggle }: ModeToggleProps) => {
         <span
           className={cn(
             "z-10 text-sm font-semibold transition-colors duration-300",
-            examMode ? "text-card-foreground" : "text-white"
+            examMode ? "text-purple-600 dark:text-purple-300" : "text-white"
           )}
         >
           Exam

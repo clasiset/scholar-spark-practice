@@ -57,12 +57,12 @@ const SubscriptionPage = ({ openModal, goBack, previousPageName }: {
             <div
               key={plan.id}
               className={`bg-card rounded-xl shadow-lg p-8 transform transition-transform duration-300 hover:scale-105 relative ${
-                plan.name === 'Pro' ? 'border-4 border-indigo-600' : 'border border-border'
+                plan.name === 'Pro' ? 'border-4 border-indigo-500 dark:border-indigo-400' : 'border border-border'
               }`}
             >
               {plan.name === 'Pro' && (
                 <div className="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2">
-                  <span className="bg-indigo-600 text-white text-xs font-bold px-4 py-1 rounded-full uppercase">Most Popular</span>
+                  <span className="bg-indigo-600 dark:bg-indigo-400 text-white dark:text-indigo-950 text-xs font-bold px-4 py-1 rounded-full uppercase">Most Popular</span>
                 </div>
               )}
               <h3 className="text-2xl font-bold text-foreground mb-4 text-center">{plan.name}</h3>
@@ -84,7 +84,7 @@ const SubscriptionPage = ({ openModal, goBack, previousPageName }: {
                 className={`w-full font-semibold py-3 px-4 rounded-lg transition duration-300 ${
                   plan.id === 'free'
                     ? 'bg-muted text-muted-foreground cursor-not-allowed'
-                    : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+                    : 'bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-400 text-white dark:text-indigo-950'
                 }`}
               >
                 {plan.id === 'free' ? 'Current Plan' : `Subscribe to ${plan.name}`}
