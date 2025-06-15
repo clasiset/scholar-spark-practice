@@ -25,9 +25,8 @@ const optionSchema = z.object({
 const questionFormSchema = z.object({
   questionText: z.string().min(10, "Question text must be at least 10 characters long."),
   examType: z.string().nonempty("Please select an exam type."),
-  category: z.string().nonempty("Please select a category."),
   subject: z.string().nonempty("Please select a subject."),
-  year: z.string().nonempty("Please select a year or grade level."),
+  year: z.string().nonempty("Please enter the exam year."),
   timeAllowed: z.coerce.number().positive().optional(),
   timeUnit: z.enum(["seconds", "minutes"]).default("minutes"),
   questionType: z.enum(["multiple-choice-single"]), // For now, only this type
@@ -48,14 +47,12 @@ const defaultValues: Partial<QuestionFormValues> = {
 };
 
 const initialExamTypes = ["Entrance Exam", "Exit Exam", "Work Exam", "NGAT Exam"];
-const categories = ["Aptitude", "General Knowledge", "Science", "Mathematics", "History", "English", "Logic", "Programming"];
 const initialSubjectsByExamType: Record<string, string[]> = {
   "Entrance Exam": ["English", "Mathematics", "Aptitude", "General Knowledge", "Physics", "Chemistry", "Biology"],
   "Exit Exam": ["Computer Science", "Mechanical Engineering", "Civil Engineering", "Medicine", "Law", "Economics", "Business Administration"],
   "Work Exam": ["Professional Communication", "Software Development", "Project Management", "Financial Accounting"],
   "NGAT Exam": ["Verbal Reasoning", "Numerical Reasoning", "Abstract Reasoning", "Situational Judgement"],
 };
-const years = ["Grade 9", "Grade 10", "Grade 11", "Grade 12", "Freshman", "Sophomore", "Junior", "Senior", "Graduate"];
 
 export function QuestionEditor() {
   const form = useForm<QuestionFormValues>({
@@ -139,7 +136,7 @@ export function QuestionEditor() {
             )}
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <FormField
               control={form.control}
               name="examType"
@@ -170,24 +167,6 @@ export function QuestionEditor() {
                       <Button type="button" onClick={handleAddNewExamType}>Add</Button>
                     </div>
                   )}
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="category"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Category / Topic</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger><SelectValue placeholder="Select a category" /></SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {categories.map(cat => <SelectItem key={cat} value={cat}>{cat}</SelectItem>)}
-                    </SelectContent>
-                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
@@ -235,15 +214,11 @@ export function QuestionEditor() {
               name="year"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Year / Grade Level</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger><SelectValue placeholder="Select a year" /></SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {years.map(year => <SelectItem key={year} value={year}>{year}</SelectItem>)}
-                    </SelectContent>
-                  </Select>
+                  <FormLabel>Exam Year</FormLabel>
+                  <FormControl>
+                    <Input placeholder="e.g. 2024 or Grade 12" {...field} />
+                  </FormControl>
+                  <FormDescription>Enter the specific year or grade level.</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
