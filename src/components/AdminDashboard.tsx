@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { 
   LayoutDashboard, 
@@ -19,9 +18,10 @@ import {
   X,
   Filter,
   Download,
-  User
+  User,
+  BookPlus
 } from "lucide-react";
-import { Link, Routes, Route } from "react-router-dom";
+import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import DashboardOverview from "./admin/DashboardOverview";
 import UserManagement from "./admin/UserManagement";
 import AcademicManagement from "./admin/AcademicManagement";
@@ -29,6 +29,7 @@ import FinancialManagement from "./admin/FinancialManagement";
 import Communication from "./admin/Communication";
 import ReportsAnalytics from "./admin/ReportsAnalytics";
 import AdminSettings from "./admin/AdminSettings";
+import QuestionEditor from "./admin/QuestionEditor";
 
 const SidebarLink = ({ 
   to, 
@@ -62,6 +63,7 @@ const AdminDashboard = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showNotifications, setShowNotifications] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const navigate = useNavigate();
   
   const currentPath = window.location.pathname;
 
@@ -82,8 +84,12 @@ const AdminDashboard = () => {
   ];
 
   const handleQuickAdd = (type: string) => {
-    console.log(`Quick add: ${type}`);
-    // Add quick action logic here
+    if (type === 'question') {
+      navigate('/admin/academics/new-question');
+    } else {
+      console.log(`Quick add: ${type}`);
+    }
+    // Add other quick action logic here
   };
 
   return (
@@ -169,6 +175,13 @@ const AdminDashboard = () => {
           <div className="p-6 border-t border-slate-200/60 dark:border-slate-700/60 flex-shrink-0">
             <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-4 uppercase tracking-wider">Quick Actions</h3>
             <div className="space-y-2">
+              <button 
+                onClick={() => handleQuickAdd('question')}
+                className="flex items-center gap-3 w-full p-3 text-left text-sm hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-blue-900/20 dark:hover:to-purple-900/20 rounded-lg transition-all duration-200 text-slate-700 dark:text-slate-300 hover:text-blue-700 group"
+              >
+                <BookPlus className="w-4 h-4 text-slate-500 group-hover:text-blue-600 transition-colors" />
+                Add Question
+              </button>
               <button 
                 onClick={() => handleQuickAdd('announcement')}
                 className="flex items-center gap-3 w-full p-3 text-left text-sm hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-blue-900/20 dark:hover:to-purple-900/20 rounded-lg transition-all duration-200 text-slate-700 dark:text-slate-300 hover:text-blue-700 group"
@@ -334,6 +347,7 @@ const AdminDashboard = () => {
             <Route path="/" element={<DashboardOverview />} />
             <Route path="/users" element={<UserManagement />} />
             <Route path="/academics" element={<AcademicManagement />} />
+            <Route path="/academics/new-question" element={<QuestionEditor />} />
             <Route path="/financial" element={<FinancialManagement />} />
             <Route path="/communication" element={<Communication />} />
             <Route path="/reports" element={<ReportsAnalytics />} />

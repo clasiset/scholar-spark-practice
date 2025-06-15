@@ -30,7 +30,7 @@ export interface HomePageProps {
   user: User | null; // Updated to match the actual prop type
 }
 
-const HomePage: React.FC<HomePageProps> = ({ navigate, openModal, user }) => {
+const HomePage = ({ navigate, openModal, user }: HomePageProps) => {
   const { t } = useI18n();
 
   const testimonials = [
