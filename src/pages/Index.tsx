@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import Header from '../components/Header';
@@ -202,7 +201,7 @@ const Index = () => {
       case 'blog':
         return <BlogPage history={history} navigateToHistory={navigateToHistory} />;
       case 'subscription':
-        return <SubscriptionPage openModal={openModal} history={history} navigateToHistory={navigateToHistory} />;
+        return <SubscriptionPage openModal={openModal} history={history} navigateToHistory={navigateToHistory} user={user} />;
       case 'editProfile':
         return <EditProfilePage user={user} history={history} navigateToHistory={navigateToHistory} />;
       case 'settings':

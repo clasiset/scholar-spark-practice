@@ -1,19 +1,46 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Check, Zap, Crown } from 'lucide-react';
 import BreadcrumbNav from './BreadcrumbNav';
+import PaymentModal from './PaymentModal';
 
 interface HistoryEntry {
   page: string;
   data: any | null;
 }
 
-const SubscriptionPage = ({ openModal, history, navigateToHistory }: {
+interface User {
+  id: string;
+  email: string;
+}
+
+interface Plan {
+    id: string;
+    name: string;
+    price: number;
+    currency: string;
+    interval: string;
+    shortDescription: string;
+    features: string[];
+    icon: React.ElementType;
+    iconColor: string;
+    iconBgColor: string;
+    buttonColor: string;
+    textColor: string;
+    borderColor: string;
+    popular: boolean;
+    isCurrent: boolean;
+}
+
+const SubscriptionPage = ({ openModal, history, navigateToHistory, user }: {
   openModal: (type: string, data?: any) => void;
   history: HistoryEntry[];
   navigateToHistory: (index: number) => void;
+  user: User | null;
 }) => {
-  const plans = [
+  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
+
+  const plans: Plan[] = [
     {
       id: 'basic',
       name: 'Basic',
@@ -99,6 +126,18 @@ const SubscriptionPage = ({ openModal, history, navigateToHistory }: {
     return `$${price}`;
   };
 
+  const handleChoosePlan = (plan: Plan) => {
+    if (user) {
+      setSelectedPlan(plan);
+    } else {
+      openModal('login');
+    }
+  };
+
+  const closePaymentModal = () => {
+    setSelectedPlan(null);
+  };
+
   return (
     <div className="min-h-screen bg-background py-12">
       <div className="container mx-auto px-6">
@@ -155,7 +194,7 @@ const SubscriptionPage = ({ openModal, history, navigateToHistory }: {
                 </button>
               ) : (
                 <button
-                  onClick={() => openModal('login')}
+                  onClick={() => handleChoosePlan(plan)}
                   className={`w-full font-semibold py-3 px-4 rounded-lg transition duration-300 ${plan.buttonColor} ${plan.textColor}`}
                 >
                   Choose {plan.name}
@@ -165,6 +204,12 @@ const SubscriptionPage = ({ openModal, history, navigateToHistory }: {
           ))}
         </div>
       </div>
+      {selectedPlan && (
+        <PaymentModal 
+          plan={selectedPlan} 
+          onClose={closePaymentModal} 
+        />
+      )}
     </div>
   );
 };
