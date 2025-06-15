@@ -4,6 +4,7 @@ import { useI18n } from '../i18n/i18nContext';
 import { Bot, ClipboardList } from 'lucide-react';
 import { User } from '../types';
 
+// Add this explicit interface for the props
 export interface HomePageProps {
   navigate: (page: string, data?: any) => void;
   openModal: (type: any, data?: any) => void;
