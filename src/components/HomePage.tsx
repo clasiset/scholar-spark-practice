@@ -1,19 +1,20 @@
 
 import React from 'react';
 import { useI18n } from '../i18n/i18nContext';
+import { Bot, ClipboardList } from 'lucide-react';
 
 interface User {
   email: string;
   id: string;
 }
 
-interface HomePageProps {
+export interface HomePageProps {
   navigate: (page: string, data?: any) => void;
   openModal: (type: string) => void;
   user: User | null;
 }
 
-const HomePage = ({ navigate, openModal, user }: HomePageProps) => {
+const HomePage: React.FC<HomePageProps> = ({ navigate, openModal, user }) => {
   const { t } = useI18n();
 
   const testimonials = [
@@ -167,23 +168,33 @@ const HomePage = ({ navigate, openModal, user }: HomePageProps) => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 px-6 lg:px-12 bg-primary">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-6">
-            Ready to Excel in Your Exams?
+      {/* New AI & Personalized Learning Section */}
+      <section className="py-20 px-6 lg:px-12 bg-secondary/50 backdrop-blur-sm">
+        <div className="container mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-16">
+            Unlock Your Full Potential
           </h2>
-          <p className="text-xl text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-            Join thousands of students who have successfully prepared for their exams with our platform.
-          </p>
-          {!user && (
-            <button
-              onClick={() => openModal('signup')}
-              className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold py-4 px-8 rounded-full text-lg shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105"
-            >
-              Start Your Journey Today
-            </button>
-          )}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="text-center p-8 rounded-xl bg-card text-card-foreground shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-6">
+                <Bot className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-semibold text-foreground mb-4">About AI Assistant Learning</h3>
+              <p className="text-muted-foreground">
+                Get instant feedback, detailed explanations, and 24/7 support from your personal AI tutor.
+              </p>
+            </div>
+            
+            <div className="text-center p-8 rounded-xl bg-card text-card-foreground shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-6">
+                 <ClipboardList className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-semibold text-foreground mb-4">Personalized Study Plans</h3>
+              <p className="text-muted-foreground">
+                Our platform adapts to your learning style, creating a customized roadmap to help you succeed.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
     </div>
