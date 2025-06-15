@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { 
@@ -20,8 +19,11 @@ import {
   Filter,
   Download,
   MoreHorizontal,
-  Eye
+  Eye,
+  FileText
 } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import WebTransactions from './WebTransactions';
 
 const StatCard = ({ 
   title, 
@@ -104,84 +106,149 @@ const ActivityItem = ({ activity, onClick }: { activity: any; onClick?: () => vo
 
 const DashboardOverview = () => {
   const [selectedPeriod, setSelectedPeriod] = useState('month');
+  const [showWebTransactions, setShowWebTransactions] = useState(false);
+  const [webStats, setWebStats] = useState({
+    totalQuestions: 0,
+    totalTransactions: 0,
+    questionsToday: 0,
+    activeUsers: 0
+  });
   
+  // Fetch web statistics
+  useEffect(() => {
+    const fetchWebStats = async () => {
+      try {
+        // Get total questions
+        const { count: questionsCount } = await supabase
+          .from('questions')
+          .select('*', { count: 'exact', head: true })
+          .eq('is_published', true);
+
+        // Get total transactions
+        const { count: transactionsCount } = await supabase
+          .from('web_transactions')
+          .select('*', { count: 'exact', head: true });
+
+        // Get questions created today
+        const today = new Date().toISOString().split('T')[0];
+        const { count: todayQuestionsCount } = await supabase
+          .from('questions')
+          .select('*', { count: 'exact', head: true })
+          .gte('created_at', today)
+          .eq('is_published', true);
+
+        // Get unique users from transactions (approximate active users)
+        const { data: uniqueUsers } = await supabase
+          .from('web_transactions')
+          .select('session_id')
+          .gte('created_at', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString());
+
+        const activeUsersCount = new Set(uniqueUsers?.map(u => u.session_id).filter(Boolean)).size;
+
+        setWebStats({
+          totalQuestions: questionsCount || 0,
+          totalTransactions: transactionsCount || 0,
+          questionsToday: todayQuestionsCount || 0,
+          activeUsers: activeUsersCount
+        });
+      } catch (error) {
+        console.error('Error fetching web stats:', error);
+      }
+    };
+
+    fetchWebStats();
+  }, []);
+
   const stats = [
     {
-      title: "Total Students",
-      value: "2,847",
-      description: "Active enrolled students",
+      title: "Published Questions",
+      value: webStats.totalQuestions.toString(),
+      description: "Live questions on website",
+      icon: FileText,
+      trend: { value: 15, isPositive: true },
+      color: "blue",
+      onClick: () => console.log("Navigate to questions")
+    },
+    {
+      title: "Web Transactions",
+      value: webStats.totalTransactions.toString(),
+      description: "Total website activity",
+      icon: Activity,
+      trend: { value: 8, isPositive: true },
+      color: "green",
+      onClick: () => setShowWebTransactions(true)
+    },
+    {
+      title: "Questions Today",
+      value: webStats.questionsToday.toString(),
+      description: "New questions added today",
+      icon: Plus,
+      trend: { value: 3, isPositive: true },
+      color: "purple",
+      onClick: () => console.log("Navigate to today's questions")
+    },
+    {
+      title: "Active Users (24h)",
+      value: webStats.activeUsers.toString(),
+      description: "Unique visitors today",
       icon: Users,
       trend: { value: 12, isPositive: true },
-      color: "blue",
-      onClick: () => console.log("Navigate to students")
-    },
-    {
-      title: "Total Teachers",
-      value: "156",
-      description: "Active teaching staff",
-      icon: GraduationCap,
-      trend: { value: 3, isPositive: true },
-      color: "green",
-      onClick: () => console.log("Navigate to teachers")
-    },
-    {
-      title: "Active Courses",
-      value: "43",
-      description: "Currently running courses",
-      icon: BookOpen,
-      trend: { value: 8, isPositive: true },
-      color: "purple",
-      onClick: () => console.log("Navigate to courses")
-    },
-    {
-      title: "Revenue This Month",
-      value: "$47,521",
-      description: "Fee collection & other income",
-      icon: DollarSign,
-      trend: { value: 5, isPositive: false },
       color: "orange",
-      onClick: () => console.log("Navigate to finances")
+      onClick: () => console.log("Navigate to user analytics")
     },
     {
-      title: "Attendance Rate",
-      value: "94.2%",
-      description: "Overall student attendance",
-      icon: Target,
-      trend: { value: 2, isPositive: true },
+      title: "Question Views",
+      value: "1,247",
+      description: "Questions viewed this week",
+      icon: Eye,
+      trend: { value: 22, isPositive: true },
       color: "pink",
-      onClick: () => console.log("Navigate to attendance")
+      onClick: () => console.log("Navigate to view analytics")
     },
     {
-      title: "Pending Admissions",
-      value: "34",
-      description: "Applications awaiting review",
-      icon: AlertCircle,
+      title: "System Health",
+      value: "99.9%",
+      description: "Website uptime",
+      icon: Target,
       color: "indigo",
-      onClick: () => console.log("Navigate to admissions")
+      onClick: () => console.log("Navigate to system status")
     }
   ];
 
   const recentActivities = [
-    { id: 1, type: "enrollment", message: "25 new students enrolled in Computer Science", time: "2 hours ago", color: "blue" },
-    { id: 2, type: "payment", message: "Monthly fees collected: $12,450", time: "3 hours ago", color: "green" },
-    { id: 3, type: "grade", message: "Final grades submitted for Mathematics", time: "5 hours ago", color: "purple" },
-    { id: 4, type: "announcement", message: "Parent-teacher meeting scheduled for next week", time: "1 day ago", color: "orange" },
-    { id: 5, type: "maintenance", message: "System backup completed successfully", time: "1 day ago", color: "indigo" }
+    { id: 1, type: "question", message: "New Mathematics question added to Entrance Exam", time: "2 hours ago", color: "blue" },
+    { id: 2, type: "transaction", message: "156 questions viewed in the last hour", time: "3 hours ago", color: "green" },
+    { id: 3, type: "exam", message: "Chemistry exam started by 23 users", time: "5 hours ago", color: "purple" },
+    { id: 4, type: "system", message: "Database backup completed successfully", time: "1 day ago", color: "orange" },
+    { id: 5, type: "user", message: "45 new users registered today", time: "1 day ago", color: "indigo" }
   ];
 
   const upcomingEvents = [
-    { id: 1, title: "Parent-Teacher Conference", date: "Dec 20, 2024", type: "meeting", color: "blue" },
-    { id: 2, title: "Winter Break Begins", date: "Dec 23, 2024", type: "holiday", color: "green" },
-    { id: 3, title: "Final Exam Week", date: "Jan 8, 2025", type: "exam", color: "red" },
-    { id: 4, title: "New Semester Registration", date: "Jan 15, 2025", type: "registration", color: "purple" }
+    { id: 1, title: "Entrance Exam Questions Review", date: "Dec 20, 2024", type: "meeting", color: "blue" },
+    { id: 2, title: "System Maintenance Window", date: "Dec 23, 2024", type: "maintenance", color: "red" },
+    { id: 3, title: "New Subject Launch: Data Science", date: "Jan 8, 2025", type: "launch", color: "green" },
+    { id: 4, title: "Question Bank Audit", date: "Jan 15, 2025", type: "audit", color: "purple" }
   ];
 
   const quickActions = [
-    { title: "Add Student", description: "Enroll new student", icon: Users, color: "blue", action: () => console.log("Add student") },
-    { title: "Create Course", description: "Add new course", icon: BookOpen, color: "green", action: () => console.log("Create course") },
+    { title: "Add Question", description: "Create new question", icon: FileText, color: "blue", action: () => console.log("Add question") },
+    { title: "View Analytics", description: "Website performance", icon: TrendingUp, color: "green", action: () => setShowWebTransactions(true) },
     { title: "Send Notice", description: "Broadcast message", icon: Bell, color: "purple", action: () => console.log("Send notice") },
-    { title: "View Reports", description: "Analytics dashboard", icon: TrendingUp, color: "orange", action: () => console.log("View reports") }
+    { title: "Export Data", description: "Download reports", icon: Download, color: "orange", action: () => console.log("Export data") }
   ];
+
+  if (showWebTransactions) {
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <Button variant="outline" onClick={() => setShowWebTransactions(false)}>
+            ← Back to Dashboard
+          </Button>
+        </div>
+        <WebTransactions />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">
@@ -241,7 +308,7 @@ const DashboardOverview = () => {
                   </CardDescription>
                 </div>
               </div>
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" onClick={() => setShowWebTransactions(true)}>
                 View All
               </Button>
             </div>

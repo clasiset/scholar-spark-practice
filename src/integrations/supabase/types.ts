@@ -48,6 +48,116 @@ export type Database = {
         }
         Relationships: []
       }
+      questions: {
+        Row: {
+          correct_answer: string
+          created_at: string
+          created_by: string | null
+          exam_type: string
+          explanation: string | null
+          id: string
+          is_published: boolean | null
+          option_a: string
+          option_b: string
+          option_c: string
+          option_d: string
+          question_text: string
+          subject: string
+          updated_at: string
+          year: string
+        }
+        Insert: {
+          correct_answer: string
+          created_at?: string
+          created_by?: string | null
+          exam_type: string
+          explanation?: string | null
+          id?: string
+          is_published?: boolean | null
+          option_a: string
+          option_b: string
+          option_c: string
+          option_d: string
+          question_text: string
+          subject: string
+          updated_at?: string
+          year: string
+        }
+        Update: {
+          correct_answer?: string
+          created_at?: string
+          created_by?: string | null
+          exam_type?: string
+          explanation?: string | null
+          id?: string
+          is_published?: boolean | null
+          option_a?: string
+          option_b?: string
+          option_c?: string
+          option_d?: string
+          question_text?: string
+          subject?: string
+          updated_at?: string
+          year?: string
+        }
+        Relationships: []
+      }
+      web_transactions: {
+        Row: {
+          created_at: string
+          exam_type: string | null
+          id: string
+          ip_address: unknown | null
+          metadata: Json | null
+          page_url: string | null
+          question_id: string | null
+          referrer: string | null
+          session_id: string | null
+          subject: string | null
+          transaction_type: string
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          exam_type?: string | null
+          id?: string
+          ip_address?: unknown | null
+          metadata?: Json | null
+          page_url?: string | null
+          question_id?: string | null
+          referrer?: string | null
+          session_id?: string | null
+          subject?: string | null
+          transaction_type: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          exam_type?: string | null
+          id?: string
+          ip_address?: unknown | null
+          metadata?: Json | null
+          page_url?: string | null
+          question_id?: string | null
+          referrer?: string | null
+          session_id?: string | null
+          subject?: string | null
+          transaction_type?: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "web_transactions_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

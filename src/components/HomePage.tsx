@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useI18n } from '../i18n/i18nContext';
 import { 
   BookOpen, 
@@ -23,11 +22,12 @@ import {
 } from 'lucide-react';
 import { User } from '../types';
 import { Link } from 'react-router-dom';
+import { trackWebTransaction, TRANSACTION_TYPES } from '../utils/webTransactions';
 
 export interface HomePageProps {
-  navigate: (page: string, data?: any) => void;
-  openModal: (type: string, data?: any) => void;
-  user: User | null;
+  navigate: any;
+  openModal: any;
+  user: any;
 }
 
 const HomePage: React.FC<HomePageProps> = ({ navigate, openModal, user }) => {
@@ -62,8 +62,16 @@ const HomePage: React.FC<HomePageProps> = ({ navigate, openModal, user }) => {
     navigate('examSubjects', { examType: 'exit' });
   };
 
+  // Track page view when component mounts
+  useEffect(() => {
+    trackWebTransaction({
+      transaction_type: TRANSACTION_TYPES.PAGE_VIEW,
+      metadata: { page: 'home', user_authenticated: !!user }
+    });
+  }, [user]);
+
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
       {/* Hero Section - Full Height */}
       <section className="relative min-h-screen flex items-center justify-center px-6 lg:px-12">
         <div className="container mx-auto text-center">

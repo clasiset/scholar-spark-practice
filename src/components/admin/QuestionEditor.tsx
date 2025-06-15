@@ -16,7 +16,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { X, Plus } from "lucide-react";
+import { X, Plus, Save, FileText } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const optionSchema = z.object({
   text: z.string().min(1, "Option text cannot be empty."),
@@ -54,7 +56,23 @@ const initialSubjectsByExamType: Record<string, string[]> = {
   "NGAT Exam": ["Verbal Reasoning", "Numerical Reasoning", "Abstract Reasoning", "Situational Judgement"],
 };
 
+// Function to track web transactions
+const trackWebTransaction = async (transactionType: string, metadata: any = {}) => {
+  try {
+    await supabase.from('web_transactions').insert({
+      transaction_type: transactionType,
+      page_url: window.location.href,
+      user_agent: navigator.userAgent,
+      session_id: sessionStorage.getItem('session_id') || 'anonymous',
+      metadata: metadata
+    });
+  } catch (error) {
+    console.error('Error tracking transaction:', error);
+  }
+};
+
 export function QuestionEditor() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const form = useForm<QuestionFormValues>({
     resolver: zodResolver(questionFormSchema),
     defaultValues,
@@ -106,15 +124,119 @@ export function QuestionEditor() {
     }
   };
 
-  function onSubmit(data: QuestionFormValues) {
-    console.log("Form submitted:", data);
-    // In a real app, you'd send this to your backend.
+  async function onSubmit(data: QuestionFormValues) {
+    try {
+      setIsSubmitting(true);
+      
+      // Get current user
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        toast.error("You must be logged in to create questions");
+        return;
+      }
+
+      // Map the form data to database schema
+      const questionData = {
+        exam_type: data.examType,
+        subject: data.subject,
+        year: data.year,
+        question_text: data.questionText,
+        option_a: data.options[0]?.text || "",
+        option_b: data.options[1]?.text || "",
+        option_c: data.options[2]?.text || "",
+        option_d: data.options[3]?.text || "",
+        correct_answer: ['A', 'B', 'C', 'D'][parseInt(data.correctAnswerIndex)],
+        explanation: data.explanation || null,
+        created_by: user.id,
+        is_published: true
+      };
+
+      // Insert question into database
+      const { data: insertedQuestion, error } = await supabase
+        .from('questions')
+        .insert(questionData)
+        .select()
+        .single();
+
+      if (error) {
+        console.error('Error saving question:', error);
+        toast.error("Error saving question: " + error.message);
+        return;
+      }
+
+      // Track web transaction
+      await trackWebTransaction('question_created', {
+        question_id: insertedQuestion.id,
+        exam_type: data.examType,
+        subject: data.subject,
+        year: data.year
+      });
+
+      toast.success("Question saved successfully and published to main website!");
+      
+      // Reset form
+      form.reset(defaultValues);
+      
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error("An unexpected error occurred");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  async function saveAsDraft(data: QuestionFormValues) {
+    try {
+      setIsSubmitting(true);
+      
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        toast.error("You must be logged in to save drafts");
+        return;
+      }
+
+      const questionData = {
+        exam_type: data.examType,
+        subject: data.subject,
+        year: data.year,
+        question_text: data.questionText,
+        option_a: data.options[0]?.text || "",
+        option_b: data.options[1]?.text || "",
+        option_c: data.options[2]?.text || "",
+        option_d: data.options[3]?.text || "",
+        correct_answer: ['A', 'B', 'C', 'D'][parseInt(data.correctAnswerIndex)],
+        explanation: data.explanation || null,
+        created_by: user.id,
+        is_published: false // Save as draft
+      };
+
+      const { error } = await supabase
+        .from('questions')
+        .insert(questionData);
+
+      if (error) {
+        console.error('Error saving draft:', error);
+        toast.error("Error saving draft: " + error.message);
+        return;
+      }
+
+      toast.success("Question saved as draft!");
+      
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error("An unexpected error occurred");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
     <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-lg max-w-4xl mx-auto my-8">
       <h1 className="text-3xl font-bold mb-2 text-slate-900 dark:text-slate-100">Create New Question</h1>
       <p className="text-slate-500 dark:text-slate-400 mb-8">Fill out the form to add a new question to the question bank.</p>
+      
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
@@ -363,8 +485,19 @@ export function QuestionEditor() {
           />
 
           <div className="flex justify-end gap-4 pt-4">
-            <Button type="button" variant="outline">Save as Draft</Button>
-            <Button type="submit">Save Question</Button>
+            <Button 
+              type="button" 
+              variant="outline" 
+              onClick={() => form.handleSubmit(saveAsDraft)()}
+              disabled={isSubmitting}
+            >
+              <FileText className="mr-2 h-4 w-4" />
+              Save as Draft
+            </Button>
+            <Button type="submit" disabled={isSubmitting}>
+              <Save className="mr-2 h-4 w-4" />
+              {isSubmitting ? "Saving..." : "Save & Publish Question"}
+            </Button>
           </div>
         </form>
       </Form>
