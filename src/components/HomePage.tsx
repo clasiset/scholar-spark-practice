@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { useI18n } from '../i18n/i18nContext';
 import { 
@@ -27,7 +28,7 @@ import { trackWebTransaction, TRANSACTION_TYPES } from '../utils/webTransactions
 export interface HomePageProps {
   navigate: any;
   openModal: any;
-  user: any;
+  user?: User | null;
 }
 
 const HomePage: React.FC<HomePageProps> = ({ navigate, openModal, user }) => {

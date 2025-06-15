@@ -96,7 +96,24 @@ const WebTransactions = () => {
         return;
       }
 
-      setTransactions(data || []);
+      // Transform the data to match our interface
+      const transformedData: WebTransaction[] = (data || []).map(item => ({
+        id: item.id,
+        transaction_type: item.transaction_type,
+        user_id: item.user_id,
+        question_id: item.question_id,
+        exam_type: item.exam_type,
+        subject: item.subject,
+        session_id: item.session_id,
+        ip_address: item.ip_address as string | null,
+        user_agent: item.user_agent,
+        page_url: item.page_url,
+        referrer: item.referrer,
+        metadata: item.metadata,
+        created_at: item.created_at
+      }));
+
+      setTransactions(transformedData);
     } catch (error) {
       console.error('Error:', error);
     } finally {
