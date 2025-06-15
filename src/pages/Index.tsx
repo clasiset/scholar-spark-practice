@@ -1,5 +1,7 @@
+
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { type Tables } from '@/integrations/supabase/types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import HomePage from '../components/HomePage';
@@ -36,8 +38,9 @@ const Index = () => {
   const [history, setHistory] = useState<HistoryEntry[]>([{ page: 'home', data: null }]);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState(''); // 'signup', 'login', 'enroll', 'startExam'
-  const [modalData, setModalData] = useState(null); // Data for the modal, e.g., course title for enrollment
+  const [modalData, setModalData] = useState<any | null>(null); // Data for the modal, e.g., course title for enrollment
   const [user, setUser] = useState<User | null>(null);
+  const [profile, setProfile] = useState<Tables<'profiles'> | null>(null);
   const [loading, setLoading] = useState(true);
 
   const [testimonials, setTestimonials] = useState([
@@ -63,14 +66,28 @@ const Index = () => {
 
   useEffect(() => {
     setLoading(true);
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
       if (session?.user) {
         setUser({
           email: session.user.email || '',
           id: session.user.id,
         });
+
+        const { data: profileData, error } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', session.user.id)
+          .single();
+
+        if (error) {
+          console.error('Error fetching profile:', error);
+          setProfile(null);
+        } else {
+          setProfile(profileData);
+        }
       } else {
         setUser(null);
+        setProfile(null);
       }
       setLoading(false);
     });
@@ -126,9 +143,13 @@ const Index = () => {
   const previousPageName = history.length > 1 ? history[history.length - 2].page : null;
 
   // Function to open the modal with specific content
-  const openModal = (type: any, data = null) => {
+  const openModal = (type: any, data: any = null) => {
+    let finalData = data;
+    if (type === 'profile' && profile) {
+      finalData = { ...data, ...profile };
+    }
     setModalType(type);
-    setModalData(data);
+    setModalData(finalData);
     setShowModal(true);
   };
 
@@ -171,7 +192,7 @@ const Index = () => {
       case 'subscription':
         return <SubscriptionPage openModal={openModal} history={history} navigateToHistory={navigateToHistory} user={user} />;
       case 'editProfile':
-        return <EditProfilePage user={user} history={history} navigateToHistory={navigateToHistory} />;
+        return <EditProfilePage user={user} profile={profile} history={history} navigateToHistory={navigateToHistory} />;
       case 'settings':
         return <SettingsPage user={user} history={history} navigateToHistory={navigateToHistory} />;
       case 'notifications':
@@ -194,7 +215,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
-      <Header navigate={navigate} openModal={openModal} />
+      <Header navigate={navigate} openModal={openModal} user={user} />
       <main className="flex-1">
         {renderPage()}
       </main>

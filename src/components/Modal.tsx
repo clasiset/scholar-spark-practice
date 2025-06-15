@@ -426,14 +426,16 @@ const Modal = ({ type, data, onClose, openModal, navigate }) => {
             <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4">
               <User className="text-white" size={32} />
             </div>
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">{data?.email || 'User Profile'}</h2>
-            <p className="text-gray-600 dark:text-slate-300 mb-6">{data?.email ? 'Manage your account settings' : 'Sign in to manage your profile.'}</p>
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+              {(data?.first_name && data?.last_name) ? `${data.first_name} ${data.last_name}` : data?.email || 'User Profile'}
+            </h2>
+            <p className="text-gray-600 dark:text-slate-300 mb-6">{data?.email ? data.email : 'Sign in to manage your profile.'}</p>
             {data?.email ? (
               <div className="space-y-3">
-                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200">
+                <button onClick={() => { navigate('editProfile'); onClose(); }} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200">
                   View Profile
                 </button>
-                <button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200">
+                <button onClick={() => { navigate('settings'); onClose(); }} className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200">
                   Settings
                 </button>
                 <button onClick={handleLogout} className="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200">

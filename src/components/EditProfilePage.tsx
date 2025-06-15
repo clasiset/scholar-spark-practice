@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+
+import React, { useState, useRef, useEffect } from 'react';
 import { useI18n } from '../i18n/i18nContext';
 import BreadcrumbNav from './BreadcrumbNav';
 import { Button } from "@/components/ui/button";
@@ -9,9 +10,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Camera, Plus, X, Save, RotateCcw } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from '@/integrations/supabase/client';
+import { type Tables } from '@/integrations/supabase/types';
+
 
 interface User {
   email: string;
+  id: string;
 }
 
 interface HistoryEntry {
@@ -21,6 +26,7 @@ interface HistoryEntry {
 
 interface EditProfilePageProps {
   user: User | null;
+  profile: Tables<'profiles'> | null;
   history: HistoryEntry[];
   navigateToHistory: (index: number) => void;
 }
@@ -42,7 +48,7 @@ interface ProfileData {
   socialLinks: SocialLink[];
 }
 
-const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, history, navigateToHistory }) => {
+const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, profile, history, navigateToHistory }) => {
   const { t, isRTL } = useI18n();
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -63,7 +69,25 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, history, naviga
   const [hasChanges, setHasChanges] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    if (profile) {
+      const initialData: ProfileData = {
+        firstName: profile.first_name ?? '',
+        lastName: profile.last_name ?? '',
+        email: user?.email ?? '',
+        phoneNumber: profile.phone_number ?? '',
+        bio: profile.bio ?? '',
+        location: profile.location ?? '',
+        websiteUrl: profile.website_url ?? '',
+        avatarUrl: profile.avatar_url ?? '',
+        socialLinks: (profile.social_links as SocialLink[] | null) ?? [],
+      };
+      setProfileData(initialData);
+      setOriginalData(initialData);
+    }
+  }, [profile, user]);
+
+  useEffect(() => {
     // Check for changes
     setHasChanges(JSON.stringify(profileData) !== JSON.stringify(originalData));
   }, [profileData, originalData]);
@@ -136,9 +160,30 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, history, naviga
   };
 
   const handleSave = async () => {
+    if (!user) {
+        toast({ title: "Error", description: "You must be logged in to save.", variant: "destructive" });
+        return;
+    }
+    
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const updates = {
+        id: user.id,
+        first_name: profileData.firstName,
+        last_name: profileData.lastName,
+        phone_number: profileData.phoneNumber,
+        bio: profileData.bio,
+        location: profileData.location,
+        website_url: profileData.websiteUrl,
+        avatar_url: profileData.avatarUrl,
+        social_links: profileData.socialLinks,
+        updated_at: new Date().toISOString(),
+      };
+
+      const { error } = await supabase.from('profiles').upsert(updates);
+
+      if (error) {
+        throw error;
+      }
       
       setOriginalData(profileData);
       setIsEditing(false);
@@ -146,10 +191,10 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, history, naviga
         title: t.common.success,
         description: "Profile updated successfully!",
       });
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: t.common.error,
-        description: "Error saving profile. Please try again.",
+        description: error.message || "Error saving profile. Please try again.",
         variant: "destructive",
       });
     }
