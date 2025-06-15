@@ -198,10 +198,6 @@ const Header = ({ navigate, openModal }) => {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                 <NavLink text={t.navigation.localJobPortal} onClick={() => navigate('localJobPortal')} />
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
                  <NavLink text={t.navigation.aboutUs} onClick={() => navigate('about')} />
               </NavigationMenuItem>
 
@@ -373,7 +369,6 @@ const Header = ({ navigate, openModal }) => {
               </AccordionItem>
             </Accordion>
             <NavLink text={t.navigation.subscription} onClick={() => { navigate('subscription'); setIsMobileMenuOpen(false); }} />
-            <NavLink text={t.navigation.localJobPortal} onClick={() => { navigate('localJobPortal'); setIsMobileMenuOpen(false); }} />
             <NavLink text={t.navigation.aboutUs} onClick={() => { navigate('about'); setIsMobileMenuOpen(false); }} />
             <NavLink text={t.navigation.contactUs} onClick={() => { navigate('contact'); setIsMobileMenuOpen(false); }} />
             
