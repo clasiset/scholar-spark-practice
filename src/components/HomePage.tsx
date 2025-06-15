@@ -13,7 +13,7 @@ interface HomePageProps {
   user: User | null;
 }
 
-const HomePage: React.FC<HomePageProps> = ({ navigate, openModal, user }) => {
+const HomePage = ({ navigate, openModal, user }: HomePageProps) => {
   const { t } = useI18n();
 
   const testimonials = [
