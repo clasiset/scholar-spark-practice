@@ -1,6 +1,6 @@
-
 import React from 'react';
 import { Menu } from 'lucide-react';
+import ModeToggle from './ModeToggle';
 
 interface ExamHeaderComponentProps {
   title: string;
@@ -51,18 +51,7 @@ export const ExamHeaderComponent = ({
         >
           <Menu size={24} />
         </button>
-        <button
-          onClick={onToggleExamMode}
-          className={`py-2 px-3 sm:px-6 rounded-lg font-semibold shadow-md transition-colors duration-200 ease-in-out
-            ${examMode
-              ? 'bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-500'
-              : 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500'
-            }
-            focus:outline-none focus:ring-2 focus:ring-opacity-50 text-sm sm:text-base
-          `}
-        >
-          {examMode ? 'Practice Mode' : 'Exam Mode'}
-        </button>
+        <ModeToggle examMode={examMode} onToggle={onToggleExamMode} />
       </div>
     </header>
   );

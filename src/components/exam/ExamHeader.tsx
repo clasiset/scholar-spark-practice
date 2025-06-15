@@ -1,6 +1,6 @@
-
 import React from 'react';
 import { Clock, Menu } from 'lucide-react';
+import ModeToggle from './ModeToggle';
 
 export const ExamHeader = ({ examMode, timeLeft, onToggleExamMode, totalQuestions, answeredQuestions, onOpenMobilePanel, examDetails }) => {
   const formatTime = (seconds) => {
@@ -39,17 +39,7 @@ export const ExamHeader = ({ examMode, timeLeft, onToggleExamMode, totalQuestion
               </div>
             )}
             
-            <button
-              onClick={onToggleExamMode}
-              className={`py-2 px-6 rounded-lg font-medium text-sm transition-all duration-200 
-                ${examMode
-                  ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  : 'bg-blue-600 text-white hover:bg-blue-700'
-                }
-              `}
-            >
-              {examMode ? 'Practice Mode' : 'Exam Mode'}
-            </button>
+            <ModeToggle examMode={examMode} onToggle={onToggleExamMode} />
             
             <button 
               onClick={onOpenMobilePanel} 
