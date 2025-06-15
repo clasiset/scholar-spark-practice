@@ -20,6 +20,7 @@ import { Switch } from "@/components/ui/switch";
 import { Sun, Moon, User, Settings, CreditCard, Bell, LogOut, Menu, X } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import { useI18n } from '../i18n/i18nContext';
+import { Link } from "react-router-dom";
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
