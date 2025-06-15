@@ -121,9 +121,23 @@ const Index = () => {
 
   // Navigation handler
   const navigate = (page: string, data: any = null) => {
-    const latestEntry = history[history.length - 1];
-    if (page !== latestEntry.page || JSON.stringify(data) !== JSON.stringify(latestEntry.data)) {
-      setHistory(prevHistory => [...prevHistory, { page, data }]);
+    const topLevelPages = [
+      'home', 'courses', 'programs', 'tutoring', 'resources', 'community', 
+      'careers', 'about', 'contact', 'examSubjects', 'blog', 'subscription',
+      'editProfile', 'settings', 'notifications'
+    ];
+
+    if (topLevelPages.includes(page)) {
+      const newHistory: HistoryEntry[] = [{ page: 'home', data: null }];
+      if (page !== 'home') {
+        newHistory.push({ page, data });
+      }
+      setHistory(newHistory);
+    } else {
+      const latestEntry = history[history.length - 1];
+      if (page !== latestEntry.page || JSON.stringify(data) !== JSON.stringify(latestEntry.data)) {
+        setHistory(prevHistory => [...prevHistory, { page, data }]);
+      }
     }
   };
 
