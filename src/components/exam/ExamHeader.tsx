@@ -2,6 +2,14 @@
 import React from 'react';
 import { Clock, Menu } from 'lucide-react';
 import ModeToggle from './ModeToggle';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+  BreadcrumbPage,
+} from "@/components/ui/breadcrumb";
 
 export const ExamHeader = ({ examMode, timeLeft, onToggleExamMode, totalQuestions, answeredQuestions, onOpenMobilePanel, examDetails }) => {
   const formatTime = (seconds) => {
@@ -9,6 +17,18 @@ export const ExamHeader = ({ examMode, timeLeft, onToggleExamMode, totalQuestion
     const remainingSeconds = seconds % 60;
     return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
+  
+  const getExamDisplayName = (type?: string) => {
+    switch (type) {
+      case 'exit': return 'Exit Exam';
+      case 'entrance': return 'Entrance Exam';
+      case 'work': return 'Work Exam';
+      case 'ngat': return 'NGAT Exam';
+      default: return 'Exam';
+    }
+  };
+
+  const examTypeTitle = getExamDisplayName(examDetails?.examType);
 
   return (
     <header className="bg-card border-b border-border shadow-sm">
@@ -23,14 +43,24 @@ export const ExamHeader = ({ examMode, timeLeft, onToggleExamMode, totalQuestion
               />
             </div>
             <div>
-              <nav className="text-[10px] sm:text-xs text-muted-foreground mb-1">
-                Entrance Exams / {examDetails?.subjectTitle || 'Aptitude Test'}
-              </nav>
-              <img
-                src="/lovable-uploads/77db7a30-e1ae-44ce-9ea7-b9714fc7de81.png"
-                alt="Aptitude Test - Entrance Exam 2014"
-                className="h-5 sm:h-6"
-              />
+              <Breadcrumb>
+                <BreadcrumbList className="text-[10px] sm:text-xs">
+                  <BreadcrumbItem>
+                    <BreadcrumbLink href="#">Home</BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbLink href="#">{examTypeTitle}</BreadcrumbLink>
+                  </BreadcrumbItem>
+                   <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>{examDetails?.subjectTitle}</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+              <h1 className="text-base sm:text-lg font-semibold text-card-foreground mt-1">
+                {examDetails?.subjectTitle} - {examDetails?.year}
+              </h1>
             </div>
           </div>
           

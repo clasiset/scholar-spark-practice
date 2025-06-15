@@ -1,140 +1,15 @@
-
 import React, { useState, useMemo } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
 import { Search, LayoutGrid, List, SlidersHorizontal } from 'lucide-react';
 import BackButton from './BackButton';
+import { allCourses } from '@/data/courses';
+import CourseCard from './courses/CourseCard';
+import FilterSection from './courses/FilterSection';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
 
-// Mock data with more details
-const allCourses = [
-  { id: 1, title: 'Advanced Mathematics', code: 'MATH301', description: 'Comprehensive math preparation for university entrance.', department: 'Mathematics', level: 'Undergraduate', studyMode: 'On-Campus', duration: '1 Year', credits: 15, startDate: 'Fall 2025' },
-  { id: 2, title: 'Physics Fundamentals', code: 'PHY101', description: 'Essential physics concepts for science and engineering students.', department: 'Physics', level: 'Undergraduate', studyMode: 'On-Campus', duration: '1 Year', credits: 15, startDate: 'Fall 2025' },
-  { id: 3, title: 'Chemistry Basics', code: 'CHEM101', description: 'Core chemistry principles and lab practices.', department: 'Chemistry', level: 'Undergraduate', studyMode: 'Blended', duration: '1 Year', credits: 15, startDate: 'Fall 2025' },
-  { id: 4, title: 'Introduction to Programming', code: 'CS101', description: 'Learn to code with Python. No prior experience required.', department: 'Computer Science', level: 'Undergraduate', studyMode: 'Online', duration: '12 Weeks', credits: 5, startDate: 'Spring 2026' },
-  { id: 5, title: 'Masters in Business Administration', code: 'MBA500', description: 'Develop leadership skills for the modern business world.', department: 'Business', level: 'Graduate', studyMode: 'Full-time', duration: '2 Years', credits: 60, startDate: 'Fall 2025' },
-  { id: 6, title: 'Digital Marketing Certificate', code: 'MKTG250', description: 'A short course on social media marketing, SEO, and content strategy.', department: 'Business', level: 'Certificate', studyMode: 'Online', duration: '6 Weeks', credits: 0, startDate: 'Rolling' },
-];
-
-const departments = [...new Set(allCourses.map(c => c.department))];
-const levels = [...new Set(allCourses.map(c => c.level))];
-const studyModes = [...new Set(allCourses.map(c => c.studyMode))];
-
-// Sub-components
-const Breadcrumbs = ({ crumbs }: { crumbs: { label: string; href?: string }[] }) => (
-  <nav aria-label="breadcrumb" className="mb-4 text-sm text-muted-foreground">
-    <ol className="flex space-x-2">
-      {crumbs.map((crumb, index) => (
-        <li key={index} className="flex items-center">
-          {index > 0 && <span className="mx-2">/</span>}
-          {crumb.href ? <a href={crumb.href} className="hover:underline">{crumb.label}</a> : <span>{crumb.label}</span>}
-        </li>
-      ))}
-    </ol>
-  </nav>
-);
-
-const CourseCard = ({ course, openModal }) => (
-  <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300">
-    <CardHeader>
-      <CardTitle className="text-xl">{course.title}</CardTitle>
-      <CardDescription>{course.code}</CardDescription>
-    </CardHeader>
-    <CardContent className="flex-grow">
-      <p className="text-muted-foreground mb-4 text-sm">{course.description}</p>
-      <div className="text-xs space-y-1 text-muted-foreground">
-        <p><strong>Department:</strong> {course.department}</p>
-        <p><strong>Level:</strong> {course.level}</p>
-        <p><strong>Mode:</strong> {course.studyMode}</p>
-        <p><strong>Duration:</strong> {course.duration}</p>
-      </div>
-    </CardContent>
-    <div className="p-6 pt-0">
-       <Button onClick={() => openModal('enroll', course.title)} className="w-full">
-        Enroll Now
-      </Button>
-    </div>
-  </Card>
-);
-
-const FilterSection = ({ filters, setFilters, clearFilters }) => {
-  const handleCheckboxChange = (category, value) => {
-    setFilters(prev => {
-      const currentValues = prev[category] || [];
-      const newValues = currentValues.includes(value)
-        ? currentValues.filter(v => v !== value)
-        : [...currentValues, value];
-      return { ...prev, [category]: newValues };
-    });
-  };
-
-  return (
-    <Card className="lg:sticky lg:top-24">
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle className="text-xl">Filters</CardTitle>
-        <Button variant="ghost" size="sm" onClick={clearFilters}>
-          Clear All
-        </Button>
-      </CardHeader>
-      <CardContent>
-        <Accordion type="multiple" defaultValue={['level', 'studyMode']} className="w-full">
-          <AccordionItem value="level">
-            <AccordionTrigger>Degree Level</AccordionTrigger>
-            <AccordionContent className="space-y-2">
-              {levels.map(level => (
-                <div key={level} className="flex items-center space-x-2">
-                  <Checkbox 
-                    id={`level-${level}`} 
-                    checked={filters.level?.includes(level) || false}
-                    onCheckedChange={() => handleCheckboxChange('level', level)}
-                  />
-                  <Label htmlFor={`level-${level}`} className="font-normal">{level}</Label>
-                </div>
-              ))}
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="department">
-            <AccordionTrigger>Department</AccordionTrigger>
-            <AccordionContent className="space-y-2">
-              {departments.map(dept => (
-                <div key={dept} className="flex items-center space-x-2">
-                  <Checkbox 
-                    id={`dept-${dept}`} 
-                    checked={filters.department?.includes(dept) || false}
-                    onCheckedChange={() => handleCheckboxChange('department', dept)}
-                  />
-                  <Label htmlFor={`dept-${dept}`} className="font-normal">{dept}</Label>
-                </div>
-              ))}
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="studyMode">
-            <AccordionTrigger>Study Mode</AccordionTrigger>
-            <AccordionContent className="space-y-2">
-              {studyModes.map(mode => (
-                <div key={mode} className="flex items-center space-x-2">
-                  <Checkbox 
-                    id={`mode-${mode}`} 
-                    checked={filters.studyMode?.includes(mode) || false}
-                    onCheckedChange={() => handleCheckboxChange('studyMode', mode)}
-                  />
-                  <Label htmlFor={`mode-${mode}`} className="font-normal">{mode}</Label>
-                </div>
-              ))}
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      </CardContent>
-    </Card>
-  );
-};
-
-
-const CoursesPage = ({ openModal, goBack, previousPageName }: { openModal: (type: string, data?: any) => void, goBack?: () => void, previousPageName?: string | null }) => {
+const CoursesPage = ({ openModal, goBack, previousPageName, navigate }: { openModal: (type: string, data?: any) => void, goBack?: () => void, previousPageName?: string | null, navigate: (page: string, data?: any) => void }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortOrder, setSortOrder] = useState('title-asc');
   const [viewMode, setViewMode] = useState('grid');
@@ -176,7 +51,23 @@ const CoursesPage = ({ openModal, goBack, previousPageName }: { openModal: (type
       <section className="py-12 px-6 lg:px-12 bg-accent/50">
         <div className="container mx-auto">
           <BackButton onClick={goBack} previousPageName={previousPageName} />
-          <Breadcrumbs crumbs={[{ label: 'Home', href: '#' }, { label: 'Academics' }, { label: 'Courses' }]} />
+          <Breadcrumb className="mb-4">
+              <BreadcrumbList>
+                  <BreadcrumbItem>
+                      <BreadcrumbLink asChild>
+                        <button onClick={() => navigate('home')} className="hover:text-foreground">Home</button>
+                      </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                      <BreadcrumbPage>Academics</BreadcrumbPage>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                      <BreadcrumbPage>Courses</BreadcrumbPage>
+                  </BreadcrumbItem>
+              </BreadcrumbList>
+          </Breadcrumb>
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Course Catalog</h1>
           <p className="text-lg text-muted-foreground max-w-3xl">
             From foundational degrees to advanced specializations, explore the wide array of courses designed to empower your career and personal growth.
@@ -274,8 +165,8 @@ const CoursesPage = ({ openModal, goBack, previousPageName }: { openModal: (type
             Our admissions team is here to help you on your journey. Apply today or contact us for more information.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-             <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-white/90">Apply Now</Button>
-             <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">Request Information</Button>
+             <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-white/90" onClick={() => openModal('signup')}>Apply Now</Button>
+             <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" onClick={() => navigate('contact')}>Request Information</Button>
           </div>
         </div>
       </section>

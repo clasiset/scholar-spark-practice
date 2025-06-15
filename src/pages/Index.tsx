@@ -157,7 +157,7 @@ const Index = () => {
       case 'home':
         return <HomePage navigate={navigate} openModal={openModal} user={user} />;
       case 'courses':
-        return <CoursesPage openModal={openModal} goBack={goBack} previousPageName={previousPageName} />;
+        return <CoursesPage openModal={openModal} goBack={goBack} previousPageName={previousPageName} navigate={navigate} />;
       case 'programs':
         return <ProgramsPage />;
       case 'tutoring':
