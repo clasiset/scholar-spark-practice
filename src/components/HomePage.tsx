@@ -1,15 +1,16 @@
+
 import React from 'react';
-import { useI18n } from './i18n/i18nContext';
+import { useI18n } from '../i18n/i18nContext';
 import { Bot, ClipboardList } from 'lucide-react';
 import { User } from '../types';
 
 export interface HomePageProps {
   navigate: (page: string, data?: any) => void;
-  openModal: (type: string) => void;
+  openModal: (type: string, data?: any) => void;
   user: User | null;
 }
 
-const HomePage: React.FC<HomePageProps> = ({ navigate, openModal, user }) => {
+const HomePage = ({ navigate, openModal, user }: HomePageProps) => {
   const { t } = useI18n();
 
   const testimonials = [
