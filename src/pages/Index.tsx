@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import Header from '../components/Header';
@@ -134,6 +135,12 @@ const Index = () => {
       setHistory([{ page: 'home', data: null }]);
     }
   };
+
+  const navigateToHistory = (index: number) => {
+    if (index < history.length - 1) {
+      setHistory(prevHistory => prevHistory.slice(0, index + 1));
+    }
+  };
   
   const previousPageName = history.length > 1 ? history[history.length - 2].page : null;
 
@@ -177,11 +184,11 @@ const Index = () => {
       case 'subjectExams':
         return <SubjectExamsPage subjectTitle={pageData?.subjectTitle} examType={pageData?.examType} navigate={navigate} goBack={goBack} previousPageName={previousPageName} />;
       case 'examPage':
-        return <ExamPage navigate={navigate} examDetails={pageData} goBack={goBack} previousPageName={previousPageName} />;
+        return <ExamPage navigate={navigate} examDetails={pageData} goBack={goBack} history={history} navigateToHistory={navigateToHistory} />;
       case 'blog':
         return <BlogPage goBack={goBack} previousPageName={previousPageName} />;
       case 'subscription':
-        return <SubscriptionPage openModal={openModal} goBack={goBack} previousPageName={previousPageName} />;
+        return <SubscriptionPage openModal={openModal} history={history} navigateToHistory={navigateToHistory} />;
       case 'editProfile':
         return <EditProfilePage user={user} goBack={goBack} previousPageName={previousPageName} />;
       case 'settings':

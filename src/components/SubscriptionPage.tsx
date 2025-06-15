@@ -1,12 +1,17 @@
 
 import React from 'react';
 import { Check, Zap, Crown } from 'lucide-react';
-import BackButton from './BackButton';
+import BreadcrumbNav from './BreadcrumbNav';
 
-const SubscriptionPage = ({ openModal, goBack, previousPageName }: { 
-  openModal: (type: string, data?: any) => void, 
-  goBack?: () => void, 
-  previousPageName?: string | null 
+interface HistoryEntry {
+  page: string;
+  data: any | null;
+}
+
+const SubscriptionPage = ({ openModal, history, navigateToHistory }: {
+  openModal: (type: string, data?: any) => void;
+  history: HistoryEntry[];
+  navigateToHistory: (index: number) => void;
 }) => {
   const plans = [
     {
@@ -89,7 +94,7 @@ const SubscriptionPage = ({ openModal, goBack, previousPageName }: {
   return (
     <div className="min-h-screen bg-background py-12">
       <div className="container mx-auto px-6">
-        {goBack && <BackButton onClick={goBack} previousPageName={previousPageName} />}
+        <BreadcrumbNav history={history} navigateToHistory={navigateToHistory} />
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4">Subscription Plans</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

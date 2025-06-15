@@ -1,11 +1,9 @@
-
 import React from 'react';
 import { Menu } from 'lucide-react';
 import ModeToggle from './ModeToggle';
 
 interface ExamHeaderComponentProps {
   title: string;
-  breadcrumbs: string[];
   examMode: boolean;
   timeLeft: number;
   onToggleExamMode: () => void;
@@ -14,7 +12,6 @@ interface ExamHeaderComponentProps {
 
 export const ExamHeaderComponent = ({ 
   title, 
-  breadcrumbs, 
   examMode, 
   timeLeft, 
   onToggleExamMode, 
@@ -29,13 +26,6 @@ export const ExamHeaderComponent = ({
   return (
     <header className="bg-card p-3 sm:p-4 border-b border-border shadow-sm flex justify-between items-center">
       <div>
-        <nav className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">
-          {breadcrumbs.map((crumb, index) => (
-            <span key={index} className="mr-1">
-              {crumb} {index < breadcrumbs.length - 1 && <span className="mx-1">/</span>}
-            </span>
-          ))}
-        </nav>
         <h1 className="text-base sm:text-lg font-semibold text-card-foreground">{title}</h1>
       </div>
       <div className="flex items-center space-x-2 sm:space-x-4">
