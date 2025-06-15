@@ -43,12 +43,12 @@ const SubscriptionPage = ({ openModal, goBack, previousPageName }: {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-background py-12">
       <div className="container mx-auto px-6">
         {goBack && <BackButton onClick={goBack} previousPageName={previousPageName} />}
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">Choose Your Plan</h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4">Choose Your Plan</h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Unlock your full potential with our subscription plans. Get access to exclusive content and features.
           </p>
         </div>
@@ -56,8 +56,8 @@ const SubscriptionPage = ({ openModal, goBack, previousPageName }: {
           {plans.map((plan) => (
             <div
               key={plan.id}
-              className={`bg-white rounded-xl shadow-lg p-8 transform transition-transform duration-300 hover:scale-105 relative ${
-                plan.name === 'Pro' ? 'border-4 border-indigo-600' : 'border border-gray-200'
+              className={`bg-card rounded-xl shadow-lg p-8 transform transition-transform duration-300 hover:scale-105 relative ${
+                plan.name === 'Pro' ? 'border-4 border-indigo-600' : 'border border-border'
               }`}
             >
               {plan.name === 'Pro' && (
@@ -65,16 +65,16 @@ const SubscriptionPage = ({ openModal, goBack, previousPageName }: {
                   <span className="bg-indigo-600 text-white text-xs font-bold px-4 py-1 rounded-full uppercase">Most Popular</span>
                 </div>
               )}
-              <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">{plan.name}</h3>
-              <p className="text-4xl font-extrabold text-gray-900 mb-6 text-center">
+              <h3 className="text-2xl font-bold text-foreground mb-4 text-center">{plan.name}</h3>
+              <p className="text-4xl font-extrabold text-foreground mb-6 text-center">
                 {plan.price === 0 ? 'Free' : formatPrice(plan.price, plan.currency)}
-                {plan.price > 0 && <span className="text-lg font-normal text-gray-600">/{plan.interval}</span>}
+                {plan.price > 0 && <span className="text-lg font-normal text-muted-foreground">/{plan.interval}</span>}
               </p>
               <ul className="space-y-4 mb-8">
                 {plan.description.split(', ').map((feature, index) => (
                   <li key={index} className="flex items-start">
                     <Check className="w-5 h-5 text-green-500 mr-3 mt-1 flex-shrink-0" />
-                    <span className="text-gray-600">{feature}</span>
+                    <span className="text-muted-foreground">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -83,7 +83,7 @@ const SubscriptionPage = ({ openModal, goBack, previousPageName }: {
                 disabled={plan.id === 'free'}
                 className={`w-full font-semibold py-3 px-4 rounded-lg transition duration-300 ${
                   plan.id === 'free'
-                    ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                    ? 'bg-muted text-muted-foreground cursor-not-allowed'
                     : 'bg-indigo-600 hover:bg-indigo-700 text-white'
                 }`}
               >

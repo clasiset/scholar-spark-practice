@@ -1,22 +1,8 @@
-
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useI18n } from '../i18n/i18nContext';
 
-const HomePage = ({ navigate, openModal }) => {
+const HomePage = ({ navigate, openModal, user }) => {
   const { t } = useI18n();
-  const [user, setUser] = useState<{ email: string } | null>(null);
-
-  useEffect(() => {
-    const handleAuthChange = (event: CustomEvent) => {
-      setUser(event.detail);
-    };
-
-    window.addEventListener('authChange', handleAuthChange as EventListener);
-
-    return () => {
-      window.removeEventListener('authChange', handleAuthChange as EventListener);
-    };
-  }, []);
 
   const testimonials = [
     {

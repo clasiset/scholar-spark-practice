@@ -61,11 +61,22 @@ export const QuestionPanelComponent = ({
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md h-full flex flex-col">
-      <h2 className="text-lg font-semibold text-gray-800 mb-4">Questions</h2>
+    <div className="bg-card p-6 rounded-lg shadow-md h-full flex flex-col">
+      <h2 className="text-lg font-semibold text-foreground mb-4">Questions</h2>
       <div className="grid grid-cols-5 gap-2 mb-6 max-h-96 overflow-y-auto pr-2 custom-scrollbar">
         {questions.map((_, index) => {
           const isFlagged = flaggedQuestions.includes(index);
+          const isAnswered = answers[index] !== undefined;
+
+          let buttonClass = 'bg-muted text-muted-foreground hover:bg-accent';
+          if (index === currentQuestionIndex) {
+            buttonClass = 'bg-blue-600 text-white shadow-lg transform scale-105';
+          } else if (isAnswered) {
+            buttonClass = 'bg-green-100 text-green-700 hover:bg-green-200 dark:bg-green-900/30 dark:text-green-400 hover:dark:bg-green-900/50';
+          } else if (isFlagged) {
+            buttonClass = 'bg-red-100 text-red-700 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-400 hover:dark:bg-red-900/50';
+          }
+
           return (
             <button
               key={index}
@@ -78,14 +89,7 @@ export const QuestionPanelComponent = ({
               className={`
                 relative w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium
                 transition-all duration-200 ease-in-out
-                ${index === currentQuestionIndex
-                  ? 'bg-blue-600 text-white shadow-lg transform scale-105'
-                  : answers[index] !== undefined
-                    ? 'bg-green-100 text-green-700 hover:bg-green-200'
-                    : isFlagged
-                      ? 'bg-red-100 text-red-700 hover:bg-red-200'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }
+                ${buttonClass}
                 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50
               `}
               title={`Question ${index + 1} (Long press to flag/unflag)`}
@@ -106,19 +110,19 @@ export const QuestionPanelComponent = ({
       <div className="mt-auto space-y-3 text-sm">
         <div className="flex items-center">
           <span className="w-4 h-4 rounded-full bg-blue-600 mr-3 flex-shrink-0"></span>
-          <span className="text-gray-700">Current</span>
+          <span className="text-muted-foreground">Current</span>
         </div>
         <div className="flex items-center">
-          <span className="w-4 h-4 rounded-full bg-green-100 border border-green-300 mr-3 flex-shrink-0"></span>
-          <span className="text-gray-700">Answered</span>
+          <span className="w-4 h-4 rounded-full bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-500/30 mr-3 flex-shrink-0"></span>
+          <span className="text-muted-foreground">Answered</span>
         </div>
         <div className="flex items-center">
-          <span className="w-4 h-4 rounded-full bg-gray-100 border border-gray-300 mr-3 flex-shrink-0"></span>
-          <span className="text-gray-700">Unanswered</span>
+          <span className="w-4 h-4 rounded-full bg-muted border mr-3 flex-shrink-0"></span>
+          <span className="text-muted-foreground">Unanswered</span>
         </div>
         <div className="flex items-center">
           <Flag size={16} className="text-red-500 mr-3 flex-shrink-0" />
-          <span className="text-gray-700">Flagged (Long press)</span>
+          <span className="text-muted-foreground">Flagged (Long press)</span>
         </div>
       </div>
     </div>

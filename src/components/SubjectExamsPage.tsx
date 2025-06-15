@@ -26,12 +26,12 @@ const SubjectExamsPage = ({ subjectTitle, examType, navigate, goBack, previousPa
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-800 dark:text-gray-200">
+    <div className="min-h-screen bg-background text-foreground">
       <div className="container mx-auto px-4 md:px-6 py-6">
         <BackButton onClick={goBack} previousPageName={previousPageName} />
         
         <div className="flex items-center mt-6 mb-12">
-          <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center mr-3 md:mr-4 shadow-sm overflow-hidden border border-gray-200 dark:border-gray-700">
+          <div className="w-10 h-10 md:w-12 md:h-12 bg-card rounded-full flex items-center justify-center mr-3 md:mr-4 shadow-sm overflow-hidden border border-border">
             <img 
               src="/lovable-uploads/b4a3ff1d-fa0f-4e7a-8584-0b818b023773.png" 
               alt="Ministry of Education Logo" 
@@ -48,10 +48,10 @@ const SubjectExamsPage = ({ subjectTitle, examType, navigate, goBack, previousPa
             <div 
               key={exam.id}
               onClick={() => handleStartExam(exam)}
-              className="bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-lg p-8 text-center cursor-pointer transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 dark:border-gray-800"
+              className="bg-card rounded-lg shadow-sm hover:shadow-lg p-8 text-center cursor-pointer transition-all duration-300 transform hover:-translate-y-1 border border-border"
             >
-              <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">{exam.year}</h2>
-              <p className="text-gray-500 dark:text-gray-400">{exam.title}</p>
+              <h2 className="text-4xl font-bold text-foreground mb-2">{exam.year}</h2>
+              <p className="text-muted-foreground">{exam.title}</p>
             </div>
           ))}
         </div>

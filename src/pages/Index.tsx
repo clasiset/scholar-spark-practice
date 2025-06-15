@@ -159,7 +159,7 @@ const Index = () => {
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
-        return <HomePage navigate={navigate} openModal={openModal} />;
+        return <HomePage navigate={navigate} openModal={openModal} user={user} />;
       case 'courses':
         return <CoursesPage openModal={openModal} goBack={goBack} previousPageName={previousPageName} />;
       case 'programs':
@@ -199,7 +199,7 @@ const Index = () => {
       case 'notifications':
         return <NotificationsPage user={user} goBack={goBack} previousPageName={previousPageName} />;
       default:
-        return <HomePage navigate={navigate} openModal={openModal} />;
+        return <HomePage navigate={navigate} openModal={openModal} user={user} />;
     }
   };
 
