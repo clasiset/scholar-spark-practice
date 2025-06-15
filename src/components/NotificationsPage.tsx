@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
 import { useI18n } from '../i18n/i18nContext';
-import BackButton from './BackButton';
+import BreadcrumbNav from './BreadcrumbNav';
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
@@ -15,10 +14,15 @@ interface User {
   email: string;
 }
 
+interface HistoryEntry {
+  page: string;
+  data: any | null;
+}
+
 interface NotificationsPageProps {
   user: User | null;
-  goBack?: () => void;
-  previousPageName?: string | null;
+  history: HistoryEntry[];
+  navigateToHistory: (index: number) => void;
 }
 
 interface NotificationPreferences {
@@ -49,7 +53,7 @@ interface Notification {
   isRead: boolean;
 }
 
-const NotificationsPage: React.FC<NotificationsPageProps> = ({ user, goBack, previousPageName }) => {
+const NotificationsPage: React.FC<NotificationsPageProps> = ({ user, history, navigateToHistory }) => {
   const { t, isRTL } = useI18n();
   const { toast } = useToast();
 
@@ -179,7 +183,7 @@ const NotificationsPage: React.FC<NotificationsPageProps> = ({ user, goBack, pre
   return (
     <div className={`min-h-screen bg-gray-50 dark:bg-slate-900 py-6 ${isRTL ? 'rtl' : 'ltr'}`}>
       <div className="container mx-auto px-4 max-w-4xl">
-        <BackButton onClick={goBack} previousPageName={previousPageName} />
+        <BreadcrumbNav history={history} navigateToHistory={navigateToHistory} />
         
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">

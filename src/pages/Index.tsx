@@ -192,9 +192,9 @@ const Index = () => {
       case 'editProfile':
         return <EditProfilePage user={user} history={history} navigateToHistory={navigateToHistory} />;
       case 'settings':
-        return <SettingsPage user={user} goBack={goBack} previousPageName={previousPageName} />;
+        return <SettingsPage user={user} history={history} navigateToHistory={navigateToHistory} />;
       case 'notifications':
-        return <NotificationsPage user={user} goBack={goBack} previousPageName={previousPageName} />;
+        return <NotificationsPage user={user} history={history} navigateToHistory={navigateToHistory} />;
       default:
         return <HomePage navigate={navigate} openModal={openModal} user={user} />;
     }

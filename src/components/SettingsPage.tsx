@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
 import { useI18n, Language } from '../i18n/i18nContext';
-import BackButton from './BackButton';
+import BreadcrumbNav from './BreadcrumbNav';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,10 +14,15 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Shield, Globe, Bell, CreditCard, Trash2, Download, LogOut, Eye, EyeOff } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
+interface HistoryEntry {
+  page: string;
+  data: any | null;
+}
+
 interface SettingsPageProps {
   user: any;
-  goBack?: () => void;
-  previousPageName?: string | null;
+  history: HistoryEntry[];
+  navigateToHistory: (index: number) => void;
 }
 
 interface UserSettings {
@@ -37,7 +41,7 @@ interface SecuritySettings {
   confirmPassword: string;
 }
 
-const SettingsPage: React.FC<SettingsPageProps> = ({ user, goBack, previousPageName }) => {
+const SettingsPage: React.FC<SettingsPageProps> = ({ user, history, navigateToHistory }) => {
   const { t, language, setLanguage, isRTL } = useI18n();
   const { toast } = useToast();
 
@@ -174,7 +178,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ user, goBack, previousPageN
   return (
     <div className={`min-h-screen bg-gray-50 dark:bg-slate-900 py-6 ${isRTL ? 'rtl' : 'ltr'}`}>
       <div className="container mx-auto px-4 max-w-4xl">
-        <BackButton onClick={goBack} previousPageName={previousPageName} />
+        <BreadcrumbNav history={history} navigateToHistory={navigateToHistory} />
         
         <div className="mb-8">
           <div className="flex justify-between items-center">
