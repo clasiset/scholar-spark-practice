@@ -1,6 +1,7 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { 
   Users, 
   GraduationCap, 
@@ -14,7 +15,12 @@ import {
   ArrowDownRight,
   Activity,
   Clock,
-  Target
+  Target,
+  Plus,
+  Filter,
+  Download,
+  MoreHorizontal,
+  Eye
 } from 'lucide-react';
 
 const StatCard = ({ 
@@ -23,7 +29,8 @@ const StatCard = ({
   description, 
   icon: Icon, 
   trend,
-  color = "blue"
+  color = "blue",
+  onClick
 }: {
   title: string;
   value: string | number;
@@ -31,6 +38,7 @@ const StatCard = ({
   icon: React.ElementType;
   trend?: { value: number; isPositive: boolean };
   color?: string;
+  onClick?: () => void;
 }) => {
   const colorClasses = {
     blue: "from-blue-500 to-blue-600",
@@ -42,16 +50,22 @@ const StatCard = ({
   };
 
   return (
-    <Card className="hover:shadow-xl transition-all duration-300 hover:scale-[1.02] bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-slate-200/60 dark:border-slate-700/60">
+    <Card 
+      className={`hover:shadow-xl transition-all duration-300 hover:scale-[1.02] bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border-slate-200/60 dark:border-slate-700/60 ${onClick ? 'cursor-pointer' : ''}`}
+      onClick={onClick}
+    >
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-semibold text-slate-700 dark:text-slate-300">{title}</CardTitle>
-        <div className={`p-2 rounded-lg bg-gradient-to-r ${colorClasses[color]} shadow-lg`}>
+        <div className="flex items-center gap-2">
+          <CardTitle className="text-sm font-semibold text-slate-700 dark:text-slate-300">{title}</CardTitle>
+          {onClick && <Eye className="w-4 h-4 text-slate-400" />}
+        </div>
+        <div className={`p-3 rounded-xl bg-gradient-to-r ${colorClasses[color]} shadow-lg`}>
           <Icon className="h-5 w-5 text-white" />
         </div>
       </CardHeader>
       <CardContent>
         <div className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-1">{value}</div>
-        <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">{description}</p>
+        <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">{description}</p>
         {trend && (
           <div className={`flex items-center text-sm font-medium ${
             trend.isPositive ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
@@ -69,7 +83,28 @@ const StatCard = ({
   );
 };
 
+const ActivityItem = ({ activity, onClick }: { activity: any; onClick?: () => void }) => (
+  <div 
+    className={`flex items-start gap-4 p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 group ${onClick ? 'cursor-pointer' : ''}`}
+    onClick={onClick}
+  >
+    <div className={`w-3 h-3 bg-gradient-to-r from-${activity.color}-500 to-${activity.color}-600 rounded-full mt-2 shrink-0 shadow-lg`} />
+    <div className="flex-1 min-w-0">
+      <p className="text-sm font-medium leading-relaxed text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-slate-100 transition-colors">
+        {activity.message}
+      </p>
+      <div className="flex items-center gap-1 mt-1">
+        <Clock className="h-3 w-3 text-slate-400" />
+        <p className="text-xs text-slate-500 dark:text-slate-400">{activity.time}</p>
+      </div>
+    </div>
+    {onClick && <MoreHorizontal className="w-4 h-4 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" />}
+  </div>
+);
+
 const DashboardOverview = () => {
+  const [selectedPeriod, setSelectedPeriod] = useState('month');
+  
   const stats = [
     {
       title: "Total Students",
@@ -77,7 +112,8 @@ const DashboardOverview = () => {
       description: "Active enrolled students",
       icon: Users,
       trend: { value: 12, isPositive: true },
-      color: "blue"
+      color: "blue",
+      onClick: () => console.log("Navigate to students")
     },
     {
       title: "Total Teachers",
@@ -85,7 +121,8 @@ const DashboardOverview = () => {
       description: "Active teaching staff",
       icon: GraduationCap,
       trend: { value: 3, isPositive: true },
-      color: "green"
+      color: "green",
+      onClick: () => console.log("Navigate to teachers")
     },
     {
       title: "Active Courses",
@@ -93,7 +130,8 @@ const DashboardOverview = () => {
       description: "Currently running courses",
       icon: BookOpen,
       trend: { value: 8, isPositive: true },
-      color: "purple"
+      color: "purple",
+      onClick: () => console.log("Navigate to courses")
     },
     {
       title: "Revenue This Month",
@@ -101,7 +139,8 @@ const DashboardOverview = () => {
       description: "Fee collection & other income",
       icon: DollarSign,
       trend: { value: 5, isPositive: false },
-      color: "orange"
+      color: "orange",
+      onClick: () => console.log("Navigate to finances")
     },
     {
       title: "Attendance Rate",
@@ -109,14 +148,16 @@ const DashboardOverview = () => {
       description: "Overall student attendance",
       icon: Target,
       trend: { value: 2, isPositive: true },
-      color: "pink"
+      color: "pink",
+      onClick: () => console.log("Navigate to attendance")
     },
     {
       title: "Pending Admissions",
       value: "34",
       description: "Applications awaiting review",
       icon: AlertCircle,
-      color: "indigo"
+      color: "indigo",
+      onClick: () => console.log("Navigate to admissions")
     }
   ];
 
@@ -135,80 +176,127 @@ const DashboardOverview = () => {
     { id: 4, title: "New Semester Registration", date: "Jan 15, 2025", type: "registration", color: "purple" }
   ];
 
+  const quickActions = [
+    { title: "Add Student", description: "Enroll new student", icon: Users, color: "blue", action: () => console.log("Add student") },
+    { title: "Create Course", description: "Add new course", icon: BookOpen, color: "green", action: () => console.log("Create course") },
+    { title: "Send Notice", description: "Broadcast message", icon: Bell, color: "purple", action: () => console.log("Send notice") },
+    { title: "View Reports", description: "Analytics dashboard", icon: TrendingUp, color: "orange", action: () => console.log("View reports") }
+  ];
+
   return (
     <div className="space-y-8">
-      {/* Welcome Section */}
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-          Welcome back, Administrator!
-        </h1>
-        <p className="text-lg text-slate-600 dark:text-slate-400">Here's what's happening at Zehulu.com today.</p>
+      {/* Welcome Section with Action Buttons */}
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8">
+        <div>
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+            Welcome back, Administrator!
+          </h1>
+          <p className="text-lg text-slate-600 dark:text-slate-400">Here's what's happening at Zehulu.com today.</p>
+        </div>
+        
+        <div className="flex items-center gap-3">
+          <select 
+            value={selectedPeriod}
+            onChange={(e) => setSelectedPeriod(e.target.value)}
+            className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="week">This Week</option>
+            <option value="month">This Month</option>
+            <option value="year">This Year</option>
+          </select>
+          
+          <Button variant="outline" size="sm">
+            <Filter className="w-4 h-4 mr-2" />
+            Filter
+          </Button>
+          
+          <Button variant="outline" size="sm">
+            <Download className="w-4 h-4 mr-2" />
+            Export
+          </Button>
+        </div>
       </div>
 
-      {/* KPI Cards Grid */}
+      {/* Enhanced KPI Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {stats.map((stat, index) => (
           <StatCard key={index} {...stat} />
         ))}
       </div>
 
-      {/* Main Content Grid */}
+      {/* Main Content Grid with Enhanced Sections */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Recent Activities */}
-        <Card className="lg:col-span-2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-slate-200/60 dark:border-slate-700/60 hover:shadow-xl transition-all duration-300">
+        {/* Recent Activities with Pagination */}
+        <Card className="lg:col-span-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border-slate-200/60 dark:border-slate-700/60 hover:shadow-xl transition-all duration-300">
           <CardHeader>
-            <CardTitle className="flex items-center gap-3 text-xl">
-              <div className="p-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500">
-                <Activity className="h-5 w-5 text-white" />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500">
+                  <Activity className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <CardTitle className="text-xl">Recent Activities</CardTitle>
+                  <CardDescription className="text-slate-600 dark:text-slate-400">
+                    Latest updates and activities across the platform
+                  </CardDescription>
+                </div>
               </div>
-              Recent Activities
-            </CardTitle>
-            <CardDescription className="text-slate-600 dark:text-slate-400">
-              Latest updates and activities across the platform
-            </CardDescription>
+              <Button variant="outline" size="sm">
+                View All
+              </Button>
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
+            <div className="space-y-2">
               {recentActivities.map((activity) => (
-                <div key={activity.id} className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 cursor-pointer group">
-                  <div className={`w-3 h-3 bg-gradient-to-r from-${activity.color}-500 to-${activity.color}-600 rounded-full mt-2 shrink-0 shadow-lg`} />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium leading-relaxed text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-slate-100 transition-colors">
-                      {activity.message}
-                    </p>
-                    <div className="flex items-center gap-1 mt-1">
-                      <Clock className="h-3 w-3 text-slate-400" />
-                      <p className="text-xs text-slate-500 dark:text-slate-400">{activity.time}</p>
-                    </div>
-                  </div>
-                </div>
+                <ActivityItem 
+                  key={activity.id} 
+                  activity={activity}
+                  onClick={() => console.log(`View activity ${activity.id}`)}
+                />
               ))}
             </div>
           </CardContent>
         </Card>
 
-        {/* Upcoming Events */}
-        <Card className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-slate-200/60 dark:border-slate-700/60 hover:shadow-xl transition-all duration-300">
+        {/* Upcoming Events with Interactive Calendar */}
+        <Card className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border-slate-200/60 dark:border-slate-700/60 hover:shadow-xl transition-all duration-300">
           <CardHeader>
-            <CardTitle className="flex items-center gap-3 text-xl">
-              <div className="p-2 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500">
-                <Calendar className="h-5 w-5 text-white" />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500">
+                  <Calendar className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <CardTitle className="text-xl">Upcoming Events</CardTitle>
+                  <CardDescription className="text-slate-600 dark:text-slate-400">
+                    Important dates and deadlines
+                  </CardDescription>
+                </div>
               </div>
-              Upcoming Events
-            </CardTitle>
-            <CardDescription className="text-slate-600 dark:text-slate-400">
-              Important dates and deadlines
-            </CardDescription>
+              <Button variant="outline" size="sm">
+                <Plus className="w-4 h-4" />
+              </Button>
+            </div>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {upcomingEvents.map((event) => (
-                <div key={event.id} className="border-l-4 border-gradient-to-b from-blue-500 to-purple-500 pl-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-r-lg transition-all duration-200 cursor-pointer">
-                  <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1">{event.title}</h4>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
-                    <Calendar className="h-3 w-3" />
-                    {event.date}
-                  </p>
+                <div 
+                  key={event.id} 
+                  className="border-l-4 border-gradient-to-b from-blue-500 to-purple-500 pl-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-r-lg transition-all duration-200 cursor-pointer group"
+                  onClick={() => console.log(`View event ${event.id}`)}
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1 group-hover:text-blue-600 transition-colors">{event.title}</h4>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                        <Calendar className="h-3 w-3" />
+                        {event.date}
+                      </p>
+                    </div>
+                    <MoreHorizontal className="w-4 h-4 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
                 </div>
               ))}
             </div>
@@ -216,55 +304,26 @@ const DashboardOverview = () => {
         </Card>
       </div>
 
-      {/* Quick Actions Grid */}
+      {/* Enhanced Quick Actions Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="hover:shadow-xl transition-all duration-300 hover:scale-[1.02] cursor-pointer bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-slate-200/60 dark:border-slate-700/60 group">
-          <CardContent className="flex items-center gap-4 p-6">
-            <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
-              <Users className="h-7 w-7 text-white" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-700 dark:text-slate-300 group-hover:text-blue-600 transition-colors">Add Student</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400">Enroll new student</p>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="hover:shadow-xl transition-all duration-300 hover:scale-[1.02] cursor-pointer bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-slate-200/60 dark:border-slate-700/60 group">
-          <CardContent className="flex items-center gap-4 p-6">
-            <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
-              <BookOpen className="h-7 w-7 text-white" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-700 dark:text-slate-300 group-hover:text-green-600 transition-colors">Create Course</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400">Add new course</p>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="hover:shadow-xl transition-all duration-300 hover:scale-[1.02] cursor-pointer bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-slate-200/60 dark:border-slate-700/60 group">
-          <CardContent className="flex items-center gap-4 p-6">
-            <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
-              <Bell className="h-7 w-7 text-white" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-700 dark:text-slate-300 group-hover:text-purple-600 transition-colors">Send Notice</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400">Broadcast message</p>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="hover:shadow-xl transition-all duration-300 hover:scale-[1.02] cursor-pointer bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-slate-200/60 dark:border-slate-700/60 group">
-          <CardContent className="flex items-center gap-4 p-6">
-            <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
-              <TrendingUp className="h-7 w-7 text-white" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-700 dark:text-slate-300 group-hover:text-orange-600 transition-colors">View Reports</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400">Analytics dashboard</p>
-            </div>
-          </CardContent>
-        </Card>
+        {quickActions.map((action, index) => (
+          <Card 
+            key={index}
+            className="hover:shadow-xl transition-all duration-300 hover:scale-[1.02] cursor-pointer bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border-slate-200/60 dark:border-slate-700/60 group"
+            onClick={action.action}
+          >
+            <CardContent className="flex items-center gap-4 p-6">
+              <div className={`w-14 h-14 bg-gradient-to-br from-${action.color}-500 to-${action.color}-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow`}>
+                <action.icon className="h-7 w-7 text-white" />
+              </div>
+              <div className="flex-1">
+                <h3 className={`font-semibold text-slate-700 dark:text-slate-300 group-hover:text-${action.color}-600 transition-colors`}>{action.title}</h3>
+                <p className="text-sm text-slate-500 dark:text-slate-400">{action.description}</p>
+              </div>
+              <ArrowUpRight className="w-5 h-5 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+            </CardContent>
+          </Card>
+        ))}
       </div>
     </div>
   );

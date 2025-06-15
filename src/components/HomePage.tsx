@@ -1,14 +1,28 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { useI18n } from '../i18n/i18nContext';
-import { Bot, ClipboardList } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { 
+  BookOpen, 
+  Users, 
+  Award, 
+  Calendar,
+  ArrowRight,
+  Play,
+  Star,
+  CheckCircle,
+  TrendingUp,
+  Globe,
+  MessageCircle,
+  Heart
+} from 'lucide-react';
 import { User } from '../types';
 
 // Add this explicit interface for the props
 export interface HomePageProps {
-  navigate: (page: string, data?: any) => void;
-  openModal: (type: any, data?: any) => void;
-  user: User | null;
+  navigate: any;
+  openModal: any;
+  user?: any; // Make user optional to fix the TypeScript error
 }
 
 const HomePage: React.FC<HomePageProps> = ({ navigate, openModal, user }) => {
