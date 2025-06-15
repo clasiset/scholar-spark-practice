@@ -26,9 +26,11 @@ export const ExamHeader = ({ examMode, timeLeft, onToggleExamMode, totalQuestion
               <nav className="text-[10px] sm:text-xs text-muted-foreground mb-1">
                 Entrance Exams / {examDetails?.subjectTitle || 'Aptitude Test'}
               </nav>
-              <h1 className="text-base sm:text-lg font-semibold text-card-foreground">
-                {examDetails?.subjectTitle || 'Aptitude Test'} - Entrance Exam {examDetails?.year || '2014'}
-              </h1>
+              <img
+                src="/lovable-uploads/77db7a30-e1ae-44ce-9ea7-b9714fc7de81.png"
+                alt="Aptitude Test - Entrance Exam 2014"
+                className="h-5 sm:h-6"
+              />
             </div>
           </div>
           
