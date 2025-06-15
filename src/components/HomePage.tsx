@@ -6,11 +6,11 @@ import { User } from '../types';
 
 export interface HomePageProps {
   navigate: (page: string, data?: any) => void;
-  openModal: (type: string, data?: any) => void;
+  openModal: (type: any, data?: any) => void;
   user: User | null;
 }
 
-const HomePage = ({ navigate, openModal, user }: HomePageProps) => {
+const HomePage: React.FC<HomePageProps> = ({ navigate, openModal, user }) => {
   const { t } = useI18n();
 
   const testimonials = [
