@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { type Tables } from '@/integrations/supabase/types';
@@ -163,7 +164,7 @@ const Index = () => {
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
-        return <HomePage navigate={navigate} openModal={openModal} />;
+        return <HomePage navigate={navigate} openModal={openModal} user={user} />;
       case 'courses':
         return <CoursesPage openModal={openModal} navigate={navigate} history={history} navigateToHistory={navigateToHistory} />;
       case 'programs':
@@ -197,7 +198,7 @@ const Index = () => {
       case 'notifications':
         return <NotificationsPage user={user} history={history} navigateToHistory={navigateToHistory} />;
       default:
-        return <HomePage navigate={navigate} openModal={openModal} />;
+        return <HomePage navigate={navigate} openModal={openModal} user={user} />;
     }
   };
 

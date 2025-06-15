@@ -1,7 +1,19 @@
+
 import React from 'react';
 import { useI18n } from '../i18n/i18nContext';
 
-const HomePage = ({ navigate, openModal, user }) => {
+interface User {
+  email: string;
+  id: string;
+}
+
+interface HomePageProps {
+  navigate: (page: string, data?: any) => void;
+  openModal: (type: string) => void;
+  user: User | null;
+}
+
+const HomePage: React.FC<HomePageProps> = ({ navigate, openModal, user }) => {
   const { t } = useI18n();
 
   const testimonials = [
@@ -177,5 +189,3 @@ const HomePage = ({ navigate, openModal, user }) => {
     </div>
   );
 };
-
-export default HomePage;
