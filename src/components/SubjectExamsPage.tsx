@@ -1,8 +1,19 @@
 
 import React from 'react';
-import BackButton from './BackButton';
+import BreadcrumbNav from './BreadcrumbNav';
 
-const SubjectExamsPage = ({ subjectTitle, examType, navigate, goBack, previousPageName }: { subjectTitle: string, examType?: string, navigate: (page: string, data: any) => void, goBack?: () => void, previousPageName?: string | null }) => {
+interface HistoryEntry {
+  page: string;
+  data: any | null;
+}
+
+const SubjectExamsPage = ({ subjectTitle, examType, navigate, history, navigateToHistory }: { 
+  subjectTitle: string;
+  examType?: string;
+  navigate: (page: string, data: any) => void;
+  history: HistoryEntry[];
+  navigateToHistory: (index: number) => void;
+}) => {
   const getExamDisplayName = (type?: string) => {
     switch (type) {
       case 'exit': return 'Exit Exam';
@@ -28,7 +39,7 @@ const SubjectExamsPage = ({ subjectTitle, examType, navigate, goBack, previousPa
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="container mx-auto px-4 md:px-6 py-6">
-        <BackButton onClick={goBack} previousPageName={previousPageName} />
+        <BreadcrumbNav history={history} navigateToHistory={navigateToHistory} />
         
         <div className="flex items-center mt-6 mb-12">
           <div className="w-10 h-10 md:w-12 md:h-12 bg-card rounded-full flex items-center justify-center mr-3 md:mr-4 shadow-sm overflow-hidden border border-border">

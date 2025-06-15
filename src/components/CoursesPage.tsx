@@ -1,15 +1,25 @@
+
 import React, { useState, useMemo } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search, LayoutGrid, List, SlidersHorizontal } from 'lucide-react';
-import BackButton from './BackButton';
 import { allCourses } from '@/data/courses';
 import CourseCard from './courses/CourseCard';
 import FilterSection from './courses/FilterSection';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
+import BreadcrumbNav from './BreadcrumbNav';
 
-const CoursesPage = ({ openModal, goBack, previousPageName, navigate }: { openModal: (type: string, data?: any) => void, goBack?: () => void, previousPageName?: string | null, navigate: (page: string, data?: any) => void }) => {
+interface HistoryEntry {
+  page: string;
+  data: any | null;
+}
+
+const CoursesPage = ({ openModal, navigate, history, navigateToHistory }: { 
+  openModal: (type: string, data?: any) => void;
+  navigate: (page: string, data?: any) => void;
+  history: HistoryEntry[];
+  navigateToHistory: (index: number) => void;
+}) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortOrder, setSortOrder] = useState('title-asc');
   const [viewMode, setViewMode] = useState('grid');
@@ -50,25 +60,8 @@ const CoursesPage = ({ openModal, goBack, previousPageName, navigate }: { openMo
       {/* Section 1 & 2: Hero and Breadcrumbs */}
       <section className="py-12 px-6 lg:px-12 bg-accent/50">
         <div className="container mx-auto">
-          <BackButton onClick={goBack} previousPageName={previousPageName} />
-          <Breadcrumb className="mb-4">
-              <BreadcrumbList>
-                  <BreadcrumbItem>
-                      <BreadcrumbLink asChild>
-                        <button onClick={() => navigate('home')} className="hover:text-foreground">Home</button>
-                      </BreadcrumbLink>
-                  </BreadcrumbItem>
-                  <BreadcrumbSeparator />
-                  <BreadcrumbItem>
-                      <BreadcrumbPage>Academics</BreadcrumbPage>
-                  </BreadcrumbItem>
-                  <BreadcrumbSeparator />
-                  <BreadcrumbItem>
-                      <BreadcrumbPage>Courses</BreadcrumbPage>
-                  </BreadcrumbItem>
-              </BreadcrumbList>
-          </Breadcrumb>
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Course Catalog</h1>
+          <BreadcrumbNav history={history} navigateToHistory={navigateToHistory} />
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 mt-4">Course Catalog</h1>
           <p className="text-lg text-muted-foreground max-w-3xl">
             From foundational degrees to advanced specializations, explore the wide array of courses designed to empower your career and personal growth.
           </p>

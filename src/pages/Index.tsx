@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import Header from '../components/Header';
@@ -164,7 +163,7 @@ const Index = () => {
       case 'home':
         return <HomePage navigate={navigate} openModal={openModal} user={user} />;
       case 'courses':
-        return <CoursesPage openModal={openModal} goBack={goBack} previousPageName={previousPageName} navigate={navigate} />;
+        return <CoursesPage openModal={openModal} navigate={navigate} history={history} navigateToHistory={navigateToHistory} />;
       case 'programs':
         return <ProgramsPage />;
       case 'tutoring':
@@ -172,29 +171,29 @@ const Index = () => {
       case 'resources':
         return <ResourcesPage />;
       case 'community':
-        return <CommunityPage goBack={goBack} previousPageName={previousPageName} />;
+        return <CommunityPage history={history} navigateToHistory={navigateToHistory} />;
       case 'careers':
-        return <CareersPage goBack={goBack} previousPageName={previousPageName} />;
+        return <CareersPage history={history} navigateToHistory={navigateToHistory} />;
       case 'about':
-        return <AboutPage goBack={goBack} previousPageName={previousPageName} />;
+        return <AboutPage history={history} navigateToHistory={navigateToHistory} />;
       case 'contact':
-        return <ContactPage goBack={goBack} previousPageName={previousPageName} addTestimonial={addTestimonial} />;
+        return <ContactPage addTestimonial={addTestimonial} history={history} navigateToHistory={navigateToHistory} />;
       case 'examSubjects':
-        return <ExamSubjectsPage navigate={navigate} goBack={goBack} previousPageName={previousPageName} pageData={pageData} />;
+        return <ExamSubjectsPage navigate={navigate} pageData={pageData} history={history} navigateToHistory={navigateToHistory} />;
       case 'subjectExams':
-        return <SubjectExamsPage subjectTitle={pageData?.subjectTitle} examType={pageData?.examType} navigate={navigate} goBack={goBack} previousPageName={previousPageName} />;
+        return <SubjectExamsPage subjectTitle={pageData?.subjectTitle} examType={pageData?.examType} navigate={navigate} history={history} navigateToHistory={navigateToHistory} />;
       case 'examPage':
         return <ExamPage navigate={navigate} examDetails={pageData} goBack={goBack} history={history} navigateToHistory={navigateToHistory} />;
       case 'blog':
-        return <BlogPage goBack={goBack} previousPageName={previousPageName} />;
+        return <BlogPage history={history} navigateToHistory={navigateToHistory} />;
       case 'subscription':
         return <SubscriptionPage openModal={openModal} history={history} navigateToHistory={navigateToHistory} />;
       case 'editProfile':
-        return <EditProfilePage user={user} goBack={goBack} previousPageName={previousPageName} />;
+        return <EditProfilePage user={user} history={history} navigateToHistory={navigateToHistory} />;
       case 'settings':
-        return <SettingsPage user={user} goBack={goBack} previousPageName={previousPageName} />;
+        return <SettingsPage user={user} history={history} navigateToHistory={navigateToHistory} />;
       case 'notifications':
-        return <NotificationsPage user={user} goBack={goBack} previousPageName={previousPageName} />;
+        return <NotificationsPage user={user} history={history} navigateToHistory={navigateToHistory} />;
       default:
         return <HomePage navigate={navigate} openModal={openModal} user={user} />;
     }
