@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 type Language = 'en' | 'am' | 'om' | 'ar';
@@ -9,7 +8,6 @@ interface TranslationKeys {
     courses: string;
     exams: string;
     subscription: string;
-    localJobPortal: string;
     aboutUs: string;
     contactUs: string;
     allCourses: string;

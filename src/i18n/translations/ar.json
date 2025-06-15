@@ -1,11 +1,9 @@
-
 {
   "navigation": {
     "home": "الرئيسية",
     "courses": "الدورات",
     "exams": "الامتحانات",
     "subscription": "الاشتراك",
-    "localJobPortal": "بوابة الوظائف المحلية",
     "aboutUs": "معلومات عنا",
     "contactUs": "اتصل بنا",
     "allCourses": "جميع الدورات",
