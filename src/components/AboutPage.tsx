@@ -1,28 +1,6 @@
-
 import React from 'react';
 import BreadcrumbNav from './BreadcrumbNav';
 import { Target, Eye, Gem, BookOpen, HeartHandshake } from 'lucide-react';
-
-const teamMembers = [
-  {
-    name: 'Abebe Bikila',
-    role: 'Founder & CEO',
-    avatar: 'https://i.pravatar.cc/150?u=abebe-bikila',
-    bio: 'A passionate educator dedicated to making quality education accessible to all Ethiopian students.'
-  },
-  {
-    name: 'Fatuma Roba',
-    role: 'Head of Content',
-    avatar: 'https://i.pravatar.cc/150?u=fatuma-roba',
-    bio: 'Expert in curriculum design, ensuring all our materials meet the highest academic standards.'
-  },
-  {
-    name: 'Haile Gebrselassie',
-    role: 'Lead Developer',
-    avatar: 'https://i.pravatar.cc/150?u=haile-g',
-    bio: 'The brilliant mind behind our innovative and user-friendly platform.'
-  }
-];
 
 interface HistoryEntry {
   page: string;
@@ -122,24 +100,6 @@ const AboutPage = ({ history, navigateToHistory }: { history: HistoryEntry[]; na
           </div>
         </section>
         
-        {/* The Team / Leadership */}
-        <section className="py-16">
-          <div className="max-w-5xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-4 text-foreground">Meet Our Team</h2>
-            <p className="max-w-2xl mx-auto text-muted-foreground mb-12">The passionate educators and developers dedicated to your success.</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {teamMembers.map((member) => (
-                <div key={member.name} className="bg-card text-card-foreground p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
-                  <img src={member.avatar} alt={member.name} className="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-border" />
-                  <h4 className="text-xl font-semibold mb-1 text-foreground">{member.name}</h4>
-                  <p className="text-accent mb-2">{member.role}</p>
-                  <p className="text-muted-foreground text-sm">{member.bio}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
       </div>
     </div>
   );
