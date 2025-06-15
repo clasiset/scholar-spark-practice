@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import Header from '../components/Header';
@@ -16,9 +15,6 @@ import ExamSubjectsPage from '../components/ExamSubjectsPage';
 import SubjectExamsPage from '../components/SubjectExamsPage';
 import ExamPage from '../components/ExamPage';
 import Modal from '../components/Modal';
-import LocalJobPortalPage from '../components/LocalJobPortalPage';
-import JobSeekerDashboardPage from '../components/JobSeekerDashboardPage';
-import EmployerDashboardPage from '../components/EmployerDashboardPage';
 import BlogPage from '../components/BlogPage';
 import SubscriptionPage from '../components/SubscriptionPage';
 import EditProfilePage from '../components/EditProfilePage';
@@ -184,12 +180,6 @@ const Index = () => {
         return <ExamPage navigate={navigate} examDetails={pageData} goBack={goBack} previousPageName={previousPageName} />;
       case 'blog':
         return <BlogPage goBack={goBack} previousPageName={previousPageName} />;
-      case 'localJobPortal':
-        return <LocalJobPortalPage navigate={navigate} goBack={goBack} previousPageName={previousPageName} />;
-      case 'jobSeekerDashboard':
-        return <JobSeekerDashboardPage goBack={goBack} previousPageName={previousPageName} />;
-      case 'employerDashboard':
-        return <EmployerDashboardPage goBack={goBack} previousPageName={previousPageName} />;
       case 'subscription':
         return <SubscriptionPage openModal={openModal} goBack={goBack} previousPageName={previousPageName} />;
       case 'editProfile':
