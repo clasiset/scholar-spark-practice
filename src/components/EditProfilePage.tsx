@@ -80,7 +80,7 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, profile, histor
         location: profile.location ?? '',
         websiteUrl: profile.website_url ?? '',
         avatarUrl: profile.avatar_url ?? '',
-        socialLinks: (profile.social_links as SocialLink[] | null) ?? [],
+        socialLinks: (profile.social_links as unknown as SocialLink[] | null) ?? [],
       };
       setProfileData(initialData);
       setOriginalData(initialData);
@@ -175,7 +175,7 @@ const EditProfilePage: React.FC<EditProfilePageProps> = ({ user, profile, histor
         location: profileData.location,
         website_url: profileData.websiteUrl,
         avatar_url: profileData.avatarUrl,
-        social_links: profileData.socialLinks,
+        social_links: profileData.socialLinks as any,
         updated_at: new Date().toISOString(),
       };
 
