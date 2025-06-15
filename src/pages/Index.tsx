@@ -62,53 +62,21 @@ const Index = () => {
   ]);
 
   useEffect(() => {
-    // Set up auth state listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      console.log('Auth state changed:', event, session?.user);
+    setLoading(true);
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session?.user) {
-        const userData = {
-          email: session.user.email || '',
-          id: session.user.id
-        };
-        setUser(userData);
-        window.dispatchEvent(new CustomEvent('authChange', { detail: userData }));
-      } else {
-        setUser(null);
-        window.dispatchEvent(new CustomEvent('authChange', { detail: null }));
-      }
-      setLoading(false);
-    });
-
-    // Check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session?.user) {
-        const userData = {
-          email: session.user.email || '',
-          id: session.user.id
-        };
-        setUser(userData);
-      }
-      setLoading(false);
-    });
-
-    // Listen for custom auth events (fallback for older components)
-    const handleAuthChange = (event: CustomEvent) => {
-      const userData = event.detail;
-      if (userData) {
         setUser({
-          email: userData.email || '',
-          id: userData.id || ''
+          email: session.user.email || '',
+          id: session.user.id,
         });
       } else {
         setUser(null);
       }
-    };
-
-    window.addEventListener('authChange', handleAuthChange as EventListener);
+      setLoading(false);
+    });
 
     return () => {
       subscription.unsubscribe();
-      window.removeEventListener('authChange', handleAuthChange as EventListener);
     };
   }, []);
 

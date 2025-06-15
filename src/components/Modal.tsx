@@ -31,13 +31,6 @@ const Modal = ({ type, data, onClose, openModal, navigate }) => {
     const handleGoogleAuthSuccess = (event) => {
       const { email, name } = event.detail;
       // Simulate successful signup with Google account
-      window.dispatchEvent(new CustomEvent('authChange', { 
-        detail: { 
-          email: email,
-          id: 'google-user-' + Date.now(),
-          name: name
-        } 
-      }));
       onClose();
     };
 
@@ -55,17 +48,7 @@ const Modal = ({ type, data, onClose, openModal, navigate }) => {
       
       // Clean up localStorage
       localStorage.removeItem('selectedGoogleEmail');
-      
-      // Simulate successful Google authentication
-      const googleUser = {
-        email: selectedEmail,
-        id: 'google-user-' + Date.now(),
-        name: 'Google User'
-      };
-      
-      // Dispatch auth change event
-      window.dispatchEvent(new CustomEvent('authChange', { detail: googleUser }));
-      
+            
       // Close modal and navigate to home
       onClose();
       
@@ -148,7 +131,6 @@ const Modal = ({ type, data, onClose, openModal, navigate }) => {
         if (error) {
           setError(error.message);
         } else if (data.user) {
-          window.dispatchEvent(new CustomEvent('authChange', { detail: data.user }));
           onClose();
         }
       } else { // login
@@ -166,7 +148,6 @@ const Modal = ({ type, data, onClose, openModal, navigate }) => {
         if (error) {
           setError(error.message);
         } else if (data.user) {
-          window.dispatchEvent(new CustomEvent('authChange', { detail: data.user }));
           onClose();
         }
       }
@@ -180,7 +161,6 @@ const Modal = ({ type, data, onClose, openModal, navigate }) => {
   const handleLogout = async () => {
     try {
       await supabase.auth.signOut();
-      window.dispatchEvent(new CustomEvent('authChange', { detail: null }));
       onClose();
     } catch (error) {
       console.error('Error logging out:', error);
