@@ -11,7 +11,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { cn } from '@/lib/utils';
+import ContactDetails from './ContactDetails';
+import FaqAccordion from './FaqAccordion';
+import ContactMap from './ContactMap';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Full Name must be at least 2 characters." }),
@@ -51,13 +53,15 @@ const ContactPage = ({ history, navigateToHistory, addTestimonial }: { history: 
       return;
     }
 
-    const newTestimonial = {
-      quote: data.message,
-      name: data.name,
-      role: "Student",
-      avatar: `https://i.pravatar.cc/150?u=${Math.random().toString(36).substring(7)}`
-    };
-    addTestimonial(newTestimonial);
+    if (data.inquiryType === 'feedback') {
+      const newTestimonial = {
+        quote: data.message,
+        name: data.name,
+        role: "Student",
+        avatar: `https://i.pravatar.cc/150?u=${Math.random().toString(36).substring(7)}`
+      };
+      addTestimonial(newTestimonial);
+    }
 
     console.log("Form submitted:", {
       ...data,
@@ -72,14 +76,24 @@ const ContactPage = ({ history, navigateToHistory, addTestimonial }: { history: 
     <div className="min-h-screen bg-background py-12">
       <div className="container mx-auto px-6">
         <BreadcrumbNav history={history} navigateToHistory={navigateToHistory} />
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-foreground mb-4">Get in Touch</h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Have a question? We'd love to hear from you! Please fill out the form below, and our team will get back to you as soon as possible.
+        
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Get in Touch</h1>
+          <p className="text-muted-foreground max-w-3xl mx-auto">
+            Have a question, feedback, or just want to say hello? We'd love to hear from you. Fill out the form below or use our contact details to reach our team.
           </p>
         </div>
-        <div className="max-w-2xl mx-auto mt-12">
-          <div className="bg-card rounded-xl shadow-lg p-8">
+
+        <div className="grid lg:grid-cols-5 gap-16 items-start">
+          <div className="lg:col-span-2 space-y-12">
+            <ContactDetails />
+            <div className="h-80 rounded-lg overflow-hidden shadow-lg">
+              <ContactMap />
+            </div>
+          </div>
+          
+          <div className="lg:col-span-3 bg-card rounded-xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-foreground mb-6">Send us a Message</h2>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField
@@ -159,7 +173,6 @@ const ContactPage = ({ history, navigateToHistory, addTestimonial }: { history: 
                   )}
                 />
                 
-                {/* Honeypot field for spam prevention */}
                 <FormField
                   control={form.control}
                   name="honeypot"
@@ -197,6 +210,10 @@ const ContactPage = ({ history, navigateToHistory, addTestimonial }: { history: 
               </form>
             </Form>
           </div>
+        </div>
+        
+        <div className="max-w-4xl mx-auto mt-24 pb-12">
+          <FaqAccordion />
         </div>
       </div>
     </div>
