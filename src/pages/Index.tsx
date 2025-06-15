@@ -139,7 +139,7 @@ const Index = () => {
   const previousPageName = history.length > 1 ? history[history.length - 2].page : null;
 
   // Function to open the modal with specific content
-  const openModal = (type: any, data: any = null) => {
+  const openModal = (type: string, data: any = null) => {
     let finalData = data;
     if (type === 'profile' && profile) {
       finalData = { ...data, ...profile };

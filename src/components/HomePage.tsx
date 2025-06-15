@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useI18n } from '../i18n/i18nContext';
 import { 
@@ -25,7 +26,7 @@ import { Link } from 'react-router-dom';
 
 export interface HomePageProps {
   navigate: (page: string, data?: any) => void;
-  openModal: (type: any, data?: any) => void;
+  openModal: (type: string, data?: any) => void;
   user: User | null;
 }
 
