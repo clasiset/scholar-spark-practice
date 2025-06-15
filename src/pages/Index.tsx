@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import Header from '../components/Header';
@@ -191,9 +192,9 @@ const Index = () => {
       case 'editProfile':
         return <EditProfilePage user={user} history={history} navigateToHistory={navigateToHistory} />;
       case 'settings':
-        return <SettingsPage user={user} history={history} navigateToHistory={navigateToHistory} />;
+        return <SettingsPage user={user} goBack={goBack} previousPageName={previousPageName} />;
       case 'notifications':
-        return <NotificationsPage user={user} history={history} navigateToHistory={navigateToHistory} />;
+        return <NotificationsPage user={user} goBack={goBack} previousPageName={previousPageName} />;
       default:
         return <HomePage navigate={navigate} openModal={openModal} user={user} />;
     }

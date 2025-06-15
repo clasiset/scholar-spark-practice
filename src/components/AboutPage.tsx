@@ -1,5 +1,6 @@
+
 import React from 'react';
-import BackButton from './BackButton';
+import BreadcrumbNav from './BreadcrumbNav';
 import { Target, Eye, Gem, BookOpen, HeartHandshake } from 'lucide-react';
 
 const teamMembers = [
@@ -23,11 +24,16 @@ const teamMembers = [
   }
 ];
 
-const AboutPage = ({ goBack, previousPageName }: { goBack?: () => void, previousPageName?: string | null }) => {
+interface HistoryEntry {
+  page: string;
+  data: any | null;
+}
+
+const AboutPage = ({ history, navigateToHistory }: { history: HistoryEntry[]; navigateToHistory: (index: number) => void; }) => {
   return (
     <div className="bg-background text-foreground">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <BackButton onClick={goBack} previousPageName={previousPageName} />
+        <BreadcrumbNav history={history} navigateToHistory={navigateToHistory} />
 
         {/* Core Identity & Introduction */}
         <header className="text-center pt-8 pb-16">

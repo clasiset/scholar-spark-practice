@@ -1,10 +1,19 @@
-
 import React, { useState } from 'react';
 import { Search } from 'lucide-react';
-import BackButton from './BackButton';
+import BreadcrumbNav from './BreadcrumbNav';
 import { examData } from '../data/examData';
 
-const ExamSubjectsPage = ({ navigate, goBack, previousPageName, pageData }) => {
+interface HistoryEntry {
+  page: string;
+  data: any | null;
+}
+
+const ExamSubjectsPage = ({ navigate, pageData, history, navigateToHistory }: {
+  navigate: (page: string, data: any) => void;
+  pageData: any;
+  history: HistoryEntry[];
+  navigateToHistory: (index: number) => void;
+}) => {
   const [searchTerm, setSearchTerm] = useState('');
   
   const examType = pageData?.examType || 'entrance';
@@ -34,7 +43,7 @@ const ExamSubjectsPage = ({ navigate, goBack, previousPageName, pageData }) => {
       <div className="relative z-10">
         <div className="bg-white/95 dark:bg-card/95 backdrop-blur-sm border-b border-border shadow-lg">
           <div className="container mx-auto px-6 py-6">
-            <BackButton onClick={goBack} previousPageName={previousPageName} />
+            <BreadcrumbNav history={history} navigateToHistory={navigateToHistory} />
             
             <div className="flex items-center mb-6">
               <div className="w-12 h-12 bg-card rounded-full flex items-center justify-center mr-4 shadow-md">

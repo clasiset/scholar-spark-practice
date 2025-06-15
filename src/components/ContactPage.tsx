@@ -1,9 +1,10 @@
+
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { toast } from "sonner";
-import BackButton from './BackButton';
+import BreadcrumbNav from './BreadcrumbNav';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -26,7 +27,12 @@ const formSchema = z.object({
   }),
 });
 
-const ContactPage = ({ goBack, previousPageName, addTestimonial }: { goBack?: () => void, previousPageName?: string | null, addTestimonial: (testimonial: any) => void }) => {
+interface HistoryEntry {
+  page: string;
+  data: any | null;
+}
+
+const ContactPage = ({ history, navigateToHistory, addTestimonial }: { history: HistoryEntry[]; navigateToHistory: (index: number) => void; addTestimonial: (testimonial: any) => void }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -65,7 +71,7 @@ const ContactPage = ({ goBack, previousPageName, addTestimonial }: { goBack?: ()
   return (
     <div className="min-h-screen bg-background py-12">
       <div className="container mx-auto px-6">
-        <BackButton onClick={goBack} previousPageName={previousPageName} />
+        <BreadcrumbNav history={history} navigateToHistory={navigateToHistory} />
         <div className="text-center">
           <h1 className="text-4xl font-bold text-foreground mb-4">Get in Touch</h1>
           <p className="text-muted-foreground max-w-2xl mx-auto">

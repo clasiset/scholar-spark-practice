@@ -1,6 +1,6 @@
 import React from 'react';
 import { Star, ArrowRight } from 'lucide-react';
-import BackButton from './BackButton';
+import BreadcrumbNav from './BreadcrumbNav';
 
 const blogPosts = [
   {
@@ -56,12 +56,17 @@ const blogPosts = [
   },
 ];
 
-const BlogPage = ({ goBack, previousPageName }) => {
+interface HistoryEntry {
+  page: string;
+  data: any | null;
+}
+
+const BlogPage = ({ history, navigateToHistory }: { history: HistoryEntry[]; navigateToHistory: (index: number) => void; }) => {
   return (
     <div className="bg-background py-12 text-foreground">
       <div className="container mx-auto px-4 md:px-6">
         <div className="mb-8">
-            <BackButton onClick={goBack} previousPageName={previousPageName} />
+            <BreadcrumbNav history={history} navigateToHistory={navigateToHistory} />
         </div>
         <h1 className="text-4xl font-bold text-center text-foreground mb-2">From Our Blog</h1>
         <p className="text-lg text-center text-muted-foreground mb-12">Insights and articles on modern education and AI.</p>
