@@ -27,21 +27,21 @@ export const ExamHeaderComponent = ({
   };
 
   return (
-    <header className="bg-card p-4 border-b border-border shadow-sm flex justify-between items-center">
+    <header className="bg-card p-3 sm:p-4 border-b border-border shadow-sm flex justify-between items-center">
       <div>
-        <nav className="text-sm text-muted-foreground mb-1 sm:mb-2">
+        <nav className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">
           {breadcrumbs.map((crumb, index) => (
             <span key={index} className="mr-1">
               {crumb} {index < breadcrumbs.length - 1 && <span className="mx-1">/</span>}
             </span>
           ))}
         </nav>
-        <h1 className="text-lg sm:text-xl font-semibold text-card-foreground">{title}</h1>
+        <h1 className="text-base sm:text-lg font-semibold text-card-foreground">{title}</h1>
       </div>
       <div className="flex items-center space-x-2 sm:space-x-4">
-        {!examMode && <span className="text-muted-foreground text-sm hidden md:inline">Practice Mode</span>}
+        {!examMode && <span className="text-muted-foreground text-xs sm:text-sm hidden md:inline">Practice Mode</span>}
         {examMode && (
-          <span className="text-blue-600 dark:text-blue-400 font-semibold text-base sm:text-lg">
+          <span className="text-blue-600 dark:text-blue-400 font-semibold text-sm sm:text-base">
             Time: {formatTime(timeLeft)}
           </span>
         )}
@@ -50,7 +50,7 @@ export const ExamHeaderComponent = ({
           className="p-2 rounded-lg hover:bg-muted text-muted-foreground lg:hidden"
           title="View All Questions"
         >
-          <Menu size={24} />
+          <Menu className="h-5 w-5 sm:h-6 sm:w-6" />
         </button>
         <ModeToggle examMode={examMode} onToggle={onToggleExamMode} />
       </div>

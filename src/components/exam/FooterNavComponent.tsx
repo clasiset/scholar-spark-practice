@@ -73,19 +73,19 @@ export const FooterNavComponent = ({
   };
 
   return (
-    <footer className="bg-white p-3 sm:p-4 border-t border-gray-200 shadow-sm flex justify-between items-center mt-auto">
+    <footer className="bg-white p-2 sm:p-3 border-t border-gray-200 shadow-sm flex justify-between items-center mt-auto">
       <button
         onClick={onPrevious}
         disabled={!showPrevious}
-        className={`px-3 py-2 sm:px-4 rounded-lg font-semibold transition-colors duration-200 ease-in-out
+        className={`px-2 py-1.5 sm:px-4 sm:py-2 rounded-lg font-semibold transition-colors duration-200 ease-in-out
           ${showPrevious
             ? 'bg-gray-200 text-gray-800 hover:bg-gray-300 shadow-sm'
             : 'bg-gray-100 text-gray-400 cursor-not-allowed'
           }
-          flex items-center space-x-1 sm:space-x-2 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 text-sm sm:text-base
+          flex items-center space-x-1 sm:space-x-2 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 text-xs sm:text-sm
         `}
       >
-        <ChevronLeft size={18} />
+        <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
         <span className="hidden sm:inline">Previous</span>
       </button>
 
@@ -102,7 +102,7 @@ export const FooterNavComponent = ({
               onTouchEnd={(e) => handlePressEnd(e, index)}
               onTouchCancel={handlePressCancel}
               className={`
-                relative w-8 h-8 sm:w-9 sm:h-9 rounded-full flex-shrink-0 flex items-center justify-center text-xs sm:text-sm font-medium
+                relative w-7 h-7 sm:w-9 sm:h-9 rounded-full flex-shrink-0 flex items-center justify-center text-[10px] sm:text-sm font-medium
                 transition-all duration-200 ease-in-out
                 ${index === currentQuestionIndex
                   ? 'bg-blue-600 text-white shadow-lg'
@@ -118,7 +118,7 @@ export const FooterNavComponent = ({
             >
               {isFlagged && (
                 <Flag
-                  size={12}
+                  size={10}
                   fill="currentColor"
                   className="absolute top-0 right-0 -mt-0.5 -mr-0.5 text-red-500"
                 />
@@ -128,35 +128,35 @@ export const FooterNavComponent = ({
           );
         })}
       </div>
-      <div className="lg:hidden flex-grow text-center text-sm text-gray-600 font-medium">
+      <div className="lg:hidden flex-grow text-center text-xs sm:text-sm text-gray-600 font-medium">
         Q {currentQuestionIndex + 1} / {questions.length}
       </div>
 
       {examMode && Object.keys(answers).length === questions.length && (
         <button
           onClick={() => onFinishExam(false)}
-          className="px-3 py-2 sm:px-4 rounded-lg font-semibold bg-green-500 text-white hover:bg-green-600 shadow-md
+          className="px-2 py-1.5 sm:px-4 sm:py-2 rounded-lg font-semibold bg-green-500 text-white hover:bg-green-600 shadow-md
           transition-colors duration-200 ease-in-out flex items-center space-x-1 sm:space-x-2
-          focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 text-sm sm:text-base mx-2"
+          focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 text-xs sm:text-sm mx-2"
         >
           <span>Finish Exam</span>
-          <CheckCircle size={18} />
+          <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5" />
         </button>
       )}
 
       <button
         onClick={onNext}
         disabled={!showNext}
-        className={`px-3 py-2 sm:px-4 rounded-lg font-semibold transition-colors duration-200 ease-in-out
+        className={`px-2 py-1.5 sm:px-4 sm:py-2 rounded-lg font-semibold transition-colors duration-200 ease-in-out
           ${showNext
             ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-md'
             : 'bg-blue-300 text-white cursor-not-allowed'
           }
-          flex items-center space-x-1 sm:space-x-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-sm sm:text-base
+          flex items-center space-x-1 sm:space-x-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-xs sm:text-sm
         `}
       >
         <span className="hidden sm:inline">Next</span>
-        <ChevronRight size={18} />
+        <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
       </button>
     </footer>
   );

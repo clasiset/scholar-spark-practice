@@ -65,11 +65,11 @@ export const QuestionGridModalComponent = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-card p-6 rounded-lg shadow-xl max-w-lg w-full max-h-[90vh] flex flex-col">
+      <div className="bg-card p-4 sm:p-6 rounded-lg shadow-xl max-w-lg w-full max-h-[90vh] flex flex-col">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold text-foreground">All Questions</h2>
+          <h2 className="text-base sm:text-lg font-semibold text-foreground">All Questions</h2>
           <button onClick={onClose} className="p-2 text-muted-foreground hover:text-foreground">
-            <XCircle size={24} />
+            <XCircle className="h-5 w-5 sm:h-6 sm:w-6" />
           </button>
         </div>
         <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-7 gap-2 mb-6 overflow-y-auto custom-scrollbar pr-2 flex-grow">
@@ -96,7 +96,7 @@ export const QuestionGridModalComponent = ({
                 onTouchEnd={(e) => handlePressEnd(e, index)}
                 onTouchCancel={handlePressCancel}
                 className={`
-                  relative w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium
+                  relative w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-xs sm:text-sm font-medium
                   transition-all duration-200 ease-in-out
                   ${buttonClass}
                   focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50
@@ -105,7 +105,7 @@ export const QuestionGridModalComponent = ({
               >
                 {isFlagged && (
                   <Flag
-                    size={16}
+                    size={14}
                     fill="currentColor"
                     className="absolute top-0 right-0 -mt-1 -mr-1 text-red-500"
                   />

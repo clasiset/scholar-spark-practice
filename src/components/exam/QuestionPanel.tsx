@@ -40,12 +40,12 @@ export const QuestionPanel = ({ questions, currentQuestionIndex, answers, flagge
 
   return (
     <div className="bg-card text-card-foreground rounded-lg border h-full flex flex-col shadow-sm">
-      <div className="p-4 border-b">
-        <h2 className="text-lg font-semibold">Questions</h2>
+      <div className="p-3 sm:p-4 border-b">
+        <h2 className="text-base sm:text-lg font-semibold">Questions</h2>
       </div>
       
-      <div className="p-4 flex-grow overflow-y-auto">
-        <div className="grid grid-cols-10 gap-2 mb-6">
+      <div className="p-2 sm:p-4 flex-grow overflow-y-auto">
+        <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 gap-2 mb-6">
           {questions.map((_, index) => {
             const isFlagged = flaggedQuestions.includes(index);
             const isAnswered = answers[index] !== undefined;
@@ -69,7 +69,7 @@ export const QuestionPanel = ({ questions, currentQuestionIndex, answers, flagge
                 onTouchEnd={(e) => handlePressEnd(e, index)}
                 onTouchCancel={handlePressCancel}
                 className={`
-                  relative w-8 h-8 rounded text-xs font-medium
+                  relative w-full aspect-square rounded text-xs font-medium
                   flex items-center justify-center
                   transition-all duration-200 hover:scale-105
                   ${buttonClass}
@@ -91,8 +91,8 @@ export const QuestionPanel = ({ questions, currentQuestionIndex, answers, flagge
         </div>
       </div>
 
-      <div className="p-4 border-t space-y-4">
-        <div className="space-y-3 text-xs text-muted-foreground">
+      <div className="p-3 sm:p-4 border-t space-y-3 sm:space-y-4">
+        <div className="space-y-2 sm:space-y-3 text-xs text-muted-foreground">
           <div className="flex items-center">
             <span className="w-4 h-4 rounded bg-blue-600 mr-3 flex-shrink-0"></span>
             <span>Current</span>
@@ -119,7 +119,7 @@ export const QuestionPanel = ({ questions, currentQuestionIndex, answers, flagge
         {!examMode && (
           <button
             onClick={onFinishPracticeExam}
-            className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium text-sm 
+            className="w-full bg-blue-600 text-white py-2 px-3 text-xs sm:py-3 sm:px-4 sm:text-sm rounded-lg font-medium 
                        hover:bg-blue-700 transition-all duration-200 shadow-sm flex items-center justify-center space-x-2"
           >
             <span>🏆</span>

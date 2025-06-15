@@ -12,7 +12,7 @@ export const ExamHeader = ({ examMode, timeLeft, onToggleExamMode, totalQuestion
 
   return (
     <header className="bg-card border-b border-border shadow-sm">
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto px-4 py-3 sm:py-4">
         <div className="flex flex-col sm:flex-row justify-between items-center">
           <div className="mb-2 sm:mb-0 text-center sm:text-left flex items-center">
             <div className="w-8 h-8 mr-3 flex-shrink-0 bg-white rounded-full overflow-hidden border-2 border-blue-200">
@@ -23,16 +23,16 @@ export const ExamHeader = ({ examMode, timeLeft, onToggleExamMode, totalQuestion
               />
             </div>
             <div>
-              <nav className="text-xs text-muted-foreground mb-1">
+              <nav className="text-[10px] sm:text-xs text-muted-foreground mb-1">
                 Entrance Exams / {examDetails?.subjectTitle || 'Aptitude Test'}
               </nav>
-              <h1 className="text-lg font-semibold text-card-foreground">
+              <h1 className="text-base sm:text-lg font-semibold text-card-foreground">
                 {examDetails?.subjectTitle || 'Aptitude Test'} - Entrance Exam {examDetails?.year || '2014'}
               </h1>
             </div>
           </div>
           
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             {examMode && (
               <div className="text-xs text-muted-foreground hidden md:flex items-center space-x-4">
                 <span>Answered: {answeredQuestions}/{totalQuestions}</span>
@@ -53,13 +53,13 @@ export const ExamHeader = ({ examMode, timeLeft, onToggleExamMode, totalQuestion
       </div>
       
       {examMode && (
-        <div className="bg-blue-50 dark:bg-blue-900/20 border-t border-blue-200 dark:border-blue-800/30 px-4 py-3">
-          <div className="container mx-auto flex items-center justify-between text-sm">
+        <div className="bg-blue-50 dark:bg-blue-900/20 border-t border-blue-200 dark:border-blue-800/30 px-4 py-2 sm:py-3">
+          <div className="container mx-auto flex items-center justify-between text-xs sm:text-sm">
             <div className="flex items-center text-blue-700 dark:text-blue-300">
               <Clock size={16} className="mr-2" />
               <span className="font-medium">Exam Mode Active</span>
             </div>
-            <div className="flex items-center space-x-4 text-blue-600 dark:text-blue-400">
+            <div className="flex items-center space-x-2 sm:space-x-4 text-blue-600 dark:text-blue-400">
               <span>Time: {formatTime(timeLeft)}</span>
               <span>Answered: {answeredQuestions}/{totalQuestions}</span>
             </div>

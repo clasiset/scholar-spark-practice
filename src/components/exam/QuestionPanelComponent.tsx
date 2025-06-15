@@ -61,8 +61,8 @@ export const QuestionPanelComponent = ({
   };
 
   return (
-    <div className="bg-card p-6 rounded-lg shadow-md h-full flex flex-col">
-      <h2 className="text-lg font-semibold text-foreground mb-4">Questions</h2>
+    <div className="bg-card p-4 sm:p-6 rounded-lg shadow-md h-full flex flex-col">
+      <h2 className="text-base sm:text-lg font-semibold text-foreground mb-4">Questions</h2>
       <div className="grid grid-cols-5 gap-2 mb-6 max-h-96 overflow-y-auto pr-2 custom-scrollbar">
         {questions.map((_, index) => {
           const isFlagged = flaggedQuestions.includes(index);
@@ -87,7 +87,7 @@ export const QuestionPanelComponent = ({
               onTouchEnd={(e) => handlePressEnd(e, index)}
               onTouchCancel={handlePressCancel}
               className={`
-                relative w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium
+                relative w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-xs sm:text-sm font-medium
                 transition-all duration-200 ease-in-out
                 ${buttonClass}
                 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50
@@ -96,7 +96,7 @@ export const QuestionPanelComponent = ({
             >
               {isFlagged && (
                 <Flag
-                  size={16}
+                  size={14}
                   fill="currentColor"
                   className="absolute top-0 right-0 -mt-1 -mr-1 text-red-500"
                 />
@@ -107,7 +107,7 @@ export const QuestionPanelComponent = ({
         })}
       </div>
 
-      <div className="mt-auto space-y-3 text-sm">
+      <div className="mt-auto space-y-2 sm:space-y-3 text-xs sm:text-sm">
         <div className="flex items-center">
           <span className="w-4 h-4 rounded-full bg-blue-600 mr-3 flex-shrink-0"></span>
           <span className="text-muted-foreground">Current</span>
