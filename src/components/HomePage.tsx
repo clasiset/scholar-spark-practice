@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { User } from '../types';
 
@@ -37,15 +38,17 @@ const HomePage = ({ navigate, openModal, user }: HomePageProps) => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => navigate('courses')}
-              className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-lg font-semibold"
+              className="relative px-8 py-4 bg-gradient-to-r from-blue-600 via-blue-700 to-purple-600 text-white rounded-xl font-semibold text-lg shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 hover:from-blue-700 hover:via-blue-800 hover:to-purple-700 focus:outline-none focus:ring-4 focus:ring-blue-300/50 overflow-hidden group"
             >
-              Start Learning Today
+              <span className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+              <span className="relative z-10">Start Learning Today</span>
             </button>
             <button
               onClick={() => navigate('programs')}
-              className="px-8 py-4 border-2 border-white/80 text-white backdrop-blur-sm bg-white/10 rounded-xl hover:bg-white/20 transition-all duration-300 text-lg font-semibold"
+              className="relative px-8 py-4 border-2 border-white/80 text-white backdrop-blur-sm bg-white/10 rounded-xl font-semibold text-lg transition-all duration-300 hover:bg-white/20 hover:border-white hover:shadow-2xl hover:shadow-white/20 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white/30 overflow-hidden group"
             >
-              Explore Programs
+              <span className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+              <span className="relative z-10">Explore Programs</span>
             </button>
           </div>
         </div>
