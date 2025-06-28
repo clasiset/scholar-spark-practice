@@ -12,8 +12,8 @@ const ModeToggle = ({ examMode, onToggle }: ModeToggleProps) => {
     <button
       onClick={onToggle}
       className={cn(
-        "relative flex items-center w-40 h-10 rounded-full p-1 cursor-pointer transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-        "bg-purple-600"
+        "relative flex items-center w-32 h-8 rounded-full p-1 cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2",
+        examMode ? "bg-blue-600" : "bg-gray-300 dark:bg-gray-600"
       )}
       role="switch"
       aria-checked={examMode}
@@ -21,23 +21,23 @@ const ModeToggle = ({ examMode, onToggle }: ModeToggleProps) => {
       <span className="sr-only">Toggle between Practice and Exam mode</span>
       <div
         className={cn(
-          "absolute left-1 top-1 bg-white dark:bg-card w-[74px] h-8 rounded-full shadow-md transform transition-transform duration-300",
-          examMode ? "translate-x-[78px]" : "translate-x-0"
+          "absolute bg-white w-6 h-6 rounded-full shadow-md transform transition-transform duration-300 ease-in-out",
+          examMode ? "translate-x-24" : "translate-x-0"
         )}
       />
-      <div className="flex justify-around w-full">
+      <div className="flex justify-between items-center w-full px-2">
         <span
           className={cn(
-            "z-10 text-sm font-semibold transition-colors duration-300",
-            !examMode ? "text-purple-600 dark:text-purple-300" : "text-white"
+            "text-xs font-medium transition-colors duration-300 z-10",
+            !examMode ? "text-gray-700" : "text-white"
           )}
         >
           Practice
         </span>
         <span
           className={cn(
-            "z-10 text-sm font-semibold transition-colors duration-300",
-            examMode ? "text-purple-600 dark:text-purple-300" : "text-white"
+            "text-xs font-medium transition-colors duration-300 z-10",
+            examMode ? "text-white" : "text-gray-700"
           )}
         >
           Exam
