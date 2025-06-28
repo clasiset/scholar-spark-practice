@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { type Tables } from '@/integrations/supabase/types';
@@ -206,7 +207,7 @@ const Index = () => {
         </div>
       </div>
     );
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
