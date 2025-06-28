@@ -1,23 +1,22 @@
-
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import AdminSidebar from './admin/layout/AdminSidebar';
-import AdminHeader from './admin/layout/AdminHeader';
-import DashboardOverview from './admin/DashboardOverview';
-import UserManagement from './admin/UserManagement';
-import AcademicManagement from './admin/AcademicManagement';
-import FinancialManagement from './admin/FinancialManagement';
-import ReportsAnalytics from './admin/ReportsAnalytics';
-import Communication from './admin/Communication';
-import AdminSettings from './admin/AdminSettings';
-import QuestionEditor from './admin/QuestionEditor';
-import WebTransactions from './admin/WebTransactions';
+import { AdminSidebar } from './admin/layout/AdminSidebar';
+import { AdminHeader } from './admin/layout/AdminHeader';
+import { DashboardOverview } from './admin/DashboardOverview';
+import { UserManagement } from './admin/UserManagement';
+import { AcademicManagement } from './admin/AcademicManagement';
+import { FinancialManagement } from './admin/FinancialManagement';
+import { Communication } from './admin/Communication';
+import { ReportsAnalytics } from './admin/ReportsAnalytics';
+import { AdminSettings } from './admin/AdminSettings';
+import { QuestionEditor } from './admin/QuestionEditor';
+import { WebTransactions } from './admin/WebTransactions';
 import { User } from '../types';
 
 interface AdminDashboardProps {
   navigate: (page: string, data?: any) => void;
   openModal: (type: string, data?: any) => void;
-  user?: User | null;
+  user: User | null;
 }
 
 const AdminDashboard: React.FC<AdminDashboardProps> = ({ navigate, openModal, user }) => {

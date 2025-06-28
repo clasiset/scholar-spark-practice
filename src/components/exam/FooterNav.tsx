@@ -1,7 +1,7 @@
-
 import React from 'react';
 import { ChevronLeft, ChevronRight, CheckCircle, HelpCircle, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 export const FooterNav = ({ onPrevious, onNext, showPrevious, showNext, examMode, onSubmitExam }) => {
   return (
