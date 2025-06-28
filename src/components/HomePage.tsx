@@ -1,14 +1,13 @@
-
 import React from 'react';
 import { User } from '../types';
 
 interface HomePageProps {
   navigate: (page: string, data?: any) => void;
   openModal: (type: string, data?: any) => void;
-  user?: User | null;
+  user: User | null;
 }
 
-const HomePage: React.FC<HomePageProps> = ({ navigate, openModal, user }) => {
+const HomePage = ({ navigate, openModal, user }: HomePageProps) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-purple-900">
       {/* Hero Section - Full Screen */}
