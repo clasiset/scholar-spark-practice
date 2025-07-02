@@ -1,10 +1,17 @@
 
 import React from 'react';
 import { Button } from './ui/button';
-import { BookOpen, Users, Trophy, Star, GraduationCap, Clock, Target, Award } from 'lucide-react';
-import AnimatedBackground from './AnimatedBackground';
+import { Star } from 'lucide-react';
 import AnimatedStyles from './exam/AnimatedStyles';
 import { User } from '@/types';
+import DynamicBackground from './homepage/DynamicBackground';
+import AnimatedHeadline from './homepage/AnimatedHeadline';
+import InteractiveCTACluster from './homepage/InteractiveCTACluster';
+import CourseDiscoveryHub from './homepage/CourseDiscoveryHub';
+import LearningJourneyVisualizer from './homepage/LearningJourneyVisualizer';
+import InstructorSpotlight from './homepage/InstructorSpotlight';
+import ResourceHub from './homepage/ResourceHub';
+import WhyChooseUs from './homepage/WhyChooseUs';
 
 interface HomePageProps {
   navigate: (page: string, data?: any) => void;
@@ -17,7 +24,7 @@ const HomePage = ({ navigate, openModal, user }: HomePageProps) => {
     <>
       <AnimatedStyles />
       <div className="relative min-h-screen overflow-hidden">
-        <AnimatedBackground />
+        <DynamicBackground />
         
         <div className="relative z-10">
           {/* Hero Section */}
@@ -28,116 +35,45 @@ const HomePage = ({ navigate, openModal, user }: HomePageProps) => {
                   <div className="relative">
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur-lg opacity-20 animate-pulse-slow"></div>
                     <div className="relative bg-white p-6 rounded-full shadow-2xl">
-                      <GraduationCap className="h-16 w-16 text-blue-600 animate-bounce-slow" />
+                      <div className="h-16 w-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white text-2xl font-bold animate-bounce-slow">
+                        🎓
+                      </div>
                     </div>
                   </div>
                 </div>
                 
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
-                  Master Your
-                  <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent animate-float">
-                    Future Today
-                  </span>
-                </h1>
-                
-                <p className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed">
-                  Transform your learning journey with our comprehensive exam preparation platform. 
-                  Join thousands of students achieving their academic goals.
-                </p>
-                
-                <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
-                  <Button 
-                    size="lg" 
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 animate-float-delayed"
-                    onClick={() => navigate('examSubjects')}
-                  >
-                    <BookOpen className="mr-3 h-6 w-6" />
-                    Start Learning Now
-                  </Button>
-                  
-                  <Button 
-                    variant="outline" 
-                    size="lg"
-                    className="border-2 border-gray-300 hover:border-blue-500 text-gray-700 hover:text-blue-600 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 bg-white/80 backdrop-blur-sm"
-                    onClick={() => navigate('about')}
-                  >
-                    <Users className="mr-3 h-6 w-6" />
-                    Learn More
-                  </Button>
-                </div>
+                <AnimatedHeadline />
+                <InteractiveCTACluster navigate={navigate} />
               </div>
             </div>
           </section>
 
-          {/* Features Section */}
-          <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white/80 backdrop-blur-sm">
-            <div className="max-w-7xl mx-auto">
-              <div className="text-center mb-16 animate-fade-in">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                  Why Choose 
-                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Scholar Spark</span>
-                </h2>
-                <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                  Discover the features that make us the preferred choice for exam preparation
-                </p>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {[
-                  {
-                    icon: <Clock className="h-12 w-12 text-blue-600" />,
-                    title: "Smart Timing",
-                    description: "Adaptive time management with real exam conditions"
-                  },
-                  {
-                    icon: <Target className="h-12 w-12 text-purple-600" />,
-                    title: "Focused Learning",
-                    description: "Personalized study paths based on your strengths"
-                  },
-                  {
-                    icon: <Trophy className="h-12 w-12 text-yellow-600" />,
-                    title: "Achievement System",
-                    description: "Track progress with badges and milestones"
-                  },
-                  {
-                    icon: <Award className="h-12 w-12 text-green-600" />,
-                    title: "Expert Content",
-                    description: "Curated by education professionals and teachers"
-                  }
-                ].map((feature, index) => (
-                  <div 
-                    key={index}
-                    className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 border border-gray-100 animate-float-slow"
-                    style={{ animationDelay: `${index * 0.2}s` }}
-                  >
-                    <div className="mb-6 flex justify-center">
-                      <div className="p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl animate-pulse-slow">
-                        {feature.icon}
-                      </div>
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">
-                      {feature.title}
-                    </h3>
-                    <p className="text-gray-600 text-center leading-relaxed">
-                      {feature.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
+          {/* Course Discovery Hub */}
+          <CourseDiscoveryHub />
+
+          {/* Learning Journey Visualizer */}
+          <LearningJourneyVisualizer />
+
+          {/* Instructor Spotlight */}
+          <InstructorSpotlight />
+
+          {/* Resource Hub & Community */}
+          <ResourceHub />
+
+          {/* Why Choose Us */}
+          <WhyChooseUs />
 
           {/* Stats Section */}
           <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
             <div className="max-w-7xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
                 {[
-                  { number: "50,000+", label: "Students Helped", icon: <Users className="h-8 w-8 mx-auto mb-4" /> },
-                  { number: "95%", label: "Success Rate", icon: <Trophy className="h-8 w-8 mx-auto mb-4" /> },
-                  { number: "1000+", label: "Practice Questions", icon: <BookOpen className="h-8 w-8 mx-auto mb-4" /> }
+                  { number: "50,000+", label: "Students Helped", icon: "👥" },
+                  { number: "95%", label: "Success Rate", icon: "🏆" },
+                  { number: "1000+", label: "Practice Questions", icon: "📚" }
                 ].map((stat, index) => (
                   <div key={index} className="animate-float" style={{ animationDelay: `${index * 0.3}s` }}>
-                    {stat.icon}
+                    <div className="text-4xl mb-4">{stat.icon}</div>
                     <h3 className="text-4xl md:text-5xl font-bold mb-2">{stat.number}</h3>
                     <p className="text-blue-100 text-lg">{stat.label}</p>
                   </div>
@@ -146,7 +82,7 @@ const HomePage = ({ navigate, openModal, user }: HomePageProps) => {
             </div>
           </section>
 
-          {/* CTA Section */}
+          {/* Final CTA Section */}
           <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white/90 backdrop-blur-sm">
             <div className="max-w-4xl mx-auto text-center animate-fade-in">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">
@@ -159,11 +95,12 @@ const HomePage = ({ navigate, openModal, user }: HomePageProps) => {
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
                 <Button 
                   size="lg"
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-10 py-4 text-xl font-semibold rounded-xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
+                  className="group relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-10 py-4 text-xl font-semibold rounded-xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
                   onClick={() => navigate('examSubjects')}
                 >
-                  <Star className="mr-3 h-6 w-6" />
+                  <Star className="mr-3 h-6 w-6 group-hover:rotate-180 transition-transform duration-300" />
                   Get Started Free
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </Button>
                 
                 <Button 
