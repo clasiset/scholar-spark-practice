@@ -7,7 +7,14 @@ interface HistoryEntry {
   data: any | null;
 }
 
-const CareersPage = ({ history, navigateToHistory }: { history: HistoryEntry[]; navigateToHistory: (index: number) => void; }) => {
+interface CareersPageProps {
+  history: HistoryEntry[];
+  navigateToHistory: (index: number) => void;
+  navigate: (page: string, data?: any) => void;
+  openModal: (type: string, data?: any) => void;
+}
+
+const CareersPage = ({ history, navigateToHistory, navigate, openModal }: CareersPageProps) => {
   return (
     <div className="min-h-screen bg-background py-12 text-foreground">
       <div className="container mx-auto px-6">

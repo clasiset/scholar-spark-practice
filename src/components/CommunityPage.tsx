@@ -7,7 +7,14 @@ interface HistoryEntry {
   data: any | null;
 }
 
-const CommunityPage = ({ history, navigateToHistory }: { history: HistoryEntry[]; navigateToHistory: (index: number) => void; }) => {
+interface CommunityPageProps {
+  history: HistoryEntry[];
+  navigateToHistory: (index: number) => void;
+  navigate: (page: string, data?: any) => void;
+  openModal: (type: string, data?: any) => void;
+}
+
+const CommunityPage = ({ history, navigateToHistory, navigate, openModal }: CommunityPageProps) => {
   return (
     <div className="min-h-screen bg-background py-12 text-foreground">
       <div className="container mx-auto px-6">

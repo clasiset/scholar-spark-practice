@@ -1,7 +1,12 @@
 
 import React from 'react';
 
-const TutoringPage = () => {
+interface TutoringPageProps {
+  navigate: (page: string, data?: any) => void;
+  openModal: (type: string, data?: any) => void;
+}
+
+const TutoringPage = ({ navigate, openModal }: TutoringPageProps) => {
   return (
     <div className="min-h-screen bg-background text-foreground py-12">
       <div className="container mx-auto px-6 text-center">
