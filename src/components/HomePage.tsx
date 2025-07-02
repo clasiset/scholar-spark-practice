@@ -1,13 +1,15 @@
+
 import React from 'react';
 import { Button } from './ui/button';
 import { BookOpen, Users, Trophy, Star, GraduationCap, Clock, Target, Award } from 'lucide-react';
 import AnimatedBackground from './AnimatedBackground';
 import AnimatedStyles from './exam/AnimatedStyles';
+import { User } from '@/types';
 
 interface HomePageProps {
   navigate: (page: string, data?: any) => void;
   openModal: (type: string, data?: any) => void;
-  user?: any;
+  user?: User | null;
 }
 
 const HomePage = ({ navigate, openModal, user }: HomePageProps) => {
@@ -47,7 +49,7 @@ const HomePage = ({ navigate, openModal, user }: HomePageProps) => {
                   <Button 
                     size="lg" 
                     className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 animate-float-delayed"
-                    onClick={() => navigate('exams')}
+                    onClick={() => navigate('examSubjects')}
                   >
                     <BookOpen className="mr-3 h-6 w-6" />
                     Start Learning Now
@@ -158,7 +160,7 @@ const HomePage = ({ navigate, openModal, user }: HomePageProps) => {
                 <Button 
                   size="lg"
                   className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-10 py-4 text-xl font-semibold rounded-xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
-                  onClick={() => navigate('exams')}
+                  onClick={() => navigate('examSubjects')}
                 >
                   <Star className="mr-3 h-6 w-6" />
                   Get Started Free
