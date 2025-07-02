@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { type Tables } from '@/integrations/supabase/types';
@@ -6,7 +5,6 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import HomePage from '../components/HomePage';
 import CoursesPage from '../components/CoursesPage';
-import ProgramsPage from '../components/ProgramsPage';
 import TutoringPage from '../components/TutoringPage';
 import ResourcesPage from '../components/ResourcesPage';
 import CommunityPage from '../components/CommunityPage';
@@ -102,7 +100,7 @@ const Index = () => {
   // Navigation handler
   const navigate = (page: string, data: any = null) => {
     const topLevelPages = [
-      'home', 'courses', 'programs', 'tutoring', 'resources', 'community', 
+      'home', 'courses', 'tutoring', 'resources', 'community', 
       'careers', 'about', 'contact', 'examSubjects', 'blog', 'subscription',
       'editProfile', 'settings', 'notifications'
     ];
@@ -163,8 +161,6 @@ const Index = () => {
         return <HomePage navigate={navigate} openModal={openModal} user={user} />;
       case 'courses':
         return <CoursesPage openModal={openModal} navigate={navigate} history={history} navigateToHistory={navigateToHistory} />;
-      case 'programs':
-        return <ProgramsPage navigate={navigate} openModal={openModal} user={user} />;
       case 'tutoring':
         return <TutoringPage navigate={navigate} openModal={openModal} />;
       case 'resources':
