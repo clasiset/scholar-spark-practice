@@ -9,53 +9,32 @@ interface ModeToggleProps {
 
 const ModeToggle = ({ examMode, onToggle }: ModeToggleProps) => {
   return (
-    <button
-      onClick={onToggle}
-      className={cn(
-        "relative flex items-center w-32 h-10 rounded-full p-1 cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 border-2",
-        examMode 
-          ? "bg-gradient-to-r from-blue-500 to-blue-600 border-blue-400 focus:ring-blue-300" 
-          : "bg-gray-200 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:ring-gray-300"
-      )}
-      role="switch"
-      aria-checked={examMode}
-    >
-      <span className="sr-only">Toggle between Practice and Exam mode</span>
-      
-      {/* Sliding indicator */}
-      <div
+    <div className="flex items-center bg-gray-100 dark:bg-gray-800 rounded-lg p-1 space-x-1">
+      <button
+        onClick={() => !examMode && onToggle()}
         className={cn(
-          "absolute w-8 h-8 bg-white rounded-full shadow-lg transition-transform duration-300 ease-in-out border",
-          examMode 
-            ? "translate-x-20 border-blue-200" 
-            : "translate-x-0 border-gray-200"
+          "px-3 py-2 text-xs sm:text-sm font-medium rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-1",
+          !examMode 
+            ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:ring-blue-300" 
+            : "text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 focus:ring-gray-300"
         )}
-      />
-      
-      {/* Labels */}
-      <div className="flex justify-between items-center w-full px-3 relative z-10">
-        <span
-          className={cn(
-            "text-sm font-medium transition-colors duration-300",
-            !examMode 
-              ? "text-gray-700 dark:text-gray-200" 
-              : "text-white/70"
-          )}
-        >
-          Practice
-        </span>
-        <span
-          className={cn(
-            "text-sm font-medium transition-colors duration-300",
-            examMode 
-              ? "text-white" 
-              : "text-gray-500 dark:text-gray-400"
-          )}
-        >
-          Exam
-        </span>
-      </div>
-    </button>
+        disabled={!examMode}
+      >
+        Practice
+      </button>
+      <button
+        onClick={() => examMode && onToggle()}
+        className={cn(
+          "px-3 py-2 text-xs sm:text-sm font-medium rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-1",
+          examMode 
+            ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md focus:ring-blue-300" 
+            : "text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 focus:ring-gray-300"
+        )}
+        disabled={examMode}
+      >
+        Exam
+      </button>
+    </div>
   );
 };
 

@@ -1,6 +1,6 @@
+
 import React from 'react';
-import { Menu } from 'lucide-react';
-import ModeToggle from './ModeToggle';
+import { Menu, Clock } from 'lucide-react';
 
 interface ExamHeaderComponentProps {
   title: string;
@@ -24,26 +24,69 @@ export const ExamHeaderComponent = ({
   };
 
   return (
-    <header className="bg-card p-3 sm:p-4 border-b border-border shadow-sm flex justify-between items-center">
-      <div>
-        <h1 className="text-base sm:text-lg font-semibold text-card-foreground">{title}</h1>
+    <header className="bg-card p-3 sm:p-4 border-b border-border shadow-sm">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+        <div className="flex items-center flex-1 min-w-0">
+          <h1 className="text-sm sm:text-base lg:text-lg font-semibold text-card-foreground truncate">
+            {title}
+          </h1>
+        </div>
+        
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+          {examMode && (
+            <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-2 py-1 rounded-md">
+              <Clock className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="text-xs sm:text-sm font-medium">
+                {formatTime(timeLeft)}
+              </span>
+            </div>
+          )}
+          
+          <button
+            onClick={onToggleQuestionGrid}
+            className="p-2 rounded-lg hover:bg-muted text-muted-foreground lg:hidden flex-shrink-0"
+            title="View All Questions"
+          >
+            <Menu className="h-4 w-4 sm:h-5 sm:w-5" />
+          </button>
+          
+          {/* Mode Toggle Buttons */}
+          <div className="flex items-center bg-gray-100 dark:bg-gray-800 rounded-lg p-1 gap-1">
+            <button
+              onClick={() => examMode && onToggleExamMode()}
+              className={`px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-1 ${
+                !examMode 
+                  ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:ring-blue-300" 
+                  : "text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 focus:ring-gray-300"
+              }`}
+              disabled={!examMode}
+            >
+              Practice
+            </button>
+            <button
+              onClick={() => !examMode && onToggleExamMode()}
+              className={`px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-1 ${
+                examMode 
+                  ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md focus:ring-blue-300" 
+                  : "text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 focus:ring-gray-300"
+              }`}
+              disabled={examMode}
+            >
+              Exam
+            </button>
+          </div>
+        </div>
       </div>
-      <div className="flex items-center space-x-2 sm:space-x-4">
-        {!examMode && <span className="text-muted-foreground text-xs sm:text-sm hidden md:inline">Practice Mode</span>}
-        {examMode && (
-          <span className="text-blue-600 dark:text-blue-400 font-semibold text-sm sm:text-base">
-            Time: {formatTime(timeLeft)}
-          </span>
-        )}
-        <button
-          onClick={onToggleQuestionGrid}
-          className="p-2 rounded-lg hover:bg-muted text-muted-foreground lg:hidden"
-          title="View All Questions"
-        >
-          <Menu className="h-5 w-5 sm:h-6 sm:w-6" />
-        </button>
-        <ModeToggle examMode={examMode} onToggle={onToggleExamMode} />
-      </div>
+      
+      {/* Exam Mode Status Bar for Small Screens */}
+      {examMode && (
+        <div className="mt-3 sm:hidden bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/30 rounded-lg p-2">
+          <div className="flex items-center justify-between text-xs text-blue-700 dark:text-blue-300">
+            <span className="font-medium">Exam Mode Active</span>
+            <span className="font-medium">Time: {formatTime(timeLeft)}</span>
+          </div>
+        </div>
+      )}
     </header>
   );
 };
