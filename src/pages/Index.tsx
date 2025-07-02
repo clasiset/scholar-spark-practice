@@ -164,19 +164,19 @@ const Index = () => {
       case 'courses':
         return <CoursesPage openModal={openModal} navigate={navigate} history={history} navigateToHistory={navigateToHistory} />;
       case 'programs':
-        return <ProgramsPage />;
+        return <ProgramsPage navigate={navigate} openModal={openModal} />;
       case 'tutoring':
-        return <TutoringPage />;
+        return <TutoringPage navigate={navigate} openModal={openModal} />;
       case 'resources':
-        return <ResourcesPage />;
+        return <ResourcesPage navigate={navigate} openModal={openModal} />;
       case 'community':
-        return <CommunityPage history={history} navigateToHistory={navigateToHistory} />;
+        return <CommunityPage history={history} navigateToHistory={navigateToHistory} navigate={navigate} openModal={openModal} />;
       case 'careers':
-        return <CareersPage history={history} navigateToHistory={navigateToHistory} />;
+        return <CareersPage history={history} navigateToHistory={navigateToHistory} navigate={navigate} openModal={openModal} />;
       case 'about':
-        return <AboutPage history={history} navigateToHistory={navigateToHistory} />;
+        return <AboutPage history={history} navigateToHistory={navigateToHistory} navigate={navigate} openModal={openModal} />;
       case 'contact':
-        return <ContactPage addTestimonial={addTestimonial} history={history} navigateToHistory={navigateToHistory} />;
+        return <ContactPage addTestimonial={addTestimonial} history={history} navigateToHistory={navigateToHistory} navigate={navigate} openModal={openModal} />;
       case 'examSubjects':
         return <ExamSubjectsPage navigate={navigate} pageData={pageData} history={history} navigateToHistory={navigateToHistory} />;
       case 'subjectExams':
@@ -184,7 +184,7 @@ const Index = () => {
       case 'examPage':
         return <ExamPage navigate={navigate} examDetails={pageData} goBack={goBack} history={history} navigateToHistory={navigateToHistory} />;
       case 'blog':
-        return <BlogPage history={history} navigateToHistory={navigateToHistory} />;
+        return <BlogPage history={history} navigateToHistory={navigateToHistory} navigate={navigate} openModal={openModal} />;
       case 'subscription':
         return <SubscriptionPage openModal={openModal} history={history} navigateToHistory={navigateToHistory} user={user} />;
       case 'editProfile':
