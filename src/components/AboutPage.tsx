@@ -16,12 +16,16 @@ interface AboutPageProps {
 
 const AboutPage = ({ history, navigateToHistory, navigate, openModal }: AboutPageProps) => {
   return (
-    <div className="min-h-screen bg-background py-12 text-foreground">
-      <div className="container mx-auto px-6">
+    <div className="min-h-screen bg-background py-6 sm:py-8 md:py-12 text-foreground">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <BreadcrumbNav history={history} navigateToHistory={navigateToHistory} />
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-foreground mb-8">About Us</h1>
-          <p className="text-xl text-muted-foreground">Learn more about our mission to transform education and empower learners worldwide.</p>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 sm:mb-6 md:mb-8">
+            About Us
+          </h1>
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
+            Learn more about our mission to transform education and empower learners worldwide.
+          </p>
         </div>
       </div>
     </div>

@@ -45,13 +45,13 @@ const DynamicBackground = () => {
       {[...Array(20)].map((_, i) => (
         <div
           key={i}
-          className="absolute w-1 h-1 bg-white/40 rounded-full animate-twinkle"
+          className="absolute w-0.5 h-0.5 sm:w-1 sm:h-1 bg-white/40 rounded-full animate-twinkle"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
             animationDelay: `${Math.random() * 5}s`,
             animationDuration: `${3 + Math.random() * 4}s`,
-            transform: `translate(${(mousePosition.x - window.innerWidth / 2) * 0.01}px, ${(mousePosition.y - window.innerHeight / 2) * 0.01}px)`
+            transform: `translate(${(mousePosition.x - (typeof window !== 'undefined' ? window.innerWidth : 0) / 2) * 0.01}px, ${(mousePosition.y - (typeof window !== 'undefined' ? window.innerHeight : 0) / 2) * 0.01}px)`
           }}
         />
       ))}
@@ -65,7 +65,7 @@ const DynamicBackground = () => {
             style={{
               left: `${i * 25}%`,
               top: `${20 + i * 15}%`,
-              width: '200px',
+              width: '100px sm:200px',
               animationDelay: `${i * 0.5}s`,
               animationDuration: '3s'
             }}
