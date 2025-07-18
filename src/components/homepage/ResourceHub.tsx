@@ -58,7 +58,7 @@ const ResourceHub = () => {
                   key={resource.name}
                   className="group relative overflow-hidden rounded-2xl p-8 bg-gradient-to-br text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer"
                   style={{
-                    backgroundImage: `linear-gradient(135deg, ${resource.color.split(' ')[0].replace('from-', '')} 0%, ${resource.color.split(' ')[2].replace('to-', '')} 100%)`
+                    backgroundImage: `linear-gradient(135deg, ${resource.color.split(' ')[0].replace('from-', '')} 0%, ${resource.color.split(' ')[1].replace('to-', '')} 100%)`
                   }}
                 >
                   <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-300" />
