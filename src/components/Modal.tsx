@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Eye, EyeOff, User, Mail, Lock, UserPlus, Phone } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import StartExamModal from './StartExamModal';
@@ -16,6 +16,13 @@ const Modal = ({ type, data, onClose, openModal, navigate }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // Wrap handleGoogleAuthSuccess with useCallback for stable reference
+  const handleGoogleAuthSuccess = useCallback((event: CustomEvent) => {
+    const { email, name } = event.detail;
+    // Simulate successful signup with Google account
+    onClose();
+  }, [onClose]);
+
   // Check for Google OAuth completion on component mount
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -27,19 +34,12 @@ const Modal = ({ type, data, onClose, openModal, navigate }) => {
       handleGoogleOAuthComplete();
     }
     
-    // Listen for Google auth success events
-    const handleGoogleAuthSuccess = (event) => {
-      const { email, name } = event.detail;
-      // Simulate successful signup with Google account
-      onClose();
-    };
-
     window.addEventListener('googleAuthSuccess', handleGoogleAuthSuccess);
     
     return () => {
       window.removeEventListener('googleAuthSuccess', handleGoogleAuthSuccess);
     };
-  }, [onClose]);
+  }, [onClose, handleGoogleAuthSuccess]);
 
   const handleGoogleOAuthComplete = async () => {
     try {
