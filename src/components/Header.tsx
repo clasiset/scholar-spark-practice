@@ -312,18 +312,12 @@ const Header = ({ navigate, openModal }) => {
                 )}
               </div>
             ) : (
-                <div className="flex items-center space-x-2">
-                  <button
-                    className="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-sky-400 font-semibold py-2 px-6 rounded-full transition-colors"
-                    onClick={() => openModal('login')}
-                  >
-                    {t.auth.login}
-                  </button>
+                <div className="flex items-center">
                   <button
                     className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl"
-                    onClick={() => openModal('signup')}
+                    onClick={() => openModal('auth')}
                   >
-                    {t.auth.signUp}
+                    Sign In / Sign Up
                   </button>
                 </div>
             )}
@@ -440,18 +434,12 @@ const Header = ({ navigate, openModal }) => {
                       </div>
                   </div>
               ) : (
-                <div className="flex flex-col space-y-2">
+                <div className="flex flex-col">
                   <button
                     className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 w-full"
-                    onClick={() => { openModal('signup'); setIsMobileMenuOpen(false); }}
+                    onClick={() => { openModal('auth'); setIsMobileMenuOpen(false); }}
                   >
-                    {t.auth.signUp}
-                  </button>
-                  <button
-                    className="text-center w-full py-2 px-6 rounded-full font-semibold text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-slate-600 hover:bg-gray-100 dark:hover:bg-slate-800"
-                    onClick={() => { openModal('login'); setIsMobileMenuOpen(false); }}
-                  >
-                    {t.auth.login}
+                    Sign In / Sign Up
                   </button>
                 </div>
               )}
