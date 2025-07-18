@@ -172,17 +172,17 @@ const Modal = ({ type, data, onClose, openModal, navigate }) => {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-6 md:p-8 max-w-md w-full relative border border-gray-100 dark:border-slate-700 animate-fade-in">
+    <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 max-w-lg w-full relative border border-gray-200 animate-fade-in">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:text-gray-400 dark:hover:text-white text-2xl font-bold transition-colors duration-200 hover:rotate-90 transform transition-transform"
+          className="absolute top-6 right-6 text-gray-400 hover:text-gray-600 text-2xl font-bold transition-colors duration-200 hover:rotate-90 transform transition-transform"
         >
           &times;
         </button>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+          <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
             {error}
           </div>
         )}
